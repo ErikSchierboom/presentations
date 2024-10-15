@@ -1,12 +1,10 @@
 # Scalars
 1
-3.14
+"Hi"
 TRUE
-"Hello"
 
 # Numerical operations on scalars
 1 + 2
-2 %% 3 # Modulo
 2^3 # Exponentiation
 
 # Logical operations on scalars
