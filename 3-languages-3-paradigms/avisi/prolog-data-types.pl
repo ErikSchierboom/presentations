@@ -1,8 +1,8 @@
 % Primitive data types
 Int = 1.
-Float = 2.3.
+String = "hi".
+Bool = true.
 Atom = atom.
-String = "string".
 
 % Compound data types
 List = [1, 2, 3].

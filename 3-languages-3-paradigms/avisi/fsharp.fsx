@@ -1,7 +1,7 @@
 // Primitive types
 1
+"Hi"
 true
-"Hello"
 
 // Bindings ("variables")
 let name: string = "F# demo"
@@ -21,11 +21,7 @@ let unequal = 1 <> 2
 let greater = if 2 > 1 then 1 else 0
 
 // Significant whitespace
-let greater =
-    if 2 > 1 then
-        1
-    else
-        0
+let greater = if 2 > 1 then 1 else 0
 
 // Functions
 let add x y = x + y
@@ -34,8 +30,8 @@ let length = String.length "Hi"
 
 // Recursion
 let factorial n =
-    if n = 1 then 1
-    else n * factorial (n - 1)
+    if n = 1 then 1 else n * factorial (n - 1)
+
 let factorial3 = factorial 3
 
 // Functions as first-class citizens
@@ -50,8 +46,7 @@ let double x = x * 2
 let doubled = apply double 2
 
 // Return function
-let sub x =
-    fun y -> x - y // Nested function using closure over 'x' parameter
+let sub x = fun y -> x - y // Nested function using closure over 'x' parameter
 let subtracted = sub 3 2
 
 // Pure functions
@@ -61,11 +56,11 @@ let pure (time: System.DateTime) seconds = time.AddSeconds seconds
 // Compound types
 
 // List type
-let listFromOne = [1; 2; 3]
+let listFromOne = [ 1; 2; 3 ]
 let listFromZero = 0 :: listFromOne
 
 // Tuple type
-let tuple = (1, "Hello")
+let tuple = (1, "Hi")
 
 // Record type (product type)
 type Record = { active: bool; name: string }
@@ -76,18 +71,20 @@ let inactive = { record with active = false }
 type DeliveryStatus =
     | Undelivered
     | Delivered of System.DateTime
+
 let undelivered = DeliveryStatus.Undelivered
 let deliveredNow = DeliveryStatus.Delivered System.DateTime.Now
 
 // Pattern matching
 match 7 with
 | 1 -> "One"
-| 2 | 3 -> "Two or three"
+| 2
+| 3 -> "Two or three"
 | _ -> "Something else"
 
-match [1; 2; 3] with
-| []      -> "Empty list"
-| [x]     -> $"Singleton list {x}"
+match [ 1; 2; 3 ] with
+| [] -> "Empty list"
+| [ x ] -> $"Singleton list {x}"
 | x :: xs -> $"Head {x}, tail {xs}"
 
 match DeliveryStatus.Delivered System.DateTime.Now with
