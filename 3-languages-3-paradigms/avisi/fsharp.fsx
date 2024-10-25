@@ -3,102 +3,120 @@
 "Hi"
 true
 
-// Bindings ("variables")
-let name: string = "F# demo"
-let name2 = "F# demo"
-
-// Immutability
-name <- "Prolog demo" // Compiler error
-
-let mutable nameMut = "F# demo"
-nameMut <- "Prolog demo"
+// Bindings
+let explicitType: int = 13
+let implicitType = 17
 
 // Equality
-let equal = 1 = 1
-let unequal = 1 <> 2
+let equality = 1 = 1
+let inequality = 1 <> 2
 
-// Conditionals
-let greater = if 2 > 1 then 1 else 0
-
-// Significant whitespace
-let greater = if 2 > 1 then 1 else 0
+// Immutability
+let mutable mutableName = "Pippin"
+mutableName <- "Merry"
 
 // Functions
-let add x y = x + y
-let added = add 2 3
-let length = String.length "Hi"
+let add1 x = x + 1
+add1 5
+
+// Pipelining
+5 |> add1 |> add1 // same as: add1 (add1 5)
+
+// Function composition
+let add2 = add1 >> add1 // same as: let add2 x = add1 (add1 x)
+add2 5
+
+// Significant whitespace
+let checkPositive x =
+    if x > 0 then
+        "Greater than zero"
+    else
+        "Less than or equal to zero"
+
+// Nested functions
+let doubleBoth a b =
+    let double x = x * 2
+    double a + double b
 
 // Recursion
-let factorial n =
+let rec factorial n =
     if n = 1 then 1 else n * factorial (n - 1)
-
-let factorial3 = factorial 3
-
-// Functions as first-class citizens
-
-// Assign function to "variable"
-let sub1 x y = x - y
-let sub2 = fun x y -> x - y
-
-// Higher-order functions (pass function as argument)
-let apply f x = f x
-let double x = x * 2
-let doubled = apply double 2
-
-// Return function
-let sub x = fun y -> x - y // Nested function using closure over 'x' parameter
-let subtracted = sub 3 2
 
 // Pure functions
 let impure seconds = System.DateTime.Now.AddSeconds seconds
 let pure (time: System.DateTime) seconds = time.AddSeconds seconds
 
+// Functions as first-class citizens
+
+// Assign function to "variable"
+let sub x y = x - y
+let subFunc = sub
+subFunc 4 2
+
+// Return function
+let mul x y = x * y
+let mulReturn = fun x y -> x * y
+mulReturn 3 4
+
+// Higher-order functions (pass function as argument)
+let apply f x = f x
+let triple x = x * 3
+apply triple 2
+
+// Pattern matching
+match 7 with
+| 0 -> "Zero"
+| n when n > 0 -> "Positive"
+| _ -> "Negative"
+
 // Compound types
 
 // List type
-let listFromOne = [ 1; 2; 3 ]
-let listFromZero = 0 :: listFromOne
+let listOne = [ 1; 2; 3 ]
+let listZero = 0 :: listOne
+
+match listZero with
+| [] -> "Empty list"
+| [ head ] -> $"List with one element: {head}"
+| head :: tail -> $"List with head {head} and tail {tail}"
 
 // Tuple type
 let tuple = (1, "Hi")
+
+match tuple with
+| (0, _) -> "First element is zero"
+| (1, "Hi") -> "One hi"
+| (n, "Goodbye") when n > 10 -> "Many goodbyes"
+| _ -> "Other tuple"
 
 // Record type (product type)
 type Record = { active: bool; name: string }
 let record = { active = true; name = "John" }
 let inactive = { record with active = false }
 
+match record with
+| { active = true; name = name } -> $"{name} is active"
+| { name = name } -> $"{name} is inactive"
+
 // Discriminated union type (sum type)
 type DeliveryStatus =
     | Undelivered
     | Delivered of System.DateTime
 
-let undelivered = DeliveryStatus.Undelivered
-let deliveredNow = DeliveryStatus.Delivered System.DateTime.Now
+let status = Delivered System.DateTime.Now
 
-// Pattern matching
-match 7 with
-| 1 -> "One"
-| 2
-| 3 -> "Two or three"
-| _ -> "Something else"
+match status with
+| Undelivered -> "Undelivered"
+| Delivered(time: System.DateTime) -> $"Delivered at {time}"
 
-match [ 1; 2; 3 ] with
-| [] -> "Empty list"
-| [ x ] -> $"Singleton list {x}"
-| x :: xs -> $"Head {x}, tail {xs}"
+// Option type
+match List.tryHead [ 1; 2 ] with
+| Some head -> $"Head element is: {head}"
+| None -> "No head element"
 
-match DeliveryStatus.Delivered System.DateTime.Now with
-| DeliveryStatus.Undelivered -> "Undelivered"
-| DeliveryStatus.Delivered time -> $"Delivered at {time}"
+// Methods and properties
+"Boromir".ToUpper()
+"Boromir".Length
 
-// Deconstruction
-let (name, age) = ("John", 30)
-
-// Option type (no nulls)
-type Option<'T> =
-    | None
-    | Some of 'T
-
-match Some 42 with
-| Some userId -> $"User ID found: {userId}"
-| None -> "User ID not found"
+// Modules
+String.length "Boromir"
