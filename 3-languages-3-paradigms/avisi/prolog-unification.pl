@@ -1,15 +1,16 @@
-% Assignment (invalid)
-X = 2.  % this is NOT assignment, it's unification
-X == 2. % this is NOT assignment, it's structural equality
+% Equality
+X = 1.   % unification
+X == 1.  % structural equality
+X =:= 1. % arithmetic equality
+X =\= 1. % arithmetic inequality
 
-% Assignment (valid)
-X is 2.  
-X is 2, Y is X + 3.
+% Unification (powerful pattern matching)
+X = 1.                 % true  (variable unifies with anything)
+X = 1, Y = 2, X = Y.   % false (X and Y are different)
+[1, 1, 2] = [X, X, Y]. % true  (all elements are the same)
+[1, 2, 3] = [X, Y].    % false (lists of different lengths)
+[1, 2, 3] = [X | Y].   % true  (head and tail of non-empty list)
 
-% Unification
-1 = 1. % true (two identical values unify)
-a = X. % true (something and a variable unify)
-foo(X, b) = foo(a, Y). % true (two compound terms of same arity and variables unify)
-foo(a, b) = foo(X, X). % false (X can't be unified to both a and b)
-[1, 2, Z] = [1, Y, 3]. % true (two lists of same length with unifying elements)
-[1, 2, 3] = [X | Y].   % true (non-empty list unifies with head and tail)
+% Assignment
+Y = 2, X = Y + 3.  % does not evaluate the expression
+Y = 2, X is Y + 3. % evaluates the expression
