@@ -1,3 +1,6 @@
+# Arithmetic
+1 + 2
+
 # Vectors (homogenous: same type)
 c()
 c(1, 2, 3)
