@@ -13,7 +13,6 @@ length(1)
 
 # Vectors using range syntax
 1:3
-3:1
 
 # Numerical operations on vectors
 1:3 + 5
@@ -22,9 +21,6 @@ length(1)
 
 # Indexing is 1-based
 (4:6)[1]
-
-# Append elements
-c(1:4, 5, 6)
 
 # Index with a numeric vector
 (4:6)[c(2, 3)]
@@ -51,6 +47,3 @@ tbl[, 2]
 
 # Operations work on multi-dimensional collections
 tbl + 1
-
-# Example: hamming distance
-# sum(strand1 != strand2)
