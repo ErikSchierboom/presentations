@@ -1,0 +1,47 @@
+\ Invalid arithmetic
+1 + 2
+\ Exception: bad memory access or corruption
+
+\ A number is immediately pushed on the stack (Last In First Out)
+1 2 .s
+
+\ A "word" is immediately executed and modifies the stack
++ .s
+
+\ Correct arithmetic
+1 2 +
+\ AKA Reverse Polish notation (no parentheses needed)
+
+\ Words
+: add1
+  1 +
+;
+
+4 add1 .s
+
+\ Stack-effect diagrams (SED)
+: add \ n n -- n
+  +
+;
+
+\ Stack manipulation
+1 dup    \ duplicate top of stack
+1 2 swap \ swap top two elements
+drop     \ drop top of stack
+
+5 3 > \ lost the original value
+5 dup 3 > swap 10 < and .s
+
+\ Example: leap year
+\ : leap-year? \ n -- T
+\     dup 400 mod not swap
+\     dup 100 mod swap
+\     4 mod not
+\     and or
+\ ;
+
+\ Doesn't work as intended due to immediate execution
+[1, 2, 3] n:1+ a:map .s
+
+\ Use anonymous word to delay execution
+[1, 2, 3] ( n:1+ ) a:map .s
