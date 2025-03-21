@@ -1,4 +1,5 @@
 % DCG
+
 :- use_module(library(dcg/basics)).
 
 degrees --> "°".
