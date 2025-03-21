@@ -9,7 +9,7 @@
 + .s
 
 \ Correct arithmetic
-1 2 +
+1 2 3 * +
 \ AKA Reverse Polish notation (no parentheses needed)
 
 \ Words
@@ -21,15 +21,12 @@
 
 \ Stack-effect diagrams (SED)
 : add \ n n -- n
-  +
+  n:+
 ;
 
 \ Stack manipulation
-1 dup    \ duplicate top of stack
-1 2 swap \ swap top two elements
-drop     \ drop top of stack
-
 5 3 > \ lost the original value
+help >
 5 dup 3 > swap 10 < and .s
 
 \ Example: leap year
