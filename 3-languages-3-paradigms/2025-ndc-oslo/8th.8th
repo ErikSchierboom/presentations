@@ -39,3 +39,9 @@ drop     \ drop top of stack
 \     4 mod not
 \     and or
 \ ;
+
+\ Doesn't work as intended due to immediate execution
+[1, 2, 3] n:1+ a:map .s
+
+\ Use anonymous word to delay execution
+[1, 2, 3] ( n:1+ ) a:map .s
