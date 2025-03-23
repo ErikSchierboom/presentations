@@ -13,7 +13,6 @@ length(1)
 
 # Vectors using range syntax
 1:3
-3:1
 
 # Numerical operations on vectors
 1:3 + 5
