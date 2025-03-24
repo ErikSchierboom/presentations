@@ -18,6 +18,7 @@ length(1)
 1:3 + 5
 1:3 * 4:6
 1:3 - 4:5 # Warning due to different lengths
+(1:n)^2
 
 # Indexing is 1-based
 (4:6)[1]
