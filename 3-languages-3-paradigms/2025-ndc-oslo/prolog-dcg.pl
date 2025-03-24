@@ -7,7 +7,8 @@ degrees --> "°".
 direction(north) --> "N".
 direction(south) --> "S".
 
-latitude(Degrees, Direction) --> float(Degrees), degrees, direction(Direction).
+latitude(Degrees, Direction) --> 
+    float(Degrees), degrees, direction(Direction).
 
 parse_latitude(FormattedLatitude, Degrees, Direction) :-
     string_codes(FormattedLatitude, Codes),
