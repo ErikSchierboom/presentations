@@ -1,26 +1,24 @@
 % Facts
-dutch(bol).
-swedish(duplantis).
-american(biles).
+dutch("bol").
+norwegian("ingebrigtsen").
 
-medal(bol, gold).
-medal(duplantis, gold).
-medal(biles, silver).
+medal("bol", silver).
+medal("ingebrigtsen", gold).
+
+% Rules
+winner(Name) :- medal(Name, gold).
+medalist(Name) :- medal(Name, _).                % _ = matches any value
+popular(Name) :- dutch(Name), medal(Name, gold). % , = AND
+european(Name) :- dutch(Name); norwegian(Name).  % ; = OR
+non_dutch_medalist(Name) :- medalist(Name), \+ dutch(Name). % \+ = NOT
 
 % Fact queries
-% dutch(bol).
-% dutch(biles).
+% dutch("bol").
+% dutch("ingebrigtsen").
 % dutch(Name).
 % medal(Name, silver).
 % medal(Name, gold).
 % medal(Name, Color).
-
-% Rules
-gold_medalist(Name) :- medal(Name, gold).
-medalist(Name) :- medal(Name, _).                % _ = matches any value
-popular(Name) :- dutch(Name), medal(Name, gold). % , = AND
-european(Name) :- dutch(Name); swedish(Name).    % ; = OR
-non_dutch_medalist(Name) :- medalist(Name), \+ dutch(Name). % \+ = NOT
 
 % Rule queries
 % medalist(bol).
