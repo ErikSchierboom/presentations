@@ -13,24 +13,18 @@
 \ AKA Reverse Polish notation (no parentheses needed)
 
 \ Words
-: add1
-  1 +
+: add2
+  2 +
 ;
 
-4 add1 .s
+4 add2 .s
 
 \ Stack-effect diagrams (SED)
-: add \ n n -- n
-  n:+
+: add2 \ n -- n'
+  2 +
 ;
 
 \ Stack manipulation
 5 3 > \ lost the original value
 help >
 5 dup 3 > swap 10 < and .s
-
-\ Doesn't work as intended due to immediate execution
-[1, 2, 3] n:1+ a:map .s
-
-\ Use anonymous word to delay execution
-[1, 2, 3] ( n:1+ ) a:map .s

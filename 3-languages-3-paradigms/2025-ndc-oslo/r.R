@@ -27,6 +27,7 @@ length(1)
 (4:6)[c(1)]
 (4:6)[c(2, 3)]
 (4:6)[c(2, 1, 2, 1)]
+(4:6)[1:3]
 
 # Index with logical vector
 (1:3)[c(TRUE, FALSE, TRUE)]
