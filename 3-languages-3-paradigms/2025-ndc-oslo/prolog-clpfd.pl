@@ -1,6 +1,9 @@
 % CLP(FD)
 
 % SEND + MORE = MONEY
+%    SEND + 
+%    MORE
+% = MONEY
 :- use_module(library(clpfd)).
 
 solve(Solution) :-
