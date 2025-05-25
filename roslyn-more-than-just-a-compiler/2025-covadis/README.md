@@ -19,6 +19,16 @@
 
 5. Parse fase
 
+## Analyseren
+
+## Herschrijven
+
+- Curly braces en indentatie
+- Gebruik van `var` waar mogelijk
+- Namespace naar file-scoped namespace
+- Mergen van twee constante strings
+
+
 - Text naar Abstract Syntax Tree (AST)
 - Immutable
 
