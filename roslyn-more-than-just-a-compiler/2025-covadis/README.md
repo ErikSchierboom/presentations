@@ -17,17 +17,26 @@
 3. Bind fase
 4. Emit fase
 
-5. Parse fase
-
 ## Analyseren
 
+Taken:
+
+- Geen gebruik van `var`
+- Twee constante strings concateneren
+- Class zonder visibility modifier
+- `async void`
+- `Debug.WriteLine` calls
+
 ## Herschrijven
+
+Taken:
 
 - Curly braces en indentatie
 - Gebruik van `var` waar mogelijk
 - Namespace naar file-scoped namespace
 - Mergen van twee constante strings
-
+- Converteer `async void` naar `async Task`
+- Verwijderen `Debug.WriteLine` calls
 
 - Text naar Abstract Syntax Tree (AST)
 - Immutable

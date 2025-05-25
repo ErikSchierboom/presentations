@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace DefaultNamespace {
-    public class CodeToRewrite {
+    class CodeToRewrite {
         public void Hi() {
             string message = "Hello" + " World!";
             Debug.WriteLine(message);
