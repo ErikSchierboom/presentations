@@ -38,15 +38,15 @@ Uitleg:
 
 - Parse tekst naar een Abstract Syntax Tree (AST) mbv. CSharpSyntaxTree.ParseText
 - Gebruik de SyntaxNode om de structuur van de code te analyseren
+- Gebruik van MSBuildWorkspace om een project te laden
 
 Taken:
 
 1. Gebruikt overloading
 2. Gebruikt `null` als default waarde
-3. Gebruikt string concatenatie
+3. Gebruikt geen string interpolatie
 4. Gebruik block method
 5. Roept `Debug.WriteLine` aan
-
 
 ## Herschrijven
 
@@ -63,6 +63,8 @@ Taken:
 4. Versimpel boolean expressies
 5. Gebruik {} in if/else statements
 6. Normaliseer integer literals
+7. Hernoemen variabelen?
+8. Ongebruikte variabelen?
 
 ## TODO
 

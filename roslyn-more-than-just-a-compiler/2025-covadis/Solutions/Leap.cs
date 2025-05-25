@@ -10,6 +10,8 @@ namespace Solutions {
         /// <param name="year">The year.</param>
         /// <returns>Indicates if the year is a leap year</returns>
         public static bool IsLeapYear ( int year ) {
+            var checkYear = year;
+            
             /* Check if year is divisible by
                4, 100, or 400 */ 
             bool yearDivisibleBy100 = year % 100 == 0 == true;
