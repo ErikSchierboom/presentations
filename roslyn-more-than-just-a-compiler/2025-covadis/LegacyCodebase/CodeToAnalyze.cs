@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace DefaultNamespace;
@@ -8,7 +9,7 @@ public class CodeToAnalyze
     public void Hi()
     {
         string message = "Hello" + " World!";
-        Console.WriteLine(message);
+        Debug.WriteLine(message);
     }
 
     public async void Sleepy()
