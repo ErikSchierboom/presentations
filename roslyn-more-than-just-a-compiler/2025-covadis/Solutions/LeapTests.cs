@@ -1,5 +1,7 @@
 using Xunit;
 
+namespace Solutions;
+
 public class LeapTests
 {
     [Fact]

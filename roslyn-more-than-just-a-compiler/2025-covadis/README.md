@@ -1,42 +1,70 @@
-1. Introductie
+# Roslyn: More Than Just a Compiler
 
-- Roslyn is de code naam voor het .NET Compiler Platform, waar zowel de compilers als code analyse API's voor C# én VB toebehoren
+## Introductie
+
+- Roslyn is de code naam voor het .NET Compiler Platform, waar zowel de compilers als code analyse API's voor C# én VB toe behoren
 - Doel:
 
   - Eén enkele plaats om C# code te parsen
-  - Verbeteren onderhoudbaarheid
+  - Verbeteren onderhoudbaarheid en verhoogde productiviteit (sneller nieuwe features)
   - Dogfooding
-  - Open (-source)
+  - Open voor gebruik externe partijen (en open-source)
 
-2. Opzet compiler
+## Opzet compiler
 
 - Meerdere fases
 
-1. Parse fase
+1. Parse fase: text omzetten naar een Abstract Syntax Tree (AST)
+   - Syntax nodes, tokens en trivia
+     - Trivia zijn comments, whitespace en andere niet-code elementen
+   - Syntax tree is immutable
 2. Declaration fase
+    - Identificeert symbolen (zoals classes, methods, etc.) in de syntax tree
+    - Maakt een symbol table aan
+    - Verzamelt informatie over de symbolen
 3. Bind fase
+    - Verbindt symbolen met hun definitie
+    - Controleert de semantiek van de code
+    - Maakt een semantisch model aan
+    - Voert type checking uit
+    - Verzamelt informatie over types, methoden, etc.
 4. Emit fase
+    - Genereert de bytecode of IL (Intermediate Language) van de code
+    - Dit is de code die uiteindelijk wordt uitgevoerd door de .NET runtime
 
 ## Analyseren
 
+Uitleg:
+
+- Parse tekst naar een Abstract Syntax Tree (AST) mbv. CSharpSyntaxTree.ParseText
+- Gebruik de SyntaxNode om de structuur van de code te analyseren
+
 Taken:
 
-- Geen gebruik van `var`
-- Twee constante strings concateneren
-- Class zonder visibility modifier
-- `async void`
-- `Debug.WriteLine` calls
+1. Gebruikt overloading
+2. Gebruikt `null` als default waarde
+3. Gebruikt string concatenatie
+4. Gebruik block method
+5. Roept `Debug.WriteLine` aan
+
 
 ## Herschrijven
 
+Uitleg:
+
+- Gebruik van CSharpSyntaxRewriter om de syntax tree te herschrijven
+- Gebruik van SyntaxFactory om nieuwe nodes te maken
+
 Taken:
 
-- Curly braces en indentatie
-- Gebruik van `var` waar mogelijk
-- Namespace naar file-scoped namespace
-- Mergen van twee constante strings
-- Converteer `async void` naar `async Task`
-- Verwijderen `Debug.WriteLine` calls
+1. Formatteer code
+2. Gebruik file-scoped namespace
+3. Gebruik `var` in plaats van expliciete types
+4. Versimpel boolean expressies
+5. Gebruik {} in if/else statements
+6. Normaliseer integer literals
+
+## TODO
 
 - Text naar Abstract Syntax Tree (AST)
 - Immutable

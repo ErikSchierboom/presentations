@@ -1,14 +1,18 @@
-﻿namespace Solutions;
+﻿using System.Diagnostics;
 
-public static class TwoFer
+namespace Solutions
 {
-    public static string Greeting()
+    public static class TwoFer
     {
-        return "Hello you!";
-    }
+        public static string Greeting()
+        {
+            return "Hello you!";
+        }
 
-    public static string Greeting(string name)
-    {
-        return "Hello " + name + "!";
+        public static string Greeting(string name)
+        {
+            Debug.WriteLine("Greeting with name");
+            return "Hello " + name + "!";
+        }
     }
 }
