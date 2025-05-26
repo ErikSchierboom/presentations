@@ -1,29 +1,17 @@
+using System;
+
 namespace Solutions {
     public class Leap {
-        
-        /// <summary>
-        /// Check if a year is a leap year.
-        /// </summary>
-        /// <param name="year">The year.</param>
-        /// <returns>Indicates if the year is a leap year</returns>
-        public static bool IsLeapYear ( int year ) {
-            var checkYear = year;
-            
-            /* Check if year is divisible by
-               4, 100, or 400 */ 
-            bool yearDivisibleBy100 = year % 100 == 0 == true;
-            bool yearDivisibleBy400 = year % 4_0_0 == 0;
-            var yearDivisibleBy4= year % 0b100 == 0;  // 0b100 = 4
-
-            if (yearDivisibleBy100 == false)
-            {
-                return yearDivisibleBy4;
-            }
-            
-            if (yearDivisibleBy100 == true)
-                return yearDivisibleBy400;
-            else
-                return yearDivisibleBy4;
+        public static bool IsLeapYear( int year ) {
+            bool yearDivisibleBy100 = year % 100 == 0; // Check for divisibility by 100
+            bool yearDivisibleBy400 = year % 400 == 0; // Check for divisibility by 400
+            bool yearDivisibleBy4 = year % 4 == 0; // Check for divisibility by 4
+            if (yearDivisibleBy4)
+                if (yearDivisibleBy100 == false)
+                    return true;
+                else
+                    return yearDivisibleBy400 == true;
+            return false;
         }
     }
 }
