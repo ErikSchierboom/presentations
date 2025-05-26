@@ -21,6 +21,37 @@ if (usesMethodOverloading)
     return;
 }
 
+var greetingMethodDeclaration = root
+    .DescendantNodes()
+    .OfType<MethodDeclarationSyntax>()
+    .Single(methodDeclaration => methodDeclaration.Identifier.Text == "Greeting");
+
+var useNullAsDefaultValue = greetingMethodDeclaration.ParameterList.Parameters is [{ Default.Value: not null }] &&
+                                 greetingMethodDeclaration.ParameterList.Parameters[0].Default!.Value.IsKind(SyntaxKind.NullLiteralExpression);
+
+if (useNullAsDefaultValue)
+{
+    Console.WriteLine("Please use a string as the default value.");
+    return;
+}
+
+var usesStringConcatenation = greetingMethodDeclaration.DescendantNodes()
+    .OfType<BinaryExpressionSyntax>()
+    .Any(binaryExpression => binaryExpression.IsKind(SyntaxKind.AddExpression) &&
+                             (binaryExpression.Left.IsKind(SyntaxKind.StringLiteralExpression) ||
+                              binaryExpression.Right.IsKind(SyntaxKind.StringLiteralExpression)));
+if (usesStringConcatenation)
+{
+    Console.WriteLine("Please use string interpolation instead of string concatenation.");
+    return;
+}
+
+if (greetingMethodDeclaration.Body?.Statements is [_])
+{
+    Console.WriteLine("Please use an expression-bodied method instead of a block method.");
+    return;
+}
+
 var workspace = MSBuildWorkspace.Create();
 var project = await workspace.OpenProjectAsync(
     "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solutions/Solutions.csproj");
@@ -38,10 +69,15 @@ var invocationOperations = documentRoot!
 
 var typeByMetadataName = semanticModel.Compilation.GetTypeByMetadataName("System.Diagnostics.Debug");
 
-var any = invocationOperations.Any(invocationOperation => invocationOperation.TargetMethod.ContainingType.Equals(typeByMetadataName, SymbolEqualityComparer.Default));
-Console.WriteLine();
+var usesDebug = invocationOperations.Any(invocationOperation => invocationOperation.TargetMethod.ContainingType.Equals(typeByMetadataName, SymbolEqualityComparer.Default));
+if (usesDebug)
+{
+    Console.WriteLine("Dont use the Debug class.");
+    return;
+}
+
 // 1. Gebruikt overloading
 // 2. Gebruikt `null` als default waarde
-// 3. Gebruikt geen string interpolatie
+// 3. Gebruikt string concatenatie
 // 4. Gebruik block method
 // 5. Roept `Debug.WriteLine` aan
