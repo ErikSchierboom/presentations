@@ -10,7 +10,25 @@ var syntaxTree = CSharpSyntaxTree.ParseText(
 
 var root = await syntaxTree.GetRootAsync();
 
-var usesMethodOverloading = root
+var usesNamespaceDeclaration = root.DescendantNodes().OfType<NamespaceDeclarationSyntax>().Any();
+if (usesNamespaceDeclaration)
+{
+    Console.WriteLine("Please use a file-scoped namespace declaration.");
+    return; 
+}
+
+var twoFerClassDeclaration = root.DescendantNodes()
+    .OfType<ClassDeclarationSyntax>()
+    .Single(classDeclaration => classDeclaration.Identifier.ValueText == "TwoFer");
+
+var classIsNotPublic = !twoFerClassDeclaration.Modifiers.Any(SyntaxKind.PublicKeyword);
+if (classIsNotPublic)
+{
+    Console.WriteLine("Please make the class public.");
+    return; 
+}
+
+var usesMethodOverloading = twoFerClassDeclaration
     .DescendantNodes()
     .OfType<MethodDeclarationSyntax>()
     .Count(methodDeclaration => methodDeclaration.Identifier.Text == "Greeting") > 1;
@@ -21,7 +39,7 @@ if (usesMethodOverloading)
     return;
 }
 
-var greetingMethodDeclaration = root
+var greetingMethodDeclaration = twoFerClassDeclaration
     .DescendantNodes()
     .OfType<MethodDeclarationSyntax>()
     .Single(methodDeclaration => methodDeclaration.Identifier.Text == "Greeting");
