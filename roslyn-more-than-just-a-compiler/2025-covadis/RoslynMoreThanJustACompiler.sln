@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindingPatterns", "FindingPatterns\FindingPatterns.csproj", "{CF4E69AB-ECBD-4159-8875-EE31A4DC807A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzing", "Analyzing\Analyzing.csproj", "{CF4E69AB-ECBD-4159-8875-EE31A4DC807A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RewritingCode", "RewritingCode\RewritingCode.csproj", "{A1A5AA63-1EC9-43F2-8DC8-9659634CD3B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewriting", "Rewriting\Rewriting.csproj", "{A1A5AA63-1EC9-43F2-8DC8-9659634CD3B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzers", "CodeAnalyzers\CodeAnalyzers\CodeAnalyzers.csproj", "{332678F5-0507-482F-93F9-6A1EEE110CC8}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solutions", "Solutions\Solutions.csproj", "{EC84E32D-CA54-46A1-9E3A-1CD92FAD04C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripting", "Scripting\Scripting.csproj", "{98EAB424-C093-4DA0-A7F8-FFE0EB6773D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renaming", "Renaming\Renaming.csproj", "{BA5658B3-B6EB-4B3F-8D39-359468781C38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,18 @@ Global
 		{98EAB424-C093-4DA0-A7F8-FFE0EB6773D7}.Release|x64.Build.0 = Release|Any CPU
 		{98EAB424-C093-4DA0-A7F8-FFE0EB6773D7}.Release|x86.ActiveCfg = Release|Any CPU
 		{98EAB424-C093-4DA0-A7F8-FFE0EB6773D7}.Release|x86.Build.0 = Release|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Debug|x64.Build.0 = Debug|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Debug|x86.Build.0 = Debug|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Release|x64.ActiveCfg = Release|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Release|x64.Build.0 = Release|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Release|x86.ActiveCfg = Release|Any CPU
+		{BA5658B3-B6EB-4B3F-8D39-359468781C38}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
