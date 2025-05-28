@@ -17,6 +17,7 @@ var documentRoot = await document.GetSyntaxRootAsync();
 var usingDirectiveSyntaxes = documentRoot.DescendantNodes().OfType<UsingDirectiveSyntax>();
 
 var updatedRoot = new UseVarRewriter().Visit(documentRoot);
+updatedRoot = new RemoveEmptyStatements().Visit(updatedRoot);
 updatedRoot = new RemoveComments().Visit(updatedRoot);
 updatedRoot = new AddBracesToIfElse().Visit(updatedRoot);
 updatedRoot = new SimplifyBooleanExpression().Visit(updatedRoot);
@@ -33,6 +34,14 @@ workspace.TryApplyChanges(document.Project.Solution);
 // workspace.TryApplyChanges(document.Project.Solution);
 
 // File.WriteAllText(document.FilePath, updatedRoot.NormalizeWhitespace().ToString());
+
+class RemoveEmptyStatements : CSharpSyntaxRewriter
+{
+    public override SyntaxNode? VisitEmptyStatement(EmptyStatementSyntax node)
+    {
+        return null;
+    }
+}
 
 class UseFileScopedNamespace : CSharpSyntaxRewriter
 {
