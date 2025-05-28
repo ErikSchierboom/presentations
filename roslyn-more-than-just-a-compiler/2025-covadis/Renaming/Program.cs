@@ -8,30 +8,31 @@ using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.CodeAnalysis.Rename;
 
 var workspace = MSBuildWorkspace.Create();
-var project = await workspace.OpenProjectAsync(
-    "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solutions/Solutions.csproj");
+var solution = await workspace.OpenSolutionAsync(
+    "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/RoslynMoreThanJustACompiler.sln");
 
-var compilation = await project.GetCompilationAsync();
-var factAttributeSymbol = compilation.GetTypeByMetadataName("Xunit.FactAttribute")!;
+foreach (var project in solution.Projects)
+{
+    var compilation = await project.GetCompilationAsync();
+    var factAttributeSymbol = compilation.GetTypeByMetadataName("Xunit.FactAttribute")!;
 
-var solution = project.Solution;
+    foreach (var document in project.Documents)
+    {   
+        var documentEditor = await DocumentEditor.CreateAsync(document);
+        var methodDeclarationSyntaxes = documentEditor.OriginalRoot
+            .DescendantNodes()
+            .OfType<MethodDeclarationSyntax>();
 
-foreach (var document in project.Documents)
-{   
-    var documentEditor = await DocumentEditor.CreateAsync(document);
-    var methodDeclarationSyntaxes = documentEditor.OriginalRoot
-        .DescendantNodes()
-        .OfType<MethodDeclarationSyntax>();
-
-    foreach (var methodDeclarationSyntax in methodDeclarationSyntaxes)
-    {
-        var methodSymbol = ModelExtensions.GetDeclaredSymbol(documentEditor.SemanticModel, methodDeclarationSyntax) as IMethodSymbol;
-        var methodHasFactAttribute = methodSymbol.GetAttributes().Any(attributeData =>
-            attributeData.AttributeClass.Equals(factAttributeSymbol, SymbolEqualityComparer.Default));
-        
-        if (methodHasFactAttribute)
+        foreach (var methodDeclarationSyntax in methodDeclarationSyntaxes)
         {
-            solution = await Renamer.RenameSymbolAsync(solution, methodSymbol, new SymbolRenameOptions(), methodSymbol.Name.Pascalize());
+            var methodSymbol = ModelExtensions.GetDeclaredSymbol(documentEditor.SemanticModel, methodDeclarationSyntax) as IMethodSymbol;
+            var methodHasFactAttribute = methodSymbol.GetAttributes().Any(attributeData =>
+                attributeData.AttributeClass.Equals(factAttributeSymbol, SymbolEqualityComparer.Default));
+            
+            if (methodHasFactAttribute)
+            {
+                solution = await Renamer.RenameSymbolAsync(solution, methodSymbol, new SymbolRenameOptions(), methodSymbol.Name.Pascalize());
+            }
         }
     }
 }
