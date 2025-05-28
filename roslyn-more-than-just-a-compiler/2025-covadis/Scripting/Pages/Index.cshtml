@@ -1,0 +1,21 @@
+﻿@page
+@model IndexModel
+        
+<form method="post">
+    <p><strong>C# scripting demo</strong></p>
+
+    <p>
+        <label>C# code</label>
+        <textarea asp-for="Code" rows="3"></textarea>
+    </p>
+    
+    @if (Model.Output is not null)
+    {
+        <p>
+            <label>Output</label>
+            <span>@Model.Output</span>
+        </p>
+    }
+
+    <button type="submit">Evaluate</button>
+</form>
