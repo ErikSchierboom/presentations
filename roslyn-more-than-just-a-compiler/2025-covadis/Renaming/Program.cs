@@ -14,10 +14,10 @@ var project = await workspace.OpenProjectAsync(
 var compilation = await project.GetCompilationAsync();
 var factAttributeSymbol = compilation.GetTypeByMetadataName("Xunit.FactAttribute")!;
 
-foreach (var documentId in project.DocumentIds)
-{
-    var document = project.GetDocument(documentId);
-    
+var solution = project.Solution;
+
+foreach (var document in project.Documents)
+{   
     var documentEditor = await DocumentEditor.CreateAsync(document);
     var methodDeclarationSyntaxes = documentEditor.OriginalRoot
         .DescendantNodes()
@@ -31,16 +31,9 @@ foreach (var documentId in project.DocumentIds)
         
         if (methodHasFactAttribute)
         {
-            var name = documentEditor.Generator.GetName(methodDeclarationSyntax);
-
-            var newName = SyntaxFactory.Identifier(name.Pascalize());
-            var renamedMethod = methodDeclarationSyntax.WithIdentifier(newName);
-            
-            documentEditor.ReplaceNode(methodDeclarationSyntax, renamedMethod);
+            solution = await Renamer.RenameSymbolAsync(solution, methodSymbol, new SymbolRenameOptions(), methodSymbol.Name.Pascalize());
         }
     }
-
-    project = documentEditor.GetChangedDocument().Project;
 }
 
-workspace.TryApplyChanges(project.Solution);
+workspace.TryApplyChanges(solution);
