@@ -7,13 +7,14 @@ using Microsoft.CodeAnalysis.FindSymbols;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.CodeAnalysis.Rename;
 
-var workspace = MSBuildWorkspace.Create();
-var solution = await workspace.OpenSolutionAsync(
-    "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/RoslynMoreThanJustACompiler.sln");
+var solutionFilePath = "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/RoslynMoreThanJustACompiler.sln";
+
+using var workspace = MSBuildWorkspace.Create();
+var solution = await workspace.OpenSolutionAsync(solutionFilePath);
 
 foreach (var project in solution.Projects)
 {
-    var compilation = await project.GetCompilationAsync();
+    var compilation = await project.GetCompilationAsync() ?? throw new InvalidOperationException("Could not compile project");
     var factAttributeSymbol = compilation.GetTypeByMetadataName("Xunit.FactAttribute")!;
 
     foreach (var document in project.Documents)
@@ -25,14 +26,13 @@ foreach (var project in solution.Projects)
 
         foreach (var methodDeclarationSyntax in methodDeclarationSyntaxes)
         {
-            var methodSymbol = ModelExtensions.GetDeclaredSymbol(documentEditor.SemanticModel, methodDeclarationSyntax) as IMethodSymbol;
+            var methodSymbol = documentEditor.SemanticModel.GetDeclaredSymbol(methodDeclarationSyntax) ?? throw new InvalidOperationException("Could not get symbol");
             var methodHasFactAttribute = methodSymbol.GetAttributes().Any(attributeData =>
+                attributeData.AttributeClass is not null &&
                 attributeData.AttributeClass.Equals(factAttributeSymbol, SymbolEqualityComparer.Default));
-            
+
             if (methodHasFactAttribute)
-            {
                 solution = await Renamer.RenameSymbolAsync(solution, methodSymbol, new SymbolRenameOptions(), methodSymbol.Name.Pascalize());
-            }
         }
     }
 }
