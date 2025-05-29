@@ -12,7 +12,7 @@ namespace Solutions
         public static string Greeting(string name)
         {
             Dbg.WriteLine("Greeting called with name");
-            return "Hello " + name + "!";
+            return "Hello " + name;
         }
     }
 }

@@ -85,4 +85,3 @@ if (operation.TargetMethod.ContainingType.Equals(debugClass, SymbolEqualityCompa
     Console.WriteLine("Please do not use the System.Diagnostics.Debug class.");
     return;
 }
-Console.WriteLine();
