@@ -12,7 +12,6 @@ root = new UseVarRewriter().Visit(root);
 root = new RemoveComments().Visit(root);
 root = new AddBracesToIfElse().Visit(root);
 root = new SimplifyBooleanExpression().Visit(root);
-root = new UseFileScopedNamespace().Visit(root);
 
 root = root.NormalizeWhitespace();
 
@@ -23,16 +22,6 @@ internal sealed class RemoveEmptyStatements : CSharpSyntaxRewriter
     public override SyntaxNode? VisitEmptyStatement(EmptyStatementSyntax node)
     {
         return null;
-    }
-}
-
-internal sealed class UseFileScopedNamespace : CSharpSyntaxRewriter
-{
-    public override SyntaxNode? VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
-    {
-        return Visit(SyntaxFactory.FileScopedNamespaceDeclaration(
-            node.AttributeLists, node.Modifiers, node.Name, node.Externs, node.Usings, node.Members)
-            .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed, SyntaxFactory.CarriageReturnLineFeed));
     }
 }
 
