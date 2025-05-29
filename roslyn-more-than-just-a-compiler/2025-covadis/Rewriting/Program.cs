@@ -9,9 +9,8 @@ var root = await syntaxTree.GetRootAsync();
 
 root = new RemoveEmptyStatements().Visit(root);
 root = new UseVarRewriter().Visit(root);
-root = new RemoveComments().Visit(root);
-root = new AddBracesToIfElse().Visit(root);
 root = new SimplifyBooleanExpression().Visit(root);
+// TODO: directly return
 
 root = root.NormalizeWhitespace();
 
@@ -43,27 +42,6 @@ internal sealed class SimplifyBooleanExpression : CSharpSyntaxRewriter
     }
 }
 
-internal sealed class AddBracesToIfElse : CSharpSyntaxRewriter
-{
-    public override SyntaxNode? VisitIfStatement(IfStatementSyntax node)
-    {
-        if (node.Statement is BlockSyntax)
-            return base.VisitIfStatement(node);
-        
-        return base.VisitIfStatement(node.WithStatement(
-                SyntaxFactory.Block(node.Statement)));
-    }
-
-    public override SyntaxNode? VisitElseClause(ElseClauseSyntax node)
-    {
-        if (node.Statement is BlockSyntax)
-            return base.VisitElseClause(node);
-        
-        return base.VisitElseClause(node.WithStatement(
-            SyntaxFactory.Block(node.Statement)));
-    }
-}
-
 internal sealed class UseVarRewriter : CSharpSyntaxRewriter
 {
     public override SyntaxNode? VisitVariableDeclaration(VariableDeclarationSyntax node)
@@ -75,16 +53,5 @@ internal sealed class UseVarRewriter : CSharpSyntaxRewriter
             node.WithType(
                 SyntaxFactory.IdentifierName("var").WithTriviaFrom(node.Type)
             ));
-    }
-}
-
-internal sealed class RemoveComments : CSharpSyntaxRewriter
-{
-    public override SyntaxTrivia VisitTrivia(SyntaxTrivia trivia)
-    {
-        if (trivia.IsKind(SyntaxKind.SingleLineCommentTrivia))
-            return default;
-        
-        return base.VisitTrivia(trivia);
     }
 }
