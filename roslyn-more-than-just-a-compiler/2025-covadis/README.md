@@ -12,7 +12,7 @@
 
 ## Opzet compiler
 
-- Meerdere fases
+Fases:
 
 1. Parse fase: text omzetten naar een Abstract Syntax Tree (AST)
    - Syntax nodes, tokens en trivia
@@ -32,6 +32,8 @@
     - Genereert de bytecode of IL (Intermediate Language) van de code
     - Dit is de code die uiteindelijk wordt uitgevoerd door de .NET runtime
 
+Diagram: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/compiler-api-model#compiler-pipeline-functional-areas
+
 ## Analyseren
 
 Uitleg:
@@ -42,11 +44,12 @@ Uitleg:
 
 Taken:
 
-1. Gebruikt overloading
-2. Gebruikt `null` als default waarde
-3. Gebruikt geen string interpolatie
-4. Gebruik block method
-5. Roept `Debug.WriteLine` aan
+1. Gebruik reguliere namespace
+2. Maak class public
+3. Gebruikt overloading
+4. Gebruikt `null` als default waarde
+5. Gebruikt string concatenatie
+6. Gebruikt block method
 
 ## Herschrijven
 

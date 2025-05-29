@@ -1,39 +1,24 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.MSBuild;
 
-var workspace = MSBuildWorkspace.Create();
-var project = await workspace.OpenProjectAsync(
-    "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solutions/Solutions.csproj");
-var solution = project.Solution;
+const string sourceFilePath = @"/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solutions/TwoFer.cs";
+var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
 
-var document = project.Documents.First(document => document.Name == "Leap.cs");
-var semanticModel = await document.GetSemanticModelAsync();
-var documentRoot = await document.GetSyntaxRootAsync();
+var root = await syntaxTree.GetRootAsync();
 
-var usingDirectiveSyntaxes = documentRoot.DescendantNodes().OfType<UsingDirectiveSyntax>();
+root = new RemoveEmptyStatements().Visit(root);
+root = new UseVarRewriter().Visit(root);
+root = new RemoveComments().Visit(root);
+root = new AddBracesToIfElse().Visit(root);
+root = new SimplifyBooleanExpression().Visit(root);
+root = new UseFileScopedNamespace().Visit(root);
 
-var updatedRoot = new UseVarRewriter().Visit(documentRoot);
-updatedRoot = new RemoveEmptyStatements().Visit(updatedRoot);
-updatedRoot = new RemoveComments().Visit(updatedRoot);
-updatedRoot = new AddBracesToIfElse().Visit(updatedRoot);
-updatedRoot = new SimplifyBooleanExpression().Visit(updatedRoot);
-updatedRoot = new UseFileScopedNamespace().Visit(updatedRoot);
+root = root.NormalizeWhitespace();
 
-updatedRoot = updatedRoot.NormalizeWhitespace();
+File.WriteAllText(sourceFilePath, root.ToFullString());
 
-document = document.WithSyntaxRoot(updatedRoot);
-workspace.TryApplyChanges(document.Project.Solution);
-
-// documentRoot = await document.GetSyntaxRootAsync();
-// semanticModel = await document.GetSemanticModelAsync();
-//
-// workspace.TryApplyChanges(document.Project.Solution);
-
-// File.WriteAllText(document.FilePath, updatedRoot.NormalizeWhitespace().ToString());
-
-class RemoveEmptyStatements : CSharpSyntaxRewriter
+internal sealed class RemoveEmptyStatements : CSharpSyntaxRewriter
 {
     public override SyntaxNode? VisitEmptyStatement(EmptyStatementSyntax node)
     {
@@ -41,27 +26,27 @@ class RemoveEmptyStatements : CSharpSyntaxRewriter
     }
 }
 
-class UseFileScopedNamespace : CSharpSyntaxRewriter
+internal sealed class UseFileScopedNamespace : CSharpSyntaxRewriter
 {
     public override SyntaxNode? VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
     {
-        return base.Visit(SyntaxFactory.FileScopedNamespaceDeclaration(
+        return Visit(SyntaxFactory.FileScopedNamespaceDeclaration(
             node.AttributeLists, node.Modifiers, node.Name, node.Externs, node.Usings, node.Members)
             .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed, SyntaxFactory.CarriageReturnLineFeed));
     }
 }
 
-class SimplifyBooleanExpression : CSharpSyntaxRewriter
+internal sealed class SimplifyBooleanExpression : CSharpSyntaxRewriter
 {
     public override SyntaxNode? VisitBinaryExpression(BinaryExpressionSyntax node)
     {
         if (node.IsKind(SyntaxKind.EqualsExpression))
         {
             if (node.Right.IsKind(SyntaxKind.TrueLiteralExpression))
-                return base.Visit(node.Left);
+                return Visit(node.Left);
             
             if (node.Right.IsKind(SyntaxKind.FalseLiteralExpression))
-                return base.Visit(
+                return Visit(
                     SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, node.Left));
         }
         
@@ -69,7 +54,7 @@ class SimplifyBooleanExpression : CSharpSyntaxRewriter
     }
 }
 
-class AddBracesToIfElse : CSharpSyntaxRewriter
+internal sealed class AddBracesToIfElse : CSharpSyntaxRewriter
 {
     public override SyntaxNode? VisitIfStatement(IfStatementSyntax node)
     {
@@ -90,7 +75,7 @@ class AddBracesToIfElse : CSharpSyntaxRewriter
     }
 }
 
-class UseVarRewriter : CSharpSyntaxRewriter
+internal sealed class UseVarRewriter : CSharpSyntaxRewriter
 {
     public override SyntaxNode? VisitVariableDeclaration(VariableDeclarationSyntax node)
     {
@@ -104,7 +89,7 @@ class UseVarRewriter : CSharpSyntaxRewriter
     }
 }
 
-class RemoveComments : CSharpSyntaxRewriter
+internal sealed class RemoveComments : CSharpSyntaxRewriter
 {
     public override SyntaxTrivia VisitTrivia(SyntaxTrivia trivia)
     {
@@ -114,13 +99,3 @@ class RemoveComments : CSharpSyntaxRewriter
         return base.VisitTrivia(trivia);
     }
 }
-
-// var underscoreVariableSymbol = documentRoot.DescendantNodes()
-//     .OfType<VariableDeclaratorSyntax>()
-//     .Where(variableDeclarator => variableDeclarator.Identifier.Text.StartsWith('_'))
-//     .Select(variableDeclarator => semanticModel.GetDeclaredSymbol(variableDeclarator))
-//     .Single();
-//
-// var newSolution = await Renamer.RenameSymbolAsync(project.Solution, underscoreVariableSymbol, new SymbolRenameOptions(),
-//     underscoreVariableSymbol.Name[1..]);  
-// workspace.TryApplyChanges(newSolution);
