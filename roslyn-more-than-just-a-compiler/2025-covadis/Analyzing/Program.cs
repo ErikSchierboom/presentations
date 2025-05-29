@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Operations;
 
 const string sourceFilePath = @"/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solutions/TwoFer.cs";
 var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
@@ -63,3 +64,25 @@ if (usesBlockWithSingleStatement)
     Console.WriteLine("Please use an expression-bodied method instead of a block method.");
     return;
 }
+
+var compilation = CSharpCompilation.Create(
+    "Analyzing",
+    syntaxTrees: [syntaxTree],
+    references: [MetadataReference.CreateFromFile(typeof(object).Assembly.Location)],
+    options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+var diagnostics = compilation.GetDiagnostics();
+var semanticModel = compilation.GetSemanticModel(syntaxTree);
+
+var debugClass = compilation.GetTypeByMetadataName("System.Diagnostics.Debug") ??
+                         throw new InvalidOperationException("Could not find System.Diagnostics.Debug type");
+
+var invocationExpression = root.DescendantNodes()
+    .OfType<InvocationExpressionSyntax>()
+    .Single();
+var operation = (IInvocationOperation)(semanticModel.GetOperation(invocationExpression) ?? throw new InvalidOperationException("Could not get operation"));
+if (operation.TargetMethod.ContainingType.Equals(debugClass, SymbolEqualityComparer.Default))
+{
+    Console.WriteLine("Please do not use the System.Diagnostics.Debug class.");
+    return;
+}
+Console.WriteLine();

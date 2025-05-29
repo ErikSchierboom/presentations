@@ -1,4 +1,4 @@
-﻿using Dbg = System.Diagnostics.Debug;
+using Dbg = System.Diagnostics.Debug;
 
 namespace Solutions
 {
