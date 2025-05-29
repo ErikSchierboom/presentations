@@ -3,13 +3,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Operations;
 
-const string sourceFilePath = @"/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solutions/TwoFer.cs";
+const string sourceFilePath = @"/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solutions/Gigasecond.cs";
 var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
 
 var root = await syntaxTree.GetRootAsync();
 
-var usesNamespaceDeclaration = root.DescendantNodes().OfType<NamespaceDeclarationSyntax>().Any();
-if (usesNamespaceDeclaration)
+var canUseFileScopedNamespace = root.DescendantNodes().OfType<NamespaceDeclarationSyntax>().Any();
+if (canUseFileScopedNamespace)
 {
     Console.WriteLine("Please use a file-scoped namespace declaration.");
     return; 
@@ -17,7 +17,7 @@ if (usesNamespaceDeclaration)
 
 var classDeclaration = root.DescendantNodes()
     .OfType<ClassDeclarationSyntax>()
-    .Single(classDeclaration => classDeclaration.Identifier.Text == "TwoFer");
+    .Single(classDeclaration => classDeclaration.Identifier.Text == "Gigasecond");
 var classIsNotStatic = !classDeclaration.Modifiers.Any(SyntaxKind.StaticKeyword);
 if (classIsNotStatic)
 {
@@ -25,43 +25,23 @@ if (classIsNotStatic)
     return; 
 }
 
-var usesMethodOverloading = classDeclaration
-    .DescendantNodes()
+var methodDeclaration = classDeclaration.Members
     .OfType<MethodDeclarationSyntax>()
-    .Count(methodDeclaration => methodDeclaration.Identifier.Text == "Greeting") > 1;
-if (usesMethodOverloading)
-{
-    Console.WriteLine("Please use default parameters instead of method overloading.");
-    return;
-}
-
-var methodDeclaration = classDeclaration
-    .DescendantNodes()
-    .OfType<MethodDeclarationSyntax>()
-    .Single(methodDeclaration => methodDeclaration.Identifier.Text == "Greeting");
-var useNullAsDefaultValue = methodDeclaration.ParameterList.Parameters is [{ Default.Value: not null }] &&
-                                 methodDeclaration.ParameterList.Parameters[0].Default!.Value.IsKind(SyntaxKind.NullLiteralExpression);
-if (useNullAsDefaultValue)
-{
-    Console.WriteLine("Please use a string as the default value.");
-    return;
-}
-
-var usesStringConcatenation = methodDeclaration.DescendantNodes()
-    .OfType<BinaryExpressionSyntax>()
-    .Any(binaryExpression => binaryExpression.IsKind(SyntaxKind.AddExpression) &&
-                             (binaryExpression.Left.IsKind(SyntaxKind.StringLiteralExpression) ||
-                              binaryExpression.Right.IsKind(SyntaxKind.StringLiteralExpression)));
-if (usesStringConcatenation)
-{
-    Console.WriteLine("Please use string interpolation instead of string concatenation.");
-    return;
-}
-
-var usesBlockWithSingleStatement = methodDeclaration.Body?.Statements is [_];
-if (usesBlockWithSingleStatement)
+    .Single(methodDeclaration => methodDeclaration.Identifier.Text == "Add");
+var canUseExpressionBody = methodDeclaration.Body?.Statements is [_];
+if (canUseExpressionBody)
 {
     Console.WriteLine("Please use an expression-bodied method instead of a block method.");
+    return;
+}
+
+var canUseExponentNotation = methodDeclaration
+    .DescendantTokens()
+    .Any(token => token.IsKind(SyntaxKind.NumericLiteralToken) && 
+                  token is { Value: 1000000000, Text: "1000000000" });
+if (canUseExponentNotation)
+{
+    Console.WriteLine("Please use exponent notation for the number 1,000,000,000.");
     return;
 }
 
