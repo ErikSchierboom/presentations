@@ -16,11 +16,11 @@ if (usesNamespaceDeclaration)
 
 var classDeclaration = root.DescendantNodes()
     .OfType<ClassDeclarationSyntax>()
-    .Single(classDeclaration => classDeclaration.Identifier.ValueText == "TwoFer");
-var classIsNotPublic = !classDeclaration.Modifiers.Any(SyntaxKind.PublicKeyword);
-if (classIsNotPublic)
+    .Single(classDeclaration => classDeclaration.Identifier.Text == "TwoFer");
+var classIsNotStatic = !classDeclaration.Modifiers.Any(SyntaxKind.StaticKeyword);
+if (classIsNotStatic)
 {
-    Console.WriteLine("Please make the class public.");
+    Console.WriteLine("Please make the class static.");
     return; 
 }
 
@@ -57,13 +57,9 @@ if (usesStringConcatenation)
     return;
 }
 
-if (methodDeclaration.Body?.Statements is [_])
+var usesBlockWithSingleStatement = methodDeclaration.Body?.Statements is [_];
+if (usesBlockWithSingleStatement)
 {
     Console.WriteLine("Please use an expression-bodied method instead of a block method.");
     return;
 }
-
-// 1. Gebruikt overloading
-// 2. Gebruikt `null` als default waarde
-// 3. Gebruikt string concatenatie
-// 4. Gebruik block method
