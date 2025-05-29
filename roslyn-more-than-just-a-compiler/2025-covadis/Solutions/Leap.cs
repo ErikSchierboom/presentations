@@ -1,5 +1,3 @@
-using System;
-
 namespace Solutions {
     public class Leap {
         public static bool IsLeapYear( int year ) {
