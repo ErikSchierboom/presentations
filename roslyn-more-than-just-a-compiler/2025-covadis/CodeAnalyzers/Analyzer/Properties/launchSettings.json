@@ -3,7 +3,7 @@
   "profiles": {
     "DebugRoslynAnalyzers": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "../CodeAnalyzers.Sample/CodeAnalyzers.Sample.csproj"
+      "targetProject": "../Analyzers.Example/Analyzers.Example.csproj"
     }
   }
 }

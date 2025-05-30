@@ -38,7 +38,7 @@ if (canUseExpressionBody)
 var canUseExponentNotation = methodDeclaration
     .DescendantTokens()
     .Any(token => token.IsKind(SyntaxKind.NumericLiteralToken) && 
-                  token.Value is 1000000000 &&
+                  token.Value is 1e9 &&
                   token.Text != "1e9");
 if (canUseExponentNotation)
 {

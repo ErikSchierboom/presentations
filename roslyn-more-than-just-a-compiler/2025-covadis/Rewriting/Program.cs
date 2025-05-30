@@ -29,9 +29,9 @@ internal sealed class UseExponentNotation : CSharpSyntaxRewriter
     public override SyntaxToken VisitToken(SyntaxToken token)
     {
         if (token.IsKind(SyntaxKind.NumericLiteralToken) && 
-            token.Value is 1000000000 &&
+            token.Value is 1e9 &&
             token.Text != "1e9")
-            return SyntaxFactory.Literal("1e9", 1000000000).WithTriviaFrom(token);
+            return SyntaxFactory.Literal("1e9", 1e9).WithTriviaFrom(token);
         
         return base.VisitToken(token);
     }
