@@ -1,20 +1,9 @@
-// ReSharper disable UnusedType.Global
-// ReSharper disable UnusedMember.Global
+using System;
 
-namespace Analyzers1.Sample;
+namespace Analyzer.Example;
 
-// If you don't see warnings, build the Analyzers Project.
-
-public class Examples
+public static class Gigasecond
 {
-    public class MyCompanyClass // Try to apply quick fix using the IDE.
-    {
-    }
-
-    public void ToStars()
-    {
-        var spaceship = new Spaceship();
-        spaceship.SetSpeed(300000000); // Invalid value, it should be highlighted.
-        spaceship.SetSpeed(42);
-    }
+    public static DateTime Add(DateTime birthDate) =>
+        birthDate.AddSeconds(1_000_000_000);
 }
