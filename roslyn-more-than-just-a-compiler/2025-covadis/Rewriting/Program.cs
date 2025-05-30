@@ -10,6 +10,7 @@ var root = await syntaxTree.GetRootAsync();
 root = new RemoveEmptyStatements().Visit(root);
 root = new UseVarRewriter().Visit(root);
 root = new UseExponentNotation().Visit(root);
+root = new UseExpressionBody().Visit(root);
 
 root = root.NormalizeWhitespace();
 
@@ -47,5 +48,19 @@ internal sealed class UseVarRewriter : CSharpSyntaxRewriter
             node.WithType(
                 SyntaxFactory.IdentifierName("var").WithTriviaFrom(node.Type)
             ));
+    }
+}
+
+internal sealed class UseExpressionBody : CSharpSyntaxRewriter
+{
+    public override SyntaxNode? VisitMethodDeclaration(MethodDeclarationSyntax node)
+    {
+        if (node.Body is { Statements: [ReturnStatementSyntax { Expression: var expression }] })
+            return base.VisitMethodDeclaration(
+                node.WithBody(null)
+                    .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(expression))
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+
+        return base.VisitMethodDeclaration(node);
     }
 }
