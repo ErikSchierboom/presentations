@@ -2,15 +2,14 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-const string sourceFilePath = @"/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solutions/TwoFer.cs";
+const string sourceFilePath = "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Solution2/Gigasecond.cs";
 var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
 
 var root = await syntaxTree.GetRootAsync();
 
 root = new RemoveEmptyStatements().Visit(root);
 root = new UseVarRewriter().Visit(root);
-root = new SimplifyBooleanExpression().Visit(root);
-// TODO: directly return
+root = new UseExponentNotation().Visit(root);
 
 root = root.NormalizeWhitespace();
 
@@ -24,21 +23,21 @@ internal sealed class RemoveEmptyStatements : CSharpSyntaxRewriter
     }
 }
 
-internal sealed class SimplifyBooleanExpression : CSharpSyntaxRewriter
+internal sealed class UseExponentNotation : CSharpSyntaxRewriter
 {
-    public override SyntaxNode? VisitBinaryExpression(BinaryExpressionSyntax node)
+    public override SyntaxToken VisitToken(SyntaxToken token)
     {
-        if (node.IsKind(SyntaxKind.EqualsExpression))
-        {
-            if (node.Right.IsKind(SyntaxKind.TrueLiteralExpression))
-                return Visit(node.Left);
-            
-            if (node.Right.IsKind(SyntaxKind.FalseLiteralExpression))
-                return Visit(
-                    SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, node.Left));
-        }
+        if (token.IsKind(SyntaxKind.NumericLiteralToken) && 
+            token.Value is 1000000000 &&
+            token.Text != "1e9")
+            return SyntaxFactory.Literal(
+                token.LeadingTrivia,
+                "1e9",
+                1000000000,
+                token.TrailingTrivia
+            );
         
-        return base.VisitBinaryExpression(node);
+        return base.VisitToken(token);
     }
 }
 
