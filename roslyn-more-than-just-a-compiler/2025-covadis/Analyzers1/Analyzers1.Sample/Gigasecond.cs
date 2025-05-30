@@ -1,6 +1,6 @@
 using System;
 
-namespace Analyzer.Example;
+namespace Analyzers1.Sample;
 
 public static class Gigasecond
 {

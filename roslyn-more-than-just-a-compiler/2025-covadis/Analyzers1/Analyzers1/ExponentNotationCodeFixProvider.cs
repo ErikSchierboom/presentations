@@ -8,25 +8,16 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Rename;
 
 namespace Analyzers1;
 
-/// <summary>
-/// A sample code fix provider that renames classes with the company name in their definition.
-/// All code fixes must  be linked to specific analyzers.
-/// </summary>
 [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ExponentNotationCodeFixProvider)), Shared]
 public class ExponentNotationCodeFixProvider : CodeFixProvider
 {
-    private const string CommonName = "Common";
-
-    // Specify the diagnostic IDs of analyzers that are expected to be linked.
     public sealed override ImmutableArray<string> FixableDiagnosticIds { get; } =
         ImmutableArray.Create(ExponentNotationAnalyzer.DiagnosticId);
 
-    // If you don't need the 'fix all' behaviour, return null.
-    public override FixAllProvider? GetFixAllProvider() => null;
+    public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
     public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
     {
@@ -39,7 +30,6 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
         if (diagnosticNode is not LiteralExpressionSyntax literalExpression)
             return;
 
-        // Register a code action that will invoke the fix.
         context.RegisterCodeFix(
             CodeAction.Create(
                 title: string.Format(Resources.ES0001CodeFixTitle, literalExpression.Token.Text, "1e9"),
@@ -48,13 +38,6 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
             diagnostic);
     }
 
-    /// <summary>
-    /// Executed on the quick fix action raised by the user.
-    /// </summary>
-    /// <param name="document">Affected source file.</param>
-    /// <param name="literalExpression">Highlighted class declaration Syntax Node.</param>
-    /// <param name="cancellationToken">Any fix is cancellable by the user, so we should support the cancellation token.</param>
-    /// <returns>Clone of the solution with updates: renamed class.</returns>
     private async Task<Solution> SanitizeCompanyNameAsync(Document document,
         LiteralExpressionSyntax literalExpression, CancellationToken cancellationToken)
     {

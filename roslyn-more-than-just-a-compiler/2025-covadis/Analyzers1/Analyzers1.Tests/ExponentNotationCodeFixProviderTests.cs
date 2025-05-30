@@ -6,7 +6,7 @@ using Verifier =
 
 namespace Analyzers1.Tests;
 
-public class ExponentNotationFixerTests
+public class ExponentNotationCodeFixProviderTests
 {
     [Fact]
     public async Task MultipleOfTen_ReplaceWithExponentNotation()

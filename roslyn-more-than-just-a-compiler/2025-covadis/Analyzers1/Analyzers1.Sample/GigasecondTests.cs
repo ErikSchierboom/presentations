@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Analyzer.Example;
+namespace Analyzers1.Sample;
 
 public class GigasecondTests
 {

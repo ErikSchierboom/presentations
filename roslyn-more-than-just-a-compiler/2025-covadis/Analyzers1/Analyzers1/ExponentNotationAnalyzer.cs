@@ -38,13 +38,17 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
         context.RegisterSyntaxNodeAction(AnalyzeSyntax, SyntaxKind.NumericLiteralExpression);
     }
 
-    private void AnalyzeSyntax(SyntaxNodeAnalysisContext context)
+    private static void AnalyzeSyntax(SyntaxNodeAnalysisContext context)
     {
-        if (context.Node is not LiteralExpressionSyntax literalExpression ||
-            !literalExpression.Token.IsKind(SyntaxKind.NumericLiteralToken) ||
-            literalExpression.Token.Value is not 1000000000 ||
-            literalExpression.Token.Text == "1e9") return;
-        
+        if (context.Node is not LiteralExpressionSyntax literalExpression)
+            return;
+        if (!literalExpression.Token.IsKind(SyntaxKind.NumericLiteralToken))
+            return;
+        if (literalExpression.Token.Value is not 1000000000)
+            return;
+        if (literalExpression.Token.Text == "1e9")
+            return;
+
         var diagnostic = Diagnostic.Create(Rule,
             literalExpression.GetLocation(),
             literalExpression.Token.Text);

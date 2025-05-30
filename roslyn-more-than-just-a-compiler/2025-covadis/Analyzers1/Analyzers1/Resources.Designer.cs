@@ -51,33 +51,9 @@ namespace Analyzers1 {
             }
         }
         
-        internal static string AB0001MessageFormat {
-            get {
-                return ResourceManager.GetString("AB0001MessageFormat", resourceCulture);
-            }
-        }
-        
         internal static string AB0001Title {
             get {
                 return ResourceManager.GetString("AB0001Title", resourceCulture);
-            }
-        }
-        
-        internal static string AB0001CodeFixTitle {
-            get {
-                return ResourceManager.GetString("AB0001CodeFixTitle", resourceCulture);
-            }
-        }
-        
-        internal static string AB0002Description {
-            get {
-                return ResourceManager.GetString("AB0002Description", resourceCulture);
-            }
-        }
-        
-        internal static string AB0002MessageFormat {
-            get {
-                return ResourceManager.GetString("AB0002MessageFormat", resourceCulture);
             }
         }
         
