@@ -38,7 +38,8 @@ if (canUseExpressionBody)
 var canUseExponentNotation = methodDeclaration
     .DescendantTokens()
     .Any(token => token.IsKind(SyntaxKind.NumericLiteralToken) && 
-                  token is { Value: 1000000000, Text: "1000000000" });
+                  token.Value is 1000000000 &&
+                  token.Text != "1e9");
 if (canUseExponentNotation)
 {
     Console.WriteLine("Please use exponent notation for the number 1,000,000,000.");
@@ -53,15 +54,15 @@ var compilation = CSharpCompilation.Create(
 var diagnostics = compilation.GetDiagnostics();
 var semanticModel = compilation.GetSemanticModel(syntaxTree);
 
-var debugClass = compilation.GetTypeByMetadataName("System.Diagnostics.Debug") ??
-                         throw new InvalidOperationException("Could not find System.Diagnostics.Debug type");
-
+var dateTimeStruct = compilation.GetTypeByMetadataName("System.DateTime")!;
+var addSecondsCall = dateTimeStruct.GetMembers("AddSeconds").Single();
 var invocationExpression = root.DescendantNodes()
     .OfType<InvocationExpressionSyntax>()
     .Single();
-var operation = (IInvocationOperation)(semanticModel.GetOperation(invocationExpression) ?? throw new InvalidOperationException("Could not get operation"));
-if (operation.TargetMethod.ContainingType.Equals(debugClass, SymbolEqualityComparer.Default))
+var operation = (IInvocationOperation)semanticModel.GetOperation(invocationExpression)!;
+var doesNotUseAddSeconds = !operation.TargetMethod.Equals(addSecondsCall, SymbolEqualityComparer.Default);
+if (doesNotUseAddSeconds)
 {
-    Console.WriteLine("Please do not use the System.Diagnostics.Debug class.");
+    Console.WriteLine("Please use the DateTime.AddSeconds method.");
     return;
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace Solutions
 {
     public static class Gigasecond
