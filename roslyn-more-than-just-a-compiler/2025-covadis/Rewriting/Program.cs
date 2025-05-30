@@ -30,12 +30,7 @@ internal sealed class UseExponentNotation : CSharpSyntaxRewriter
         if (token.IsKind(SyntaxKind.NumericLiteralToken) && 
             token.Value is 1000000000 &&
             token.Text != "1e9")
-            return SyntaxFactory.Literal(
-                token.LeadingTrivia,
-                "1e9",
-                1000000000,
-                token.TrailingTrivia
-            );
+            return SyntaxFactory.Literal("1e9", 1000000000).WithTriviaFrom(token);
         
         return base.VisitToken(token);
     }
