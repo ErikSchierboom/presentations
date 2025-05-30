@@ -35,7 +35,7 @@ namespace CodeAnalyzers
                 if (object.Equals(null, resourceMan))
                 {
                     System.Resources.ResourceManager temp =
-                        new System.Resources.ResourceManager("CodeAnalyzers.Resources", typeof(Resources).Assembly);
+                        new System.Resources.ResourceManager("Analyzer.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace Solution1
+namespace Analyzing.Example
 {
     public static class Gigasecond
     {

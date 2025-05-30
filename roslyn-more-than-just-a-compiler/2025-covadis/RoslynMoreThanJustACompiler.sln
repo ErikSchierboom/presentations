@@ -7,19 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzing", "Analyzing\Anal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewriting", "Rewriting\Rewriting.csproj", "{A1A5AA63-1EC9-43F2-8DC8-9659634CD3B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzers", "CodeAnalyzers\CodeAnalyzers\CodeAnalyzers.csproj", "{332678F5-0507-482F-93F9-6A1EEE110CC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer", "CodeAnalyzers\Analyzer\Analyzer.csproj", "{332678F5-0507-482F-93F9-6A1EEE110CC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzers.Sample", "CodeAnalyzers\CodeAnalyzers.Sample\CodeAnalyzers.Sample.csproj", "{F7C986F3-7669-46A1-B62F-5F8C931B490A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer.Tests", "CodeAnalyzers\Analyzer.Tests\Analyzer.Tests.csproj", "{A323ACE0-32C6-4FEF-9443-7D8A7AA62113}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzers.Tests", "CodeAnalyzers\CodeAnalyzers.Tests\CodeAnalyzers.Tests.csproj", "{A323ACE0-32C6-4FEF-9443-7D8A7AA62113}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution1", "Solution1\Solution1.csproj", "{EC84E32D-CA54-46A1-9E3A-1CD92FAD04C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzing.Example", "Analyzing.Example\Analyzing.Example.csproj", "{EC84E32D-CA54-46A1-9E3A-1CD92FAD04C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripting", "Scripting\Scripting.csproj", "{98EAB424-C093-4DA0-A7F8-FFE0EB6773D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renaming", "Renaming\Renaming.csproj", "{BA5658B3-B6EB-4B3F-8D39-359468781C38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution2", "Solution2\Solution2.csproj", "{7FD729BA-EC1B-4F51-BBAB-7033F9AC3559}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewriting.Example", "Rewriting.Example\Rewriting.Example.csproj", "{7FD729BA-EC1B-4F51-BBAB-7033F9AC3559}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer.Example", "Analyzer.Example\Analyzer.Example.csproj", "{3D327085-93BB-4445-86BF-3DD9F2C5E19A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,18 +67,6 @@ Global
 		{332678F5-0507-482F-93F9-6A1EEE110CC8}.Release|x64.Build.0 = Release|Any CPU
 		{332678F5-0507-482F-93F9-6A1EEE110CC8}.Release|x86.ActiveCfg = Release|Any CPU
 		{332678F5-0507-482F-93F9-6A1EEE110CC8}.Release|x86.Build.0 = Release|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Debug|x64.Build.0 = Debug|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Debug|x86.Build.0 = Debug|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Release|x64.ActiveCfg = Release|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Release|x64.Build.0 = Release|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Release|x86.ActiveCfg = Release|Any CPU
-		{F7C986F3-7669-46A1-B62F-5F8C931B490A}.Release|x86.Build.0 = Release|Any CPU
 		{A323ACE0-32C6-4FEF-9443-7D8A7AA62113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A323ACE0-32C6-4FEF-9443-7D8A7AA62113}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A323ACE0-32C6-4FEF-9443-7D8A7AA62113}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -139,6 +127,18 @@ Global
 		{7FD729BA-EC1B-4F51-BBAB-7033F9AC3559}.Release|x64.Build.0 = Release|Any CPU
 		{7FD729BA-EC1B-4F51-BBAB-7033F9AC3559}.Release|x86.ActiveCfg = Release|Any CPU
 		{7FD729BA-EC1B-4F51-BBAB-7033F9AC3559}.Release|x86.Build.0 = Release|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Debug|x64.Build.0 = Debug|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Debug|x86.Build.0 = Debug|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Release|x64.ActiveCfg = Release|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Release|x64.Build.0 = Release|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D327085-93BB-4445-86BF-3DD9F2C5E19A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

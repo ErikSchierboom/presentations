@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Solution2;
+namespace Rewriting.Example;
 
 public class GigasecondTests
 {
