@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Xunit;
 using Verifier =
-    Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<Analyzers1.ExponentNotationAnalyzer,
-        Analyzers1.ExponentNotationCodeFixProvider>;
+    Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<Analyzers.ExponentNotationAnalyzer,
+        Analyzers.ExponentNotationCodeFixProvider>;
 
-namespace Analyzers1.Tests;
+namespace Analyzers.Tests;
 
 public class ExponentNotationCodeFixProviderTests
 {

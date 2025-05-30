@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Analyzers1 {
+namespace Analyzers {
     using System;
     
     
@@ -28,7 +28,7 @@ namespace Analyzers1 {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Analyzers1.Resources", typeof(Resources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Analyzers.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -42,24 +42,6 @@ namespace Analyzers1 {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        internal static string AB0001Description {
-            get {
-                return ResourceManager.GetString("AB0001Description", resourceCulture);
-            }
-        }
-        
-        internal static string AB0001Title {
-            get {
-                return ResourceManager.GetString("AB0001Title", resourceCulture);
-            }
-        }
-        
-        internal static string AB0002Title {
-            get {
-                return ResourceManager.GetString("AB0002Title", resourceCulture);
             }
         }
         

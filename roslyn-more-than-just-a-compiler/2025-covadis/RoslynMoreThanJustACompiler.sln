@@ -15,11 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renaming", "Renaming\Renami
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewriting.Example", "Rewriting.Example\Rewriting.Example.csproj", "{7FD729BA-EC1B-4F51-BBAB-7033F9AC3559}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers1", "Analyzers1\Analyzers1\Analyzers1.csproj", "{EA6A8FF4-E58A-4973-A671-6B5D0FBCF15C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers", "Analyzers1\Analyzers\Analyzers.csproj", "{EA6A8FF4-E58A-4973-A671-6B5D0FBCF15C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers1.Sample", "Analyzers1\Analyzers1.Sample\Analyzers1.Sample.csproj", "{2869DE27-4DD1-4FF0-94C3-307EABC83E8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers.Sample", "Analyzers1\Analyzers.Sample\Analyzers.Sample.csproj", "{2869DE27-4DD1-4FF0-94C3-307EABC83E8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers1.Tests", "Analyzers1\Analyzers1.Tests\Analyzers1.Tests.csproj", "{3D01CD19-D251-4591-A1E3-37FAFEDAE60E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers.Tests", "Analyzers1\Analyzers.Tests\Analyzers.Tests.csproj", "{3D01CD19-D251-4591-A1E3-37FAFEDAE60E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

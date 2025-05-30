@@ -9,8 +9,7 @@
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
 
-        <RootNamespace>Analyzers1</RootNamespace>
-        <AssemblyName>Analyzers1</AssemblyName>
+        <PackageId>Analyzers</PackageId>
     </PropertyGroup>
 
     <ItemGroup>

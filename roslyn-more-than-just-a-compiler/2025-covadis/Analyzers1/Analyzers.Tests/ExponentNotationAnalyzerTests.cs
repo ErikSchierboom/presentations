@@ -3,9 +3,9 @@ using Microsoft.CodeAnalysis;
 using Xunit;
 using Verifier =
     Microsoft.CodeAnalysis.CSharp.Testing.XUnit.AnalyzerVerifier<
-        Analyzers1.ExponentNotationAnalyzer>;
+        Analyzers.ExponentNotationAnalyzer>;
 
-namespace Analyzers1.Tests;
+namespace Analyzers.Tests;
 
 public class ExponentNotationAnalyzerTests
 {   
