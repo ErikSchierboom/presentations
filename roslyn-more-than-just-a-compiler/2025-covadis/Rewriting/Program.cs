@@ -55,7 +55,7 @@ internal sealed class UseExpressionBody : CSharpSyntaxRewriter
 {
     public override SyntaxNode? VisitMethodDeclaration(MethodDeclarationSyntax node)
     {
-        if (node.Body is { Statements: [ReturnStatementSyntax { Expression: var expression }] })
+        if (node.Body is { Statements: [ReturnStatementSyntax { Expression: {} expression  }] })
             return base.VisitMethodDeclaration(
                 node.WithBody(null)
                     .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(expression))

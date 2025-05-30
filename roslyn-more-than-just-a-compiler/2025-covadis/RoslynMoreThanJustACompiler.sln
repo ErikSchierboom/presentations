@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzing", "Analyzing\Anal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewriting", "Rewriting\Rewriting.csproj", "{A1A5AA63-1EC9-43F2-8DC8-9659634CD3B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer", "CodeAnalyzers\Analyzer\Analyzer.csproj", "{332678F5-0507-482F-93F9-6A1EEE110CC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer", "Analyzer\Analyzer.csproj", "{332678F5-0507-482F-93F9-6A1EEE110CC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer.Tests", "CodeAnalyzers\Analyzer.Tests\Analyzer.Tests.csproj", "{A323ACE0-32C6-4FEF-9443-7D8A7AA62113}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer.Tests", "Analyzer.Tests\Analyzer.Tests.csproj", "{A323ACE0-32C6-4FEF-9443-7D8A7AA62113}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzing.Example", "Analyzing.Example\Analyzing.Example.csproj", "{EC84E32D-CA54-46A1-9E3A-1CD92FAD04C8}"
 EndProject
