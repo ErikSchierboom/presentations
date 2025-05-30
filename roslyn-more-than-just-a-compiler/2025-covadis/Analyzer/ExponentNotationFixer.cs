@@ -19,7 +19,7 @@ public class ExponentNotationFixer : CodeFixProvider
     public sealed override ImmutableArray<string> FixableDiagnosticIds { get; } =
         ImmutableArray.Create(ExponentNotationAnalyzer.DiagnosticId);
 
-    public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
+    public override FixAllProvider? GetFixAllProvider() => null;
 
     public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
     {
@@ -36,7 +36,7 @@ public class ExponentNotationFixer : CodeFixProvider
             CodeAction.Create(
                 title: Title,
                 createChangedSolution: c => RewriteToExponentNotation(context.Document, literalExpression, c),
-                equivalenceKey: Title),
+                equivalenceKey: "ES0001CodeFixTitle"),
             diagnostic);
     }
 

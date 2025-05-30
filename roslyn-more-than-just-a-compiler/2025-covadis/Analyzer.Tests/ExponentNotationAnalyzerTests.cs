@@ -26,7 +26,7 @@ public static class Gigasecond
 
         var expected = Verifier.Diagnostic()
             .WithMessage("'1_000_000_000' can also be written as '1e9'")
-            .WithSeverity(DiagnosticSeverity.Info)
+            .WithSeverity(DiagnosticSeverity.Warning)
             .WithLocation(9, 30);
         await Verifier.VerifyAnalyzerAsync(source, expected);
     }

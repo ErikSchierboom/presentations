@@ -16,7 +16,7 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
     private const string Category = "Naming";
 
     private static readonly DiagnosticDescriptor Rule = new(DiagnosticId, Title, MessageFormat, Category,
-        DiagnosticSeverity.Info, isEnabledByDefault: true, description: Description);
+        DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
 
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
         ImmutableArray.Create(Rule);
