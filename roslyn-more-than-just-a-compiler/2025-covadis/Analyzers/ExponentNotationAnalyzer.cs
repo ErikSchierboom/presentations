@@ -11,17 +11,9 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
 {
     public const string DiagnosticId = "ES0001";
 
-    private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ES0001Title),
-        Resources.ResourceManager, typeof(Resources));
-
-    private static readonly LocalizableString MessageFormat =
-        new LocalizableResourceString(nameof(Resources.ES0001MessageFormat), Resources.ResourceManager,
-            typeof(Resources));
-
-    private static readonly LocalizableString Description =
-        new LocalizableResourceString(nameof(Resources.ES0001Description), Resources.ResourceManager,
-            typeof(Resources));
-
+    private const string Title = "Convert to exponent notation";
+    private const string MessageFormat = "Convert '{0}' to exponent notation";
+    private const string Description = "Multiples of ten can be written in exponent notation.";
     private const string Category = "Naming";
 
     private static readonly DiagnosticDescriptor Rule = new(DiagnosticId, Title, MessageFormat, Category,
@@ -40,13 +32,10 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
 
     private static void AnalyzeSyntax(SyntaxNodeAnalysisContext context)
     {
-        if (context.Node is not LiteralExpressionSyntax literalExpression)
-            return;
-        if (!literalExpression.Token.IsKind(SyntaxKind.NumericLiteralToken))
-            return;
-        if (literalExpression.Token.Value is not 1000000000)
-            return;
-        if (literalExpression.Token.Text == "1e9")
+        if (context.Node is not LiteralExpressionSyntax literalExpression ||
+            !literalExpression.Token.IsKind(SyntaxKind.NumericLiteralToken) ||
+            literalExpression.Token.Value is not 1000000000 ||
+            literalExpression.Token.Text == "1e9")
             return;
 
         var diagnostic = Diagnostic.Create(Rule,
