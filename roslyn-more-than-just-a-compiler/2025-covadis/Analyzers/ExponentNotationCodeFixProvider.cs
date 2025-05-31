@@ -32,13 +32,13 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
 
         context.RegisterCodeFix(
             CodeAction.Create(
-                title: string.Format(Resources.ES0001CodeFixTitle, literalExpression.Token.Text, "1e9"),
-                createChangedSolution: c => SanitizeCompanyNameAsync(context.Document, literalExpression, c),
+                title: string.Format(Resources.ES0001CodeFixTitle, literalExpression.Token.Text),
+                createChangedSolution: cancellationToken => ConvertToExponentNotation(context.Document, literalExpression, cancellationToken),
                 equivalenceKey: nameof(Resources.ES0001CodeFixTitle)),
             diagnostic);
     }
 
-    private async Task<Solution> SanitizeCompanyNameAsync(Document document,
+    private static async Task<Solution> ConvertToExponentNotation(Document document,
         LiteralExpressionSyntax literalExpression, CancellationToken cancellationToken)
     {
         var root = await document.GetSyntaxRootAsync(cancellationToken);
@@ -50,7 +50,6 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
 
         var newRoot = root.ReplaceNode(literalExpression, newLiteralExpression);
         var newDocument = document.WithSyntaxRoot(newRoot);
-
         return newDocument.Project.Solution;
     }
 }

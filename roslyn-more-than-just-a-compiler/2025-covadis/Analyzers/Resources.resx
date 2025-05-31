@@ -19,7 +19,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="ES0001CodeFixTitle" xml:space="preserve">
-        <value>Replace '{0}' with '{1}'</value>
+        <value>Replace '{0}' with '1e9'</value>
     </data>
     <data name="ES0001Description" xml:space="preserve">
         <value>Multiples of ten can be written in exponent notation.</value>
@@ -29,5 +29,17 @@
     </data>
     <data name="ES0001Title" xml:space="preserve">
         <value>Convert to exponent notation</value>
+    </data>
+    <data name="ES0002CodeFixTitle" xml:space="preserve">
+        <value>Convert '{0}' to 'AddSeconds'</value>
+    </data>
+    <data name="ES0002Title" xml:space="preserve">
+        <value>Use 'AddSeconds'</value>
+    </data>
+    <data name="ES0002Description" xml:space="preserve">
+        <value>Use 'AddSeconds'.</value>
+    </data>
+    <data name="ES0002MessageFormat" xml:space="preserve">
+        <value>Use 'AddSeconds' instead of '{0}'</value>
     </data>
 </root>

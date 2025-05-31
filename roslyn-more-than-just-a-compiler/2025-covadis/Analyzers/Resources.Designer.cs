@@ -68,5 +68,29 @@ namespace Analyzers {
                 return ResourceManager.GetString("ES0001Title", resourceCulture);
             }
         }
+        
+        internal static string ES0002CodeFixTitle {
+            get {
+                return ResourceManager.GetString("ES0002CodeFixTitle", resourceCulture);
+            }
+        }
+        
+        internal static string ES0002Title {
+            get {
+                return ResourceManager.GetString("ES0002Title", resourceCulture);
+            }
+        }
+        
+        internal static string ES0002Description {
+            get {
+                return ResourceManager.GetString("ES0002Description", resourceCulture);
+            }
+        }
+        
+        internal static string ES0002MessageFormat {
+            get {
+                return ResourceManager.GetString("ES0002MessageFormat", resourceCulture);
+            }
+        }
     }
 }
