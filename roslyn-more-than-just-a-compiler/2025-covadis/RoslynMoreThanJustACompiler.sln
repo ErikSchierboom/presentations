@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewriting", "Rewriting\Rewr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzing.Example", "Analyzing.Example\Analyzing.Example.csproj", "{EC84E32D-CA54-46A1-9E3A-1CD92FAD04C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripting", "Scripting\Scripting.csproj", "{98EAB424-C093-4DA0-A7F8-FFE0EB6773D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repl", "Repl\Repl.csproj", "{98EAB424-C093-4DA0-A7F8-FFE0EB6773D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renaming", "Renaming\Renaming.csproj", "{BA5658B3-B6EB-4B3F-8D39-359468781C38}"
 EndProject
