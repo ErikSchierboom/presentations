@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Rewriting;
 
 const string sourceFilePath = "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Rewriting.Example/Gigasecond.cs";
 var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
@@ -16,51 +17,54 @@ root = root.NormalizeWhitespace();
 
 File.WriteAllText(sourceFilePath, root.ToFullString());
 
-internal sealed class RemoveEmptyStatements : CSharpSyntaxRewriter
+namespace Rewriting
 {
-    public override SyntaxNode? VisitEmptyStatement(EmptyStatementSyntax node)
+    internal sealed class RemoveEmptyStatements : CSharpSyntaxRewriter
     {
-        return null;
+        public override SyntaxNode? VisitEmptyStatement(EmptyStatementSyntax node)
+        {
+            return null;
+        }
     }
-}
 
-internal sealed class UseExponentNotation : CSharpSyntaxRewriter
-{
-    public override SyntaxToken VisitToken(SyntaxToken token)
+    internal sealed class UseExponentNotation : CSharpSyntaxRewriter
     {
-        if (token.IsKind(SyntaxKind.NumericLiteralToken) && 
-            token.Value is 1e9 &&
-            token.Text != "1e9")
-            return SyntaxFactory.Literal("1e9", 1e9).WithTriviaFrom(token);
+        public override SyntaxToken VisitToken(SyntaxToken token)
+        {
+            if (token.IsKind(SyntaxKind.NumericLiteralToken) && 
+                token.Value is 1e9 &&
+                token.Text != "1e9")
+                return SyntaxFactory.Literal("1e9", 1e9).WithTriviaFrom(token);
         
-        return base.VisitToken(token);
+            return base.VisitToken(token);
+        }
     }
-}
 
-internal sealed class UseVarRewriter : CSharpSyntaxRewriter
-{
-    public override SyntaxNode? VisitVariableDeclaration(VariableDeclarationSyntax node)
+    internal sealed class UseVarRewriter : CSharpSyntaxRewriter
     {
-        if (node.Type.IsVar)
-            return base.VisitVariableDeclaration(node);
+        public override SyntaxNode? VisitVariableDeclaration(VariableDeclarationSyntax node)
+        {
+            if (node.Type.IsVar)
+                return base.VisitVariableDeclaration(node);
         
-        return base.VisitVariableDeclaration(
-            node.WithType(
-                SyntaxFactory.IdentifierName("var").WithTriviaFrom(node.Type)
-            ));
+            return base.VisitVariableDeclaration(
+                node.WithType(
+                    SyntaxFactory.IdentifierName("var").WithTriviaFrom(node.Type)
+                ));
+        }
     }
-}
 
-internal sealed class UseExpressionBody : CSharpSyntaxRewriter
-{
-    public override SyntaxNode? VisitMethodDeclaration(MethodDeclarationSyntax node)
+    internal sealed class UseExpressionBody : CSharpSyntaxRewriter
     {
-        if (node.Body is { Statements: [ReturnStatementSyntax { Expression: {} expression  }] })
-            return base.VisitMethodDeclaration(
-                node.WithBody(null)
-                    .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(expression))
-                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+        public override SyntaxNode? VisitMethodDeclaration(MethodDeclarationSyntax node)
+        {
+            if (node.Body is { Statements: [ReturnStatementSyntax { Expression: {} expression  }] })
+                return base.VisitMethodDeclaration(
+                    node.WithBody(null)
+                        .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(expression))
+                        .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
 
-        return base.VisitMethodDeclaration(node);
+            return base.VisitMethodDeclaration(node);
+        }
     }
 }

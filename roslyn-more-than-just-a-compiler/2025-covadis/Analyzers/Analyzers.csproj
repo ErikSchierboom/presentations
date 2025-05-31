@@ -10,6 +10,7 @@
         <IsRoslynComponent>true</IsRoslynComponent>
 
         <PackageId>Analyzers</PackageId>
+        <NoWarn>RS2008</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
