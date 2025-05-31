@@ -3,11 +3,10 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
-using Microsoft.CodeAnalysis.FindSymbols;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.CodeAnalysis.Rename;
 
-var solutionFilePath = "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/RoslynMoreThanJustACompiler.sln";
+const string solutionFilePath = "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/RoslynMoreThanJustACompiler.sln";
 
 using var workspace = MSBuildWorkspace.Create();
 var solution = await workspace.OpenSolutionAsync(solutionFilePath);
