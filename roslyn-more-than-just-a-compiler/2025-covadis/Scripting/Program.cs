@@ -1,25 +1,15 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.CodeAnalysis.CSharp.Scripting;
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+Console.Write("> ");
+var code = Console.ReadLine();
 
-var app = builder.Build();
+var state = await CSharpScript.RunAsync(code);
+Console.WriteLine(state.ReturnValue);
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+while (true)
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    Console.Write("> ");
+    code = Console.ReadLine();
+    state = await state.ContinueWithAsync(code);
+    Console.WriteLine(state.ReturnValue);
 }
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapStaticAssets();
-app.MapRazorPages()
-    .WithStaticAssets();
-
-app.Run();

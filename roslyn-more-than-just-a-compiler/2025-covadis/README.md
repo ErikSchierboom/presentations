@@ -19,18 +19,18 @@ Fases:
      - Trivia zijn comments, whitespace en andere niet-code elementen
    - Syntax tree is immutable
 2. Declaration fase
-    - Identificeert symbolen (zoals classes, methods, etc.) in de syntax tree
-    - Maakt een symbol table aan
-    - Verzamelt informatie over de symbolen
+   - Identificeert symbolen (zoals classes, methods, etc.) in de syntax tree
+   - Maakt een symbol table aan
+   - Verzamelt informatie over de symbolen
 3. Bind fase
-    - Verbindt symbolen met hun definitie
-    - Controleert de semantiek van de code
-    - Maakt een semantisch model aan
-    - Voert type checking uit
-    - Verzamelt informatie over types, methoden, etc.
+   - Verbindt symbolen met hun definitie
+   - Controleert de semantiek van de code
+   - Maakt een semantisch model aan
+   - Voert type checking uit
+   - Verzamelt informatie over types, methoden, etc.
 4. Emit fase
-    - Genereert de bytecode of IL (Intermediate Language) van de code
-    - Dit is de code die uiteindelijk wordt uitgevoerd door de .NET runtime
+   - Genereert de bytecode of IL (Intermediate Language) van de code
+   - Dit is de code die uiteindelijk wordt uitgevoerd door de .NET runtime
 
 Diagram: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/compiler-api-model#compiler-pipeline-functional-areas
 
