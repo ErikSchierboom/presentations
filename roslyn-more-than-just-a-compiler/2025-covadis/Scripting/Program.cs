@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 
 Console.Write("> ");
