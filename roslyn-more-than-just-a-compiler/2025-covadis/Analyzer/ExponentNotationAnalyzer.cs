@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -26,20 +27,11 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
         context.EnableConcurrentExecution();
         
-        context.RegisterSyntaxNodeAction(Analyze, SyntaxKind.NumericLiteralExpression);
+        // TODO: register syntax node action
     }
 
     private static void Analyze(SyntaxNodeAnalysisContext context)
     {
-        var literalExpression = (LiteralExpressionSyntax)context.Node;
-        var token = literalExpression.Token;
-
-        if (token.IsKind(SyntaxKind.NumericLiteralToken) &&
-            token.Value is 1_000_000_000 &&
-            token.Text != "1e9")
-        {
-            var diagnostic = Diagnostic.Create(Rule, literalExpression.GetLocation());
-            context.ReportDiagnostic(diagnostic);
-        }
+        throw new NotImplementedException();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 using System.Composition;
 using System.Linq;
@@ -24,23 +25,14 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
 
     public sealed override Task RegisterCodeFixesAsync(CodeFixContext context)
     {
-        var diagnostic = context.Diagnostics.Single();
-        var codeAction = CodeAction.Create(
-            Title,
-            createChangedSolution: ct => UseExponentNotation(context.Document, diagnostic.Location.SourceSpan, ct),
-            Title);
-        context.RegisterCodeFix(codeAction, diagnostic);
+        // TODO: create code action
+        // TODO: register code fix
+
         return Task.CompletedTask;
     }
 
-    private static async Task<Solution> UseExponentNotation(Document document, TextSpan textSpan, CancellationToken cancellationToken)
+    private static Task<Solution> UseExponentNotation(Document document, TextSpan textSpan, CancellationToken cancellationToken)
     {
-        var root = await document.GetSyntaxRootAsync(cancellationToken);
-        var literalExpression = (LiteralExpressionSyntax)root!.FindNode(textSpan, getInnermostNodeForTie: true);
-        
-        var newLiteralExpression = literalExpression.WithToken(SyntaxFactory.Literal("1e9", 1e9));
-        var newRoot = root.ReplaceNode(literalExpression, newLiteralExpression);
-        var newDocument = document.WithSyntaxRoot(newRoot);
-        return newDocument.Project.Solution;
+        throw new NotImplementedException();
     }
 }

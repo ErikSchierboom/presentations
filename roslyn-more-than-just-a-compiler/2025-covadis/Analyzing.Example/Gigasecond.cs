@@ -6,6 +6,6 @@ public static class Gigasecond
 {
     public static DateTime Add(DateTime birthDate)
     {
-        return birthDate.AddSeconds(1e9);
+        return birthDate + TimeSpan.FromSeconds(1_000_000_000);
     }
 }
