@@ -1,15 +1,15 @@
 using System.Threading.Tasks;
 using Xunit;
 using Verifier =
-    Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<Analyzers.AddSecondsAnalyzer,
-        Analyzers.AddSecondsCodeFixProvider>;
+    Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<Analyzers.ExponentNotationAnalyzer,
+        Analyzers.ExponentNotationCodeFixProvider>;
 
-namespace Analyzers.Tests;
+namespace Analyzer.Tests;
 
-public class AddSecondsCodeFixProviderTests
+public class ExponentNotationCodeFixProviderTests
 {
     [Fact]
-    public async Task UsesAddMilliseconds_ReplaceWithAddSeconds()
+    public async Task MultipleOfTen_ReplaceWithExponentNotation()
     {
         const string source = @"
 using System;
@@ -19,7 +19,7 @@ namespace Solution3;
 public static class Gigasecond
 {
     public static DateTime Add(DateTime birthDate) =>
-        birthDate.AddMilliseconds(1e12);
+        birthDate.AddSeconds(1_000_000_000);
 }
 ";
 
@@ -36,8 +36,8 @@ public static class Gigasecond
 ";
 
         var expected = Verifier.Diagnostic()
-            .WithMessage("Use 'AddSeconds' instead of 'AddMilliseconds'")
-            .WithLocation(9, 9);
+            .WithMessage("Convert '1_000_000_000' to exponent notation")
+            .WithLocation(9, 30);
         await Verifier.VerifyCodeFixAsync(source, expected, fixedSource);
     }
 }

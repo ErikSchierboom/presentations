@@ -3,14 +3,14 @@ using Microsoft.CodeAnalysis;
 using Xunit;
 using Verifier =
     Microsoft.CodeAnalysis.CSharp.Testing.XUnit.AnalyzerVerifier<
-        Analyzers.ExponentNotationAnalyzer>;
+        Analyzers.AddSecondsAnalyzer>;
 
-namespace Analyzers.Tests;
+namespace Analyzer.Tests;
 
-public class ExponentNotationAnalyzerTests
+public class AddSecondsAnalyzerTests
 {   
     [Fact]
-    public async Task CanUseExponentNotation_AlertsDiagnostic()
+    public async Task UsesAddMilliseconds_AlertsDiagnostic()
     {
         const string source = @"
 using System;
@@ -20,18 +20,18 @@ namespace Solution3;
 public static class Gigasecond
 {
     public static DateTime Add(DateTime birthDate) =>
-        birthDate.AddSeconds(1_000_000_000);
+        birthDate.AddMilliseconds(1e9);
 }
 ";
 
         var expected = Verifier.Diagnostic()
-            .WithMessage("Convert '1_000_000_000' to exponent notation")
+            .WithMessage("Use 'AddSeconds' instead of 'AddMilliseconds'")
             .WithSeverity(DiagnosticSeverity.Warning)
-            .WithLocation(9, 30);
+            .WithLocation(9, 9);
         await Verifier.VerifyAnalyzerAsync(source, expected);
     }
     [Fact]
-    public async Task AlreadyUsesExponentNotation_DoesNotAlertDiagnostic()
+    public async Task UsesAddSeconds_DoesNotAlertDiagnostic()
     {
         const string source = @"
 using System;

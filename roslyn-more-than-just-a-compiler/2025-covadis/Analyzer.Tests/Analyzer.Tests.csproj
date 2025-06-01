@@ -3,7 +3,6 @@
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
-
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
@@ -19,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Analyzers\Analyzers.csproj" />
+        <ProjectReference Include="..\Analyzer\Analyzer.csproj" />
     </ItemGroup>
 
 </Project>

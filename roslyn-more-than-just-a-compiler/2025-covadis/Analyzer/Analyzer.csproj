@@ -9,7 +9,7 @@
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
 
-        <PackageId>Analyzers</PackageId>
+        <PackageId>Analyzer</PackageId>
         <NoWarn>RS2008</NoWarn>
     </PropertyGroup>
 
