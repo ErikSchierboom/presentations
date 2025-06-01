@@ -1,19 +1,4 @@
-using Microsoft.CodeAnalysis.CSharp.Scripting;
+// TODO: use RunAsync
+// TODO: use ContinueWithAsync
 
-Console.Write("> ");
-var code = Console.ReadLine();
-
-var state = await CSharpScript.RunAsync(code);
-Console.WriteLine(state.ReturnValue);
-foreach (var variable in state.Variables)
-    Console.WriteLine($"{variable.Name} = {variable.Value}");
-
-while (true)
-{
-    Console.Write("> ");
-    code = Console.ReadLine();
-    state = await state.ContinueWithAsync(code);
-    Console.WriteLine(state.ReturnValue);
-    foreach (var variable in state.Variables)
-        Console.WriteLine($"{variable.Name} = {variable.Value}");
-}
+Console.WriteLine("TODO: create REPL");

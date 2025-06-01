@@ -1,6 +1,6 @@
 # Roslyn: Meer Dan Alleen een Compiler
 
-## Introductie
+## Introductie (3 min.)
 
 - Roslyn is de code naam voor het .NET Compiler Platform, waar zowel de compilers als code analyse API's voor C# én VB toe behoren
 - Oorspronkelijke C# compiler was geschreven in C++
@@ -10,7 +10,7 @@
   - Verbeteren onderhoudbaarheid en verhoogde productiviteit (sneller nieuwe features)
   - Dogfooding (gebruik C# in de C# compiler)
 
-## Opzet compiler
+## Opzet compiler (3 min.)
 
 Fases:
 

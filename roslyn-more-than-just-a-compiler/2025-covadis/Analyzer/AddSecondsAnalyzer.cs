@@ -1,9 +1,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Operations;
 
 namespace Analyzer;
 
@@ -23,30 +21,6 @@ public class AddSecondsAnalyzer : DiagnosticAnalyzer
 
     public override void Initialize(AnalysisContext context)
     {
-        context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-        context.EnableConcurrentExecution();
-
-        context.RegisterCompilationStartAction(compilationStartContext =>
-        {
-            var dateTimeType = compilationStartContext.Compilation.GetSpecialType(SpecialType.System_DateTime);
-            var addMillisecondsMethod = dateTimeType.GetMembers("AddMilliseconds").OfType<IMethodSymbol>().First();
-            
-            compilationStartContext.RegisterOperationAction(
-                operationAnalysisContext => AnalyzeOperation(operationAnalysisContext, addMillisecondsMethod), 
-                OperationKind.Invocation);
-        });
-    }
-
-    private static void AnalyzeOperation(OperationAnalysisContext context, IMethodSymbol addMillisecondsMethod)
-    {
-        if (context.Operation is not IInvocationOperation invocationOperation ||
-            !invocationOperation.TargetMethod.Equals(addMillisecondsMethod, SymbolEqualityComparer.Default) ||
-            invocationOperation.Syntax is not InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccessExpression })
-            return;
-        
-        var diagnostic = Diagnostic.Create(Rule,
-            invocationOperation.Syntax.GetLocation(),
-            memberAccessExpression.Name.Identifier.Text);
-        context.ReportDiagnostic(diagnostic);
+        // TODO: register invocation operation callback
     }
 }
