@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 using Xunit;
 using Verifier =
     Microsoft.CodeAnalysis.CSharp.Testing.XUnit.AnalyzerVerifier<
-        Analyzers.AddSecondsAnalyzer>;
+        Analyzer.AddSecondsAnalyzer>;
 
 namespace Analyzer.Tests;
 

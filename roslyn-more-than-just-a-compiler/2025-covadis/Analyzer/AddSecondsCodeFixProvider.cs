@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Analyzers;
+namespace Analyzer;
 
 [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddSecondsCodeFixProvider)), Shared]
 public class AddSecondsCodeFixProvider : CodeFixProvider

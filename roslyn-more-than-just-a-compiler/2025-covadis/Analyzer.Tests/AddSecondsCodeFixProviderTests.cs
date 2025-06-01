@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Xunit;
 using Verifier =
-    Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<Analyzers.AddSecondsAnalyzer,
-        Analyzers.AddSecondsCodeFixProvider>;
+    Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<Analyzer.AddSecondsAnalyzer,
+        Analyzer.AddSecondsCodeFixProvider>;
 
 namespace Analyzer.Tests;
 
