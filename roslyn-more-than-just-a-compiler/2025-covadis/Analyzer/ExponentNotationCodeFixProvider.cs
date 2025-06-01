@@ -15,7 +15,7 @@ namespace Analyzer;
 public class ExponentNotationCodeFixProvider : CodeFixProvider
 {
     public sealed override ImmutableArray<string> FixableDiagnosticIds { get; } =
-        ImmutableArray.Create(ExponentNotationAnalyzer.DiagnosticId);
+        [ExponentNotationAnalyzer.DiagnosticId];
 
     public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 

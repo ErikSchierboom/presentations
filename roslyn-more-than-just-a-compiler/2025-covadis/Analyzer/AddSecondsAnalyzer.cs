@@ -41,13 +41,9 @@ public class AddSecondsAnalyzer : DiagnosticAnalyzer
 
     private static void AnalyzeOperation(OperationAnalysisContext context, IMethodSymbol addMillisecondsMethod)
     {
-        if (context.Operation is not IInvocationOperation invocationOperation)
-            return;
-
-        if (!invocationOperation.TargetMethod.Equals(addMillisecondsMethod, SymbolEqualityComparer.Default))
-            return;
-
-        if (invocationOperation.Syntax is not InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccessExpression })
+        if (context.Operation is not IInvocationOperation invocationOperation ||
+            !invocationOperation.TargetMethod.Equals(addMillisecondsMethod, SymbolEqualityComparer.Default) ||
+            invocationOperation.Syntax is not InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccessExpression })
             return;
         
         var diagnostic = Diagnostic.Create(Rule,

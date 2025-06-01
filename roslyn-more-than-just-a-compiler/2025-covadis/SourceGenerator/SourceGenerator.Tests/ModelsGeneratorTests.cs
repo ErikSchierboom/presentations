@@ -10,7 +10,7 @@ namespace SourceGenerator.Tests;
 public class ModelsGeneratorTests
 {
     [Fact]
-    public void GenerateClassesBasedOnJson()
+    public void Generate_classes_based_on_json()
     {
         var generator = new ModelsGenerator();
         var driver = CSharpGeneratorDriver.Create(generator)

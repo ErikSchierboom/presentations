@@ -15,7 +15,7 @@ namespace Analyzer;
 public class AddSecondsCodeFixProvider : CodeFixProvider
 {
     public sealed override ImmutableArray<string> FixableDiagnosticIds { get; } =
-        ImmutableArray.Create(AddSecondsAnalyzer.DiagnosticId);
+        [AddSecondsAnalyzer.DiagnosticId];
 
     public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 

@@ -27,8 +27,7 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
     private static readonly DiagnosticDescriptor Rule = new(DiagnosticId, Title, MessageFormat, Category,
         DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
-        ImmutableArray.Create(Rule);
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = [Rule];
 
     public override void Initialize(AnalysisContext context)
     {
@@ -40,13 +39,10 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
 
     private static void AnalyzeSyntax(SyntaxNodeAnalysisContext context)
     {
-        if (context.Node is not LiteralExpressionSyntax literalExpression)
-            return;
-        if (!literalExpression.Token.IsKind(SyntaxKind.NumericLiteralToken))
-            return;
-        if (literalExpression.Token.Value is not 1000000000)
-            return;
-        if (literalExpression.Token.Text == "1e9")
+        if (context.Node is not LiteralExpressionSyntax literalExpression ||
+            !literalExpression.Token.IsKind(SyntaxKind.NumericLiteralToken) ||
+            literalExpression.Token.Value is not 1000000000 ||
+            literalExpression.Token.Text == "1e9")
             return;
 
         var diagnostic = Diagnostic.Create(Rule,
