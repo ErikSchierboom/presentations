@@ -11,39 +11,29 @@ namespace Analyzer;
 public class AddSecondsAnalyzer : DiagnosticAnalyzer
 {
     public const string DiagnosticId = "ES0002";
-
-    private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ES0002Title),
-        Resources.ResourceManager, typeof(Resources));
-
-    private static readonly LocalizableString MessageFormat =
-        new LocalizableResourceString(nameof(Resources.ES0002MessageFormat), Resources.ResourceManager,
-            typeof(Resources));
-
-    private static readonly LocalizableString Description =
-        new LocalizableResourceString(nameof(Resources.ES0002Description), Resources.ResourceManager,
-            typeof(Resources));
-    
     private const string Category = "Usage";
+    private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ES0002Title), Resources.ResourceManager, typeof(Resources));
+    private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.ES0002MessageFormat), Resources.ResourceManager, typeof(Resources));
+    private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.ES0002Description), Resources.ResourceManager, typeof(Resources));
 
     private static readonly DiagnosticDescriptor Rule = new(DiagnosticId, Title, MessageFormat, Category,
         DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
-        ImmutableArray.Create(Rule);
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(Rule);
 
     public override void Initialize(AnalysisContext context)
     {
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
         context.EnableConcurrentExecution();
 
-        context.RegisterCompilationStartAction(compilationStartAnalysisContext =>
+        context.RegisterCompilationStartAction(compilationStartContext =>
         {
-            var dateTimeType = compilationStartAnalysisContext.Compilation.GetTypeByMetadataName("System.DateTime")!;
+            var dateTimeType = compilationStartContext.Compilation.GetSpecialType(SpecialType.System_DateTime);
             var addMillisecondsMethod = dateTimeType.GetMembers("AddMilliseconds")
                 .OfType<IMethodSymbol>()
                 .First();
             
-            compilationStartAnalysisContext.RegisterOperationAction(
+            compilationStartContext.RegisterOperationAction(
                 operationAnalysisContext => AnalyzeOperation(operationAnalysisContext, addMillisecondsMethod), 
                 OperationKind.Invocation);
         });
