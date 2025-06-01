@@ -18,8 +18,3 @@ var assembly = Assembly.Load(ms.ToArray());
 var movieType = assembly.GetType("Movie");
 var movie = Activator.CreateInstance(movieType, "Inception", 2010);
 Console.WriteLine(movie);
-Console.WriteLine("Emitted");
-
-// TODO: emit IL code to stream
-// TODO: load assembly
-// TODO: create instance of Movie
