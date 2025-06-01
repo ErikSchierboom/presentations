@@ -10,19 +10,10 @@ namespace Analyzer;
 public class ExponentNotationAnalyzer : DiagnosticAnalyzer
 {
     public const string DiagnosticId = "ES0001";
-
-    private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ES0001Title),
-        Resources.ResourceManager, typeof(Resources));
-
-    private static readonly LocalizableString MessageFormat =
-        new LocalizableResourceString(nameof(Resources.ES0001MessageFormat), Resources.ResourceManager,
-            typeof(Resources));
-
-    private static readonly LocalizableString Description =
-        new LocalizableResourceString(nameof(Resources.ES0001Description), Resources.ResourceManager,
-            typeof(Resources));
-
     private const string Category = "Naming";
+    private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ES0001Title), Resources.ResourceManager, typeof(Resources));
+    private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.ES0001MessageFormat), Resources.ResourceManager, typeof(Resources));
+    private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.ES0001Description), Resources.ResourceManager, typeof(Resources));
 
     private static readonly DiagnosticDescriptor Rule = new(DiagnosticId, Title, MessageFormat, Category,
         DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);

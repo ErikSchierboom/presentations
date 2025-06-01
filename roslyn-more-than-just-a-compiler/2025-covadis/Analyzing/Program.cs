@@ -27,13 +27,6 @@ if (classIsNotStatic)
 var methodDeclaration = classDeclaration.Members
     .OfType<MethodDeclarationSyntax>()
     .Single(methodDeclaration => methodDeclaration.Identifier.Text == "Add");
-var canUseExpressionBody = methodDeclaration.Body?.Statements is [_];
-if (canUseExpressionBody)
-{
-    Console.WriteLine("Please use an expression-bodied method instead of a block method.");
-    return;
-}
-
 var canUseExponentNotation = methodDeclaration
     .DescendantTokens()
     .Any(token => token.IsKind(SyntaxKind.NumericLiteralToken) && 

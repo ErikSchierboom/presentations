@@ -29,9 +29,7 @@ public class AddSecondsAnalyzer : DiagnosticAnalyzer
         context.RegisterCompilationStartAction(compilationStartContext =>
         {
             var dateTimeType = compilationStartContext.Compilation.GetSpecialType(SpecialType.System_DateTime);
-            var addMillisecondsMethod = dateTimeType.GetMembers("AddMilliseconds")
-                .OfType<IMethodSymbol>()
-                .First();
+            var addMillisecondsMethod = dateTimeType.GetMembers("AddMilliseconds").OfType<IMethodSymbol>().First();
             
             compilationStartContext.RegisterOperationAction(
                 operationAnalysisContext => AnalyzeOperation(operationAnalysisContext, addMillisecondsMethod), 

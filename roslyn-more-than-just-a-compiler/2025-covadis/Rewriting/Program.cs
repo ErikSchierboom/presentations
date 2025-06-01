@@ -7,7 +7,6 @@ var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
 var root = await syntaxTree.GetRootAsync();
 
 root = new RemoveEmptyStatements().Visit(root);
-root = new UseVarRewriter().Visit(root);
 root = new UseExponentNotation().Visit(root);
 root = new UseExpressionBody().Visit(root);
 
@@ -33,20 +32,6 @@ internal sealed class UseExponentNotation : CSharpSyntaxRewriter
             return SyntaxFactory.Literal("1e9", 1e9).WithTriviaFrom(token);
     
         return base.VisitToken(token);
-    }
-}
-
-internal sealed class UseVarRewriter : CSharpSyntaxRewriter
-{
-    public override SyntaxNode? VisitVariableDeclaration(VariableDeclarationSyntax node)
-    {
-        if (node.Type.IsVar)
-            return base.VisitVariableDeclaration(node);
-    
-        return base.VisitVariableDeclaration(
-            node.WithType(
-                SyntaxFactory.IdentifierName("var").WithTriviaFrom(node.Type)
-            ));
     }
 }
 
