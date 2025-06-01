@@ -38,7 +38,7 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
             token.Value is 1_000_000_000 &&
             token.Text != "1e9")
         {
-            var diagnostic = Diagnostic.Create(Rule, literalExpression.GetLocation(), token.Text);
+            var diagnostic = Diagnostic.Create(Rule, literalExpression.GetLocation());
             context.ReportDiagnostic(diagnostic);
         }
     }
