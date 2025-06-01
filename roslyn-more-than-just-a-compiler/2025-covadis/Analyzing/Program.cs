@@ -1,4 +1,5 @@
-﻿var sourceFilePath = Path.GetFullPath("../../../../Analyzing.Example/Gigasecond.cs");
+﻿var sourceCodeFilePath = Path.GetFullPath("../../../../Analyzing.Example/Gigasecond.cs");
+var sourceCode = File.ReadAllText(sourceCodeFilePath);
 
 Console.WriteLine("Analyzed");
 
