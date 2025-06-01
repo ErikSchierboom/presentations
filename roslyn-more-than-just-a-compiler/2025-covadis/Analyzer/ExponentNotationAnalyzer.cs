@@ -1,5 +1,7 @@
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Analyzer;
@@ -9,9 +11,9 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
 {
     public const string DiagnosticId = "ES0001";
     private const string Category = "Naming";
-    private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ES0001Title), Resources.ResourceManager, typeof(Resources));
-    private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.ES0001MessageFormat), Resources.ResourceManager, typeof(Resources));
-    private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.ES0001Description), Resources.ResourceManager, typeof(Resources));
+    private const string Title = "Use exponent notation";
+    private const string MessageFormat = "Use exponent notation";
+    private const string Description = "Use exponent notation to simplify multiples of ten.";
 
     private static readonly DiagnosticDescriptor Rule = new(DiagnosticId, Title, MessageFormat, Category,
         DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
@@ -23,6 +25,20 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
         context.EnableConcurrentExecution();
         
-        // TODO: register syntax node callback
+        context.RegisterSyntaxNodeAction(Analyze, SyntaxKind.NumericLiteralExpression);
+    }
+
+    private static void Analyze(SyntaxNodeAnalysisContext context)
+    {
+        var literalExpression = (LiteralExpressionSyntax)context.Node;
+        var token = literalExpression.Token;
+
+        if (token.IsKind(SyntaxKind.NumericLiteralToken) &&
+            token.Value is 1_000_000_000 &&
+            token.Text != "1e9")
+        {
+            var diagnostic = Diagnostic.Create(Rule, literalExpression.GetLocation(), token.Text);
+            context.ReportDiagnostic(diagnostic);
+        }
     }
 }
