@@ -2,19 +2,13 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-const string greeterClassSource = @"
-public class Greeter
-{
-    public string Greet()
-    {
-        return ""Hello!"";
-    }
-}
+const string movieSource = @"
+record Movie(string Title, int Year);
 ";
 
-var syntaxTree = CSharpSyntaxTree.ParseText(greeterClassSource);
+var syntaxTree = CSharpSyntaxTree.ParseText(movieSource);
 
-const string assemblyName = "GreeterAssembly";
+const string assemblyName = "MovieAssembly";
 var compilation = CSharpCompilation.Create(
     assemblyName,
     syntaxTrees: [syntaxTree],
@@ -22,18 +16,10 @@ var compilation = CSharpCompilation.Create(
     options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
 var stream = new MemoryStream();
-var emitResult = compilation.Emit(stream);
-if (!emitResult.Success)
-{
-    foreach (var diagnostic in emitResult.Diagnostics)
-        Console.WriteLine(diagnostic);
-
-    return;
-}
+compilation.Emit(stream);
 
 var assembly = Assembly.Load(stream.ToArray());
-var greeterClass = assembly.GetType("Greeter")!;
-var greeterInstance = Activator.CreateInstance(greeterClass);
-var greeting = greeterClass.GetMethod("Greet")!.Invoke(greeterInstance, []);
+var movieType = assembly.GetType("Movie")!;
+var movieInstance = Activator.CreateInstance(movieType, "Inception", 2010)!;
 
-Console.WriteLine(greeting);
+Console.WriteLine(movieInstance);
