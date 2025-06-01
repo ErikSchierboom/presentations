@@ -1,7 +1,5 @@
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Analyzer;
@@ -22,23 +20,6 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
 
     public override void Initialize(AnalysisContext context)
     {
-        context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-        context.EnableConcurrentExecution();
-
-        context.RegisterSyntaxNodeAction(AnalyzeSyntax, SyntaxKind.NumericLiteralExpression);
-    }
-
-    private static void AnalyzeSyntax(SyntaxNodeAnalysisContext context)
-    {
-        if (context.Node is not LiteralExpressionSyntax literalExpression ||
-            !literalExpression.Token.IsKind(SyntaxKind.NumericLiteralToken) ||
-            literalExpression.Token.Value is not 1000000000 ||
-            literalExpression.Token.Text == "1e9")
-            return;
-
-        var diagnostic = Diagnostic.Create(Rule,
-            literalExpression.GetLocation(),
-            literalExpression.Token.Text);
-        context.ReportDiagnostic(diagnostic);
+        // TODO: register syntax node callback
     }
 }
