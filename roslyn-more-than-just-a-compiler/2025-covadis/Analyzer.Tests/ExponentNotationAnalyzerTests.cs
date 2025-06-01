@@ -25,7 +25,7 @@ public static class Gigasecond
 ";
 
         var expected = Verifier.Diagnostic()
-            .WithMessage("Convert '1_000_000_000' to exponent notation")
+            .WithMessage("Use exponent notation")
             .WithSeverity(DiagnosticSeverity.Warning)
             .WithLocation(9, 30);
         await Verifier.VerifyAnalyzerAsync(source, expected);
