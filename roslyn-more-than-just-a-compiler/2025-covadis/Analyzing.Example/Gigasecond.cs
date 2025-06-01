@@ -2,7 +2,7 @@ using System;
 
 namespace Analyzing.Example
 {
-    public static class Gigasecond
+    static class Gigasecond
     {
         public static DateTime Add(DateTime birthDate)
         {
