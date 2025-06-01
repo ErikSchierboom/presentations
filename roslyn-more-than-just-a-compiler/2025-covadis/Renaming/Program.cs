@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Editing;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.CodeAnalysis.Rename;
 
-var solutionFilePath = Path.GetFullPath(Path.Combine("..", "..", "..", "..", "RoslynMoreThanJustACompiler.sln"));
+var solutionFilePath = Path.GetFullPath("../../../../RoslynMoreThanJustACompiler.sln");
 using var workspace = MSBuildWorkspace.Create();
 var solution = await workspace.OpenSolutionAsync(solutionFilePath);
 

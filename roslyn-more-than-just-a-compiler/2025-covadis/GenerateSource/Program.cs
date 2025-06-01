@@ -16,5 +16,5 @@ var code = CompilationUnit()
             .WithSemicolonToken(Token(SyntaxKind.SemicolonToken)))
     .NormalizeWhitespace();
    
-var generateSourceFilePath = Path.GetFullPath(Path.Combine("..", "..", "..", "Movie.cs"));
+var generateSourceFilePath = Path.GetFullPath("../../../Movie.cs");
 File.WriteAllText(generateSourceFilePath, code.ToFullString());

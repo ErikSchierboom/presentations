@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Operations;
 
-var sourceFilePath = Path.GetFullPath(Path.Combine("..", "..", "..", "..", "Analyzing.Example", "Gigasecond.cs"));
+var sourceFilePath = Path.GetFullPath("../../../../Analyzing.Example/Gigasecond.cs");
 var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
 var root = await syntaxTree.GetRootAsync();
 
