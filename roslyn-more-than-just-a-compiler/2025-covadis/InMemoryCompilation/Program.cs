@@ -15,6 +15,6 @@ using var ms = new MemoryStream();
 compilation.Emit(ms);
 
 var assembly = Assembly.Load(ms.ToArray());
-var movieType = assembly.GetType("Movie");
+var movieType = assembly.GetType("Movie")!;
 var movie = Activator.CreateInstance(movieType, "Inception", 2010);
 Console.WriteLine(movie);
