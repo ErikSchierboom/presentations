@@ -12,7 +12,7 @@ var solution = await workspace.OpenSolutionAsync(solutionFilePath);
 foreach (var project in solution.Projects)
 {
     var compilation = await project.GetCompilationAsync();
-    var factAttribute = compilation.GetTypeByMetadataName("Xunit.FactAttribute")!;
+    var factAttribute = compilation!.GetTypeByMetadataName("Xunit.FactAttribute")!;
 
     foreach (var document in project.Documents)
     {
@@ -25,7 +25,7 @@ foreach (var project in solution.Projects)
         {
             var methodSymbol = (IMethodSymbol)documentEditor.SemanticModel.GetDeclaredSymbol(method)!;
             var isTestMethod = methodSymbol.GetAttributes()
-                .Any(attribute => attribute.AttributeClass.Equals(factAttribute, SymbolEqualityComparer.Default));
+                .Any(attribute => attribute.AttributeClass!.Equals(factAttribute, SymbolEqualityComparer.Default));
             if (isTestMethod)
             {
                 solution = await Renamer.RenameSymbolAsync(solution, methodSymbol, new SymbolRenameOptions(),
