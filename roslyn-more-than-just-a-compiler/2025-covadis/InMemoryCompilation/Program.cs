@@ -5,9 +5,9 @@ using Microsoft.CodeAnalysis.CSharp;
 const string greeterClassSource = @"
 public class Greeter
 {
-    public string Greet(string name)
+    public string Greet()
     {
-        return $""Hello, {name}!"";
+        return ""Hello!"";
     }
 }
 ";
@@ -34,6 +34,6 @@ if (!emitResult.Success)
 var assembly = Assembly.Load(stream.ToArray());
 var greeterClass = assembly.GetType("Greeter")!;
 var greeterInstance = Activator.CreateInstance(greeterClass);
-var greeting = greeterClass.GetMethod("Greet")!.Invoke(greeterInstance, ["World"]);
+var greeting = greeterClass.GetMethod("Greet")!.Invoke(greeterInstance, []);
 
 Console.WriteLine(greeting);
