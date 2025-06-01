@@ -30,7 +30,7 @@ internal class UseExponentNotation : CSharpSyntaxRewriter
         if (token.IsKind(SyntaxKind.NumericLiteralToken) &&
             token.Value is 1_000_000_000 &&
             token.Text != "1e9")
-            return SyntaxFactory.Literal("1e9", 1_000_000_000);
+            return SyntaxFactory.Literal("1e9", 1e9);
             
         return base.VisitToken(token);
     }
