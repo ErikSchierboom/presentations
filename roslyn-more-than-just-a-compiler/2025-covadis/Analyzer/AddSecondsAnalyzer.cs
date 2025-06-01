@@ -21,6 +21,9 @@ public class AddSecondsAnalyzer : DiagnosticAnalyzer
 
     public override void Initialize(AnalysisContext context)
     {
+        context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
+        context.EnableConcurrentExecution();
+        
         // TODO: register invocation operation callback
     }
 }
