@@ -7,8 +7,8 @@ var sourceFilePath = Path.GetFullPath("../../../../Analyzing.Example/Gigasecond.
 var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
 var root = await syntaxTree.GetRootAsync();
 
-var canUseFileScopedNamespace = root.DescendantNodes().OfType<NamespaceDeclarationSyntax>().Any();
-if (canUseFileScopedNamespace)
+var doesNotUseFileScopedNamespace = !root.DescendantNodes().OfType<FileScopedNamespaceDeclarationSyntax>().Any();
+if (doesNotUseFileScopedNamespace)
 {
     Console.WriteLine("Please use a file-scoped namespace declaration.");
     return; 
@@ -53,7 +53,7 @@ var compilation = CSharpCompilation.Create(
 var diagnostics = compilation.GetDiagnostics();
 var semanticModel = compilation.GetSemanticModel(syntaxTree);
 
-var dateTimeStruct = compilation.GetTypeByMetadataName("System.DateTime")!;
+var dateTimeStruct = compilation.GetSpecialType(SpecialType.System_DateTime);
 var addSecondsCall = dateTimeStruct.GetMembers("AddSeconds").Single();
 var invocationExpression = root.DescendantNodes()
     .OfType<InvocationExpressionSyntax>()
