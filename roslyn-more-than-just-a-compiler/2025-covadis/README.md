@@ -119,6 +119,11 @@ Demo:
    - `var diagnostic = Diagnostic.Create(Rule, literalExpression.GetLocation(), literalExpression.Token.Text);`
    - `context.ReportDiagnostic(diagnostic);`
    - Laat tests zien
+2. Exponent notatie fixer
+   - `var codeAction = CodeAction.Create(`
+   - `createChangedSolution: ct => UseExponentNotation(context.Document, diagnostic.Location.SourceSpan, ct)`
+   - `getInnermostNodeForTie: true`
+   - `var newLiteralExpression = literalExpression.WithToken(SyntaxFactory.Literal("1e9", 1e9));`
 
 ## Demo 6: genereer code
 
