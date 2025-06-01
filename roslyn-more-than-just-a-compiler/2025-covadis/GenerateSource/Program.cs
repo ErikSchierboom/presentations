@@ -9,12 +9,12 @@ var code = CompilationUnit()
         RecordDeclaration(Token(SyntaxKind.RecordKeyword), Identifier("Movie"))
             .AddParameterListParameters(
                 Parameter(Identifier("Title"))
-                    .WithType(PredefinedType(Identifier("string"))),
+                    .WithType(PredefinedType(Token(SyntaxKind.StringKeyword))),
                 Parameter(Identifier("Year"))
                     .WithType(PredefinedType(Token(SyntaxKind.IntKeyword)))
                 )
             .WithSemicolonToken(Token(SyntaxKind.SemicolonToken)))
     .NormalizeWhitespace();
    
-const string sourceFilePath = "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/GenerateSource/Movie.cs";
-File.WriteAllText(sourceFilePath, code.ToFullString());
+var generateSourceFilePath = Path.GetFullPath(Path.Combine("..", "..", "..", "Movie.cs"));
+File.WriteAllText(generateSourceFilePath, code.ToFullString());

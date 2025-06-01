@@ -3,9 +3,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rewriting;
 
-const string sourceFilePath = "/Users/erik/Code/presentations/roslyn-more-than-just-a-compiler/2025-covadis/Rewriting.Example/Gigasecond.cs";
+var sourceFilePath = Path.GetFullPath(Path.Combine("..", "..", "..", "..", "Rewriting.Example", "Gigasecond.cs"));
 var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(sourceFilePath));
-
 var root = await syntaxTree.GetRootAsync();
 
 root = new RemoveEmptyStatements().Visit(root);
