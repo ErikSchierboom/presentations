@@ -1,12 +1,11 @@
 using System;
 
-namespace Analyzing.Example
+namespace Analyzing.Example;
+
+public static class Gigasecond
 {
-    public static class Gigasecond
+    public static DateTime Add(DateTime birthDate)
     {
-        public static DateTime Add(DateTime birthDate)
-        {
-            return birthDate + TimeSpan.FromSeconds(1000000000);
-        }
+        return birthDate.AddSeconds(1e9);
     }
 }
