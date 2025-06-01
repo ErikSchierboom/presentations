@@ -18,11 +18,11 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
     private const string Title = "Convert to exponent notation";
     
     public sealed override ImmutableArray<string> FixableDiagnosticIds { get; } =
-        [ExponentNotationAnalyzer.DiagnosticId];
+        ImmutableArray.Create(ExponentNotationAnalyzer.DiagnosticId);
 
     public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
-    public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
+    public sealed override Task RegisterCodeFixesAsync(CodeFixContext context)
     {
         var diagnostic = context.Diagnostics.Single();
         var codeAction = CodeAction.Create(
@@ -30,12 +30,13 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
             createChangedSolution: ct => UseExponentNotation(context.Document, diagnostic.Location.SourceSpan, ct),
             Title);
         context.RegisterCodeFix(codeAction, diagnostic);
+        return Task.CompletedTask;
     }
 
     private static async Task<Solution> UseExponentNotation(Document document, TextSpan textSpan, CancellationToken cancellationToken)
     {
         var root = await document.GetSyntaxRootAsync(cancellationToken);
-        var literalExpression = (LiteralExpressionSyntax)root.FindNode(textSpan, getInnermostNodeForTie: true);
+        var literalExpression = (LiteralExpressionSyntax)root!.FindNode(textSpan, getInnermostNodeForTie: true);
         
         var newLiteralExpression = literalExpression.WithToken(SyntaxFactory.Literal("1e9", 1e9));
         var newRoot = root.ReplaceNode(literalExpression, newLiteralExpression);
