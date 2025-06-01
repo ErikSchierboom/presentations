@@ -116,14 +116,9 @@ Demo:
 
 1. Exponent notatie analyzer
    - `context.RegisterSyntaxNodeAction(AnalyzeSyntax, SyntaxKind.NumericLiteralExpression)`
-   - `var diagnostic = Diagnostic.Create(Rule,
-     literalExpression.GetLocation(),
-     literalExpression.Token.Text);
-     context.ReportDiagnostic(diagnostic);
-2. AddSeconds analyzer
-   - `context.RegisterCompilationStartAction(compilationStartContext =>`
-   - `var dateTimeType = compilationStartContext.Compilation.GetSpecialType(SpecialType.System_DateTime); var addMillisecondsMethod = dateTimeType.GetMembers("AddMilliseconds").OfType<IMethodSymbol>().First();`
-   - `context.Operation is not IInvocationOperation invocationOperation || !invocationOperation.TargetMethod.Equals(addMillisecondsMethod, SymbolEqualityComparer.Default) || invocationOperation.Syntax is not InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccessExpression }`
+   - `var diagnostic = Diagnostic.Create(Rule, literalExpression.GetLocation(), literalExpression.Token.Text);`
+   - `context.ReportDiagnostic(diagnostic);`
+   - Laat tests zien
 
 ## Demo 6: genereer code
 
