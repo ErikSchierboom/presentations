@@ -9,7 +9,6 @@
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
 
-        <RootNamespace>SourceGenerator</RootNamespace>
         <PackageId>SourceGenerator</PackageId>
     </PropertyGroup>
 

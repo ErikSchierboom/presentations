@@ -62,6 +62,11 @@ Demo:
 
 ## Demo ?: source generator
 
+Doel: demonstreren van Roslyn source generator API's
+
+Demo:
+
+- 
 
 ## Analyseren
 
