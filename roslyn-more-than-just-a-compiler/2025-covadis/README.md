@@ -40,20 +40,64 @@ Diagram: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/compiler-api
 Doel: demonstreren van Roslyn scripting API's
 
 Demo:
-
 - Voeg `Microsoft.CodeAnalysis.CSharp.Scripting` package toe
 - Gebruik van `CSharpScript.RunAsync` om C# code uit te voeren
 - Print `state.ReturnValue`
-- Gebruik van `state.ContinueWithAsync`
+- Vermeld `state.ContinueWithAsync`
 
-## Demo 2:
+## Demo 2: analyseer code
+
+Doel: introductie van Roslyn's API voor het werken met C# code
+
+Demo:
+- Toevoegen van `Microsoft.CodeAnalysis.CSharp` package
+- Gebruik van `CSharpSyntaxTree.ParseText` om C# code te parsen
+- Laat Abstract Syntax Tree (AST) zien mbv. Syntax Visualizer en https://sharplab.io/
+- Verschil tussen `SyntaxNode`, `SyntaxToken` en `SyntaxTrivia`
+  1. Gebruik file-scoped namespace
+     - `syntaxTree.GetRootAsync()`
+     - `root.DescendantNodes().OfType<FileScopedNamespaceDeclarationSyntax>()` 
+  2. Maak class `static`
+        - `classDeclaration.Identifier.Text == "Gigasecond"`
+        - `!classDeclaration.Modifiers.Any(SyntaxKind.StaticKeyword)`
+  3. Gebruik expression-bodied members
+     - `root.DescendantNodes().OfType<MethodDeclarationSyntax>()`
+     - `methodDeclaration.Identifier.Text == "Add"`
+     - `methodDeclaration.Body?.Statements is [_]`
+  4. Gebruik exponent notatie
+        - `methodDeclaration.DescendantTokens()`
+        - `token.IsKind(SyntaxKind.NumericLiteralToken)` 
+        - `token.Value is 1e9`
+        - `token.Text != "1e9"`
+  5. Gebruik `AddSeconds`
+     - `var compilation = CSharpCompilation.Create(
+       "Analyzing",
+           syntaxTrees: [syntaxTree],
+           references: [MetadataReference.CreateFromFile(typeof(object).Assembly.Location)],
+           options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+           var diagnostics = compilation.GetDiagnostics();
+           var semanticModel = compilation.GetSemanticModel(syntaxTree);
+        var dateTimeStruct = compilation.GetSpecialType(SpecialType.System_DateTime);
+        var addSecondsCall = dateTimeStruct.GetMembers("AddSeconds").Single();
+        var invocationExpression = root.DescendantNodes()
+            .OfType<InvocationExpressionSyntax>()
+            .Single();
+        var operation = (IInvocationOperation)semanticModel.GetOperation(invocationExpression)!;
+        var doesNotUseAddSeconds = !operation.TargetMethod.Equals(addSecondsCall, SymbolEqualityComparer.Default);`
+
+## Demo 3: herschrijven code
+
+- Gebruik van `SyntaxFactory` om nieuwe nodes te maken
+
+## Demo 4: solution-wide herschrijven
+
+- Gebruik van `MSBuildWorkspace` om een project te laden
 
 ## Demo ?: genereer code
 
 Doel: demonstreren van Roslyn code generatie API's
 
 Demo:
-
 - Maak record aan voor [`Actor`, `Movie`, `Director`]
 - Demonstreer gebruik `using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;`
 - Laat zien dat als je een fout hebt in de gegenereerde code, dat je dan de code niet kunt compileren
