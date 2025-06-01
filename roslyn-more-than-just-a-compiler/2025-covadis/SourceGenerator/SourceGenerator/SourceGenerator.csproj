@@ -10,6 +10,7 @@
         <IsRoslynComponent>true</IsRoslynComponent>
 
         <PackageId>SourceGenerator</PackageId>
+        <NoWarn>RS1038</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
