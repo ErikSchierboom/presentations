@@ -11,10 +11,8 @@ var compilation = CSharpCompilation.Create("InMemoryCompilation",
         references: [MetadataReference.CreateFromFile(typeof(object).Assembly.Location)],
         options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
-using var ms = new MemoryStream();
-compilation.Emit(ms);
+// TODO: emit IL code
+// TODO: load assembly from IL code
+// TODO: create instance of Movie
 
-var assembly = Assembly.Load(ms.ToArray());
-var movieType = assembly.GetType("Movie")!;
-var movie = Activator.CreateInstance(movieType, "Inception", 2010);
-Console.WriteLine(movie);
+Console.WriteLine("Done");
