@@ -46,7 +46,7 @@ Demo:
 - Print `state.ReturnValue`
 - Vermeld `state.ContinueWithAsync`
 
-## Demo 2: analyseer code
+## Demo 2: analyseer code (20 min.)
 
 Doel: introductie van Roslyn's API voor het werken met C# code
 
@@ -57,7 +57,7 @@ Demo:
 - Laat Abstract Syntax Tree (AST) zien mbv. Syntax Visualizer en https://sharplab.io/
 - Verschil tussen `SyntaxNode`, `SyntaxToken` en `SyntaxTrivia`
   1. Gebruik file-scoped namespace
-     - `syntaxTree.GetRootAsync()`
+     - `syntaxTree.GetRoot()`
      - `root.DescendantNodes().OfType<FileScopedNamespaceDeclarationSyntax>()`
   2. Gebruik exponent notatie
      - `methodDeclaration.DescendantTokens()`
@@ -77,7 +77,7 @@ Demo:
   - `var operation = (IInvocationOperation)semanticModel.GetOperation(invocationExpression)!;`
   - `var doesNotUseAddSeconds = !operation.TargetMethod.Equals(addSecondsCall, SymbolEqualityComparer.Default);`
 
-## Demo 3: herschrijven code (15 min.)
+## Demo 3: herschrijven code (10 min.)
 
 Doel: demonstreren van Roslyn's API voor het herschrijven van C# code
 
