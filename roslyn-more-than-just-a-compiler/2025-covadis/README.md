@@ -80,9 +80,12 @@ Doel: laat zien wat analyzers zijn en hoe je ze kunt gebruiken
 Demo:
 
 1. Exponent notatie analyzer
+   - Bouw en laat resultaat in IDE zien
    - Laat tests zien
 2. Exponent notatie fixer
    - Gebruik van: `getInnermostNodeForTie: true`
+   - Bouw en laat resultaat in IDE zien
+   - Laat tests zien
 
 ## Demo 6: genereer code
 
@@ -104,6 +107,8 @@ Demo:
 
 - Verzamel additional texts
 - Add source: `context.AddSource($"{className}.g.cs", code.ToFullString());`
+- Laat zien dat je gegenereerde code kan bekijken in project
+- Laat tests zien
 
 ## Demo 8: in-memory compilatie (3 min.)
 
