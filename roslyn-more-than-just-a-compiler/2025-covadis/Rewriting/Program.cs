@@ -4,7 +4,7 @@ var sourceCodeFilePath = Path.GetFullPath("../../../../Rewriting.Example/Gigasec
 var sourceCode = File.ReadAllText(sourceCodeFilePath);
 
 var syntaxTree = CSharpSyntaxTree.ParseText(sourceCode);
-var root = await syntaxTree.GetRootAsync();
+var root = syntaxTree.GetRoot();
 
 // TODO: format code
 // TODO: remove empty statement
