@@ -4,3 +4,7 @@
 // Console.WriteLine(movie);
 
 Console.WriteLine("Source generated");
+
+// TODO: show Models.txt
+// TODO: show generated code
+

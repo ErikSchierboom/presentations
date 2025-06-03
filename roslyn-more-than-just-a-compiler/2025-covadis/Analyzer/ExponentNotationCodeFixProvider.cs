@@ -34,5 +34,7 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
     private static Task<Solution> UseExponentNotation(Document document, TextSpan textSpan, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
+        
+        // TODO: show debugging test
     }
 }
