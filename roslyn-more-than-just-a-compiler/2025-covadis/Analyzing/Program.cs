@@ -9,20 +9,20 @@ var sourceCode = File.ReadAllText(sourceCodeFilePath);
 var syntaxTree = CSharpSyntaxTree.ParseText(sourceCode);
 var root = syntaxTree.GetRoot();
 
-var canUseFileScopedNamespace = !root.ChildNodes()
+var suggestFileScopedNamespace = !root.ChildNodes()
     .OfType<FileScopedNamespaceDeclarationSyntax>()
     .Any();
-if (canUseFileScopedNamespace)
+if (suggestFileScopedNamespace)
 {
     Console.WriteLine("Please use a file-scoped namespace.");
     return;
 }
 
-var canUseExponentNotation = root.DescendantTokens()
+var suggestExponentNotation = root.DescendantTokens()
     .Any(token => token.IsKind(SyntaxKind.NumericLiteralToken) &&
                   token.Value is 1_000_000_000 &&
                   token.Text != "1e9");
-if (canUseExponentNotation)
+if (suggestExponentNotation)
 {
     Console.WriteLine("Please use exponent notation.");
     return;
@@ -39,7 +39,8 @@ var semanticModel = compilation.GetSemanticModel(syntaxTree);
 var invocationOperation = (IInvocationOperation)semanticModel.GetOperation(invocationExpression)!;
 var dateTimeType = compilation.GetSpecialType(SpecialType.System_DateTime);
 var addSecondsMethod = dateTimeType.GetMembers("AddSeconds").First();
-if (!invocationOperation.TargetMethod.Equals(addSecondsMethod, SymbolEqualityComparer.Default))
+var suggestAddSeconds = !invocationOperation.TargetMethod.Equals(addSecondsMethod, SymbolEqualityComparer.Default);
+if (suggestAddSeconds)
 {
     Console.WriteLine("Use AddSeconds.");
     return;

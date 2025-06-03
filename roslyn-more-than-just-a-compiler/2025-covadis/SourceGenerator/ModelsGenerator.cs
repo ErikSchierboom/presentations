@@ -23,6 +23,7 @@ public class ModelsGenerator : IIncrementalGenerator
     {
         var additionalText = additionalTexts.Single();
         var recordNames = additionalText.GetText()!.ToString().Split(',');
+
         foreach (var recordName in recordNames)
         {
             var record = RecordDeclaration(Token(SyntaxKind.RecordKeyword), recordName)
@@ -31,6 +32,7 @@ public class ModelsGenerator : IIncrementalGenerator
                     Token(SyntaxKind.PartialKeyword))
                 .WithSemicolonToken(Token(SyntaxKind.SemicolonToken))
                 .NormalizeWhitespace();
+
             context.AddSource($"{recordName}.g.cs", record.ToFullString());
         }
     }
