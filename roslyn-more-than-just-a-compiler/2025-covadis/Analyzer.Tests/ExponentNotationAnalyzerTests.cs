@@ -15,8 +15,6 @@ public class ExponentNotationAnalyzerTests
         const string source = @"
 using System;
 
-namespace Solution3;
-
 public static class Gigasecond
 {
     public static DateTime Add(DateTime birthDate) =>
@@ -27,16 +25,15 @@ public static class Gigasecond
         var expected = Verifier.Diagnostic()
             .WithMessage("Use exponent notation")
             .WithSeverity(DiagnosticSeverity.Warning)
-            .WithLocation(9, 30);
+            .WithLocation(7, 30);
         await Verifier.VerifyAnalyzerAsync(source, expected);
     }
+
     [Fact]
     public async Task AlreadyUsesExponentNotation_DoesNotAlertDiagnostic()
     {
         const string source = @"
 using System;
-
-namespace Solution3;
 
 public static class Gigasecond
 {
