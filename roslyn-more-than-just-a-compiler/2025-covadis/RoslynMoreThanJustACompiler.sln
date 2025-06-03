@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateSource", "GenerateS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryCompilation", "InMemoryCompilation\InMemoryCompilation.csproj", "{E985004B-D0BA-47B7-AB53-58652C71C581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renaming", "Renaming\Renaming.csproj", "{823DCC89-650A-423D-97FD-9DC9F099062A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionWideRewriting", "SolutionWideRewriting\SolutionWideRewriting.csproj", "{823DCC89-650A-423D-97FD-9DC9F099062A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewriting", "Rewriting\Rewriting.csproj", "{8235EAD3-2966-4222-A5B4-CEC5E084AA46}"
 EndProject
