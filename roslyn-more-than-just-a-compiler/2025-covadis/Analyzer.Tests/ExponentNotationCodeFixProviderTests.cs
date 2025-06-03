@@ -9,12 +9,10 @@ namespace Analyzer.Tests;
 public class ExponentNotationCodeFixProviderTests
 {
     [Fact]
-    public async Task MultipleOfTen_ReplaceWithExponentNotation()
+    public async Task Gigasecond_ReplaceWithExponentNotation()
     {
         const string source = @"
 using System;
-
-namespace Solution3;
 
 public static class Gigasecond
 {
@@ -26,8 +24,6 @@ public static class Gigasecond
         const string fixedSource = @"
 using System;
 
-namespace Solution3;
-
 public static class Gigasecond
 {
     public static DateTime Add(DateTime birthDate) =>
@@ -37,7 +33,7 @@ public static class Gigasecond
 
         var expected = Verifier.Diagnostic()
             .WithMessage("Use exponent notation")
-            .WithLocation(9, 30);
+            .WithLocation(7, 30);
         await Verifier.VerifyCodeFixAsync(source, expected, fixedSource);
     }
 }
