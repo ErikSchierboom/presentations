@@ -33,7 +33,6 @@ Demo:
 - Verschil tussen `SyntaxNode` en `SyntaxToken`
   1. Gebruik file-scoped namespace
   2. Gebruik exponent notatie
-  3. Gebruik `AddSeconds`
 
 ## Demo 2: herschrijven code (10 min.)
 
