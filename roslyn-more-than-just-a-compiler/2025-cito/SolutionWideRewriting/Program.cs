@@ -11,9 +11,6 @@ var solution = await workspace.OpenSolutionAsync(solutionFilePath);
 
 foreach (var project in solution.Projects)
 {
-    var compilation = await project.GetCompilationAsync();
-    var factAttribute = compilation!.GetTypeByMetadataName("Xunit.FactAttribute")!;
-
     foreach (var document in project.Documents)
     {
         var documentEditor = await DocumentEditor.CreateAsync(document);
@@ -24,11 +21,7 @@ foreach (var project in solution.Projects)
         foreach (var method in methods)
         {
             var methodSymbol = (IMethodSymbol)documentEditor.SemanticModel.GetDeclaredSymbol(method)!;
-            var isTestMethod = methodSymbol.GetAttributes()
-                .Any(methodAttribute => methodAttribute.AttributeClass!.Equals(factAttribute, SymbolEqualityComparer.Default));
-            
-            if (isTestMethod)
-                solution = await Renamer.RenameSymbolAsync(solution, methodSymbol, new SymbolRenameOptions(), methodSymbol.Name.Pascalize());
+            solution = await Renamer.RenameSymbolAsync(solution, methodSymbol, new SymbolRenameOptions(), methodSymbol.Name.Pascalize());
         }
     }
 }
