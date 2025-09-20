@@ -31,7 +31,7 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
         return Task.CompletedTask;
     }
 
-    private static Task<Solution> UseExponentNotation(Document document, TextSpan textSpan, CancellationToken cancellationToken)
+    private static Task<Solution> UseExponentNotation(Document document, TextSpan span, CancellationToken ct)
     {
         throw new NotImplementedException();
         
