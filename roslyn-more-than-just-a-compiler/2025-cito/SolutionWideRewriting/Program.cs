@@ -20,7 +20,7 @@ foreach (var project in solution.Projects)
 
         foreach (var method in methods)
         {
-            var methodSymbol = (IMethodSymbol)documentEditor.SemanticModel.GetDeclaredSymbol(method)!;
+            var methodSymbol = documentEditor.SemanticModel.GetDeclaredSymbol(method)!;
             solution = await Renamer.RenameSymbolAsync(solution, methodSymbol, new SymbolRenameOptions(), methodSymbol.Name.Pascalize());
         }
     }
