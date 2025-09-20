@@ -6,7 +6,7 @@ namespace Analyzing.Example
     {
         public static DateTime Add(DateTime birthDate)
         {
-            return birthDate + TimeSpan.FromSeconds(1_000_000_000);
+            return birthDate.AddSeconds(1_000_000_000);
         }
     }
 }

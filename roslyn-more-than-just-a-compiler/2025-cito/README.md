@@ -6,8 +6,8 @@
 - Oorspronkelijke C# compiler was geschreven in C++
 - Doel van Roslyn:
   - Eén enkele plaats om C# code te parsen
-  - Open voor gebruik externe partijen (en open-source)
   - Verbeteren onderhoudbaarheid en verhoogde productiviteit (sneller nieuwe features)
+  - Open voor gebruik externe partijen (en open-source)
   - Dogfooding (gebruik C# in de C# compiler)
 
 ## Opzet compiler
