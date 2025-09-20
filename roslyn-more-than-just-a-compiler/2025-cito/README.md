@@ -21,7 +21,7 @@ Fases:
 
 Diagram: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/compiler-api-model#compiler-pipeline-functional-areas
 
-## Demo 1: analyseer code (20 min.)
+## Demo 1: analyseer code (10 min.)
 
 Doel: introductie van Roslyn's API voor het werken met C# code
 
