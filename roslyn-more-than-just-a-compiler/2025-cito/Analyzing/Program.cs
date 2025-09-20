@@ -28,22 +28,4 @@ if (suggestExponentNotation)
     return;
 }
 
-var compilation = CSharpCompilation.Create("Gigasecond",
-    syntaxTrees: [syntaxTree],
-    references: [MetadataReference.CreateFromFile(typeof(object).Assembly.Location)],
-    options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
-var invocationExpression = root.DescendantNodes()
-    .OfType<InvocationExpressionSyntax>()
-    .First();
-var semanticModel = compilation.GetSemanticModel(syntaxTree);
-var invocationOperation = (IInvocationOperation)semanticModel.GetOperation(invocationExpression)!;
-var dateTimeType = compilation.GetSpecialType(SpecialType.System_DateTime);
-var addSecondsMethod = dateTimeType.GetMembers("AddSeconds").First();
-var suggestAddSeconds = !invocationOperation.TargetMethod.Equals(addSecondsMethod, SymbolEqualityComparer.Default);
-if (suggestAddSeconds)
-{
-    Console.WriteLine("Use AddSeconds.");
-    return;
-}
-
 Console.WriteLine("Analyzed");
