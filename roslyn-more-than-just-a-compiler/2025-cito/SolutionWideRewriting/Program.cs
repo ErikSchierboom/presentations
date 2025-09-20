@@ -1,7 +1,7 @@
 ﻿var solutionFilePath = Path.GetFullPath("../../../../RoslynMoreThanJustACompiler.sln");
 
 // TODO: load workspace
-// TODO: enumerate documents
-// TODO: rename tests
+// TODO: enumerate projects and documents
+// TODO: rename methods
 
 Console.WriteLine("Done");

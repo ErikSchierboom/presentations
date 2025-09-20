@@ -6,8 +6,8 @@ var sourceCode = File.ReadAllText(sourceCodeFilePath);
 var syntaxTree = CSharpSyntaxTree.ParseText(sourceCode);
 var root = syntaxTree.GetRoot();
 
-// TODO: format code
-// TODO: remove empty statement
+// TODO: normalize whitespace
+// TODO: remove empty statements
 // TODO: use exponent notation
 
 Console.WriteLine("Done");
