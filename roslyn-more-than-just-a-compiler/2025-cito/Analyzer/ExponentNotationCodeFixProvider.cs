@@ -23,20 +23,22 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
     public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
     public sealed override Task RegisterCodeFixesAsync(CodeFixContext context)
-    {
-        var diagnostic = context.Diagnostics.Single();
+    {   
         var codeAction = CodeAction.Create(
             Title,
-            createChangedSolution: ct => UseExponentNotation(context.Document, diagnostic.Location.SourceSpan, ct),
+            createChangedSolution: ct => UseExponentNotation(context.Document, context.Span, ct),
             Title);
+        
+        var diagnostic = context.Diagnostics.Single();
         context.RegisterCodeFix(codeAction, diagnostic);
+        
         return Task.CompletedTask;
     }
 
-    private static async Task<Solution> UseExponentNotation(Document document, TextSpan textSpan, CancellationToken cancellationToken)
+    private static async Task<Solution> UseExponentNotation(Document document, TextSpan span, CancellationToken cancellationToken)
     {
         var root = await document.GetSyntaxRootAsync(cancellationToken);
-        var literalExpression = (LiteralExpressionSyntax)root!.FindNode(textSpan, getInnermostNodeForTie: true);
+        var literalExpression = (LiteralExpressionSyntax)root!.FindNode(span, getInnermostNodeForTie: true);
         
         var newLiteralExpression = literalExpression.WithToken(SyntaxFactory.Literal("1e9", 1e9));
         var newRoot = root.ReplaceNode(literalExpression, newLiteralExpression);
