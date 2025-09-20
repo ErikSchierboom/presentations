@@ -29,8 +29,7 @@ public class ExponentNotationCodeFixProvider : CodeFixProvider
             createChangedSolution: ct => UseExponentNotation(context.Document, context.Span, ct),
             Title);
         
-        var diagnostic = context.Diagnostics.Single();
-        context.RegisterCodeFix(codeAction, diagnostic);
+        context.RegisterCodeFix(codeAction, context.Diagnostics);
         
         return Task.CompletedTask;
     }
