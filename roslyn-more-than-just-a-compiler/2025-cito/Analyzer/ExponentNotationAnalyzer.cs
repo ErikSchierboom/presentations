@@ -31,14 +31,14 @@ public class ExponentNotationAnalyzer : DiagnosticAnalyzer
 
     private static void Analyze(SyntaxNodeAnalysisContext context)
     {
-        var literalExpression = (LiteralExpressionSyntax)context.Node;
-        var token = literalExpression.Token;
+        var expression = (LiteralExpressionSyntax)context.Node;
+        var token = expression.Token;
 
         if (token.IsKind(SyntaxKind.NumericLiteralToken) &&
             token.Value is 1_000_000_000 &&
             token.Text != "1e9")
         {
-            var diagnostic = Diagnostic.Create(Rule, literalExpression.GetLocation());
+            var diagnostic = Diagnostic.Create(Rule, expression.GetLocation());
             context.ReportDiagnostic(diagnostic);
         }
     }
