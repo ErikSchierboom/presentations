@@ -7,7 +7,8 @@ var syntaxTree = CSharpSyntaxTree.ParseText(sourceCode);
 var root = syntaxTree.GetRoot();
 
 // TODO: normalize whitespace
-// TODO: remove empty statements
+// TODO: remove empty statements - via method
+// TODO: remove empty statements - via rewriter
 // TODO: use exponent notation
 
 Console.WriteLine("Done");
