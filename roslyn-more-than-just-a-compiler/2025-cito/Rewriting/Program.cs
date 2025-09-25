@@ -9,6 +9,6 @@ var root = syntaxTree.GetRoot();
 // TODO: normalize whitespace
 // TODO: remove empty statements - via method
 // TODO: remove empty statements - via rewriter
-// TODO: use exponent notation
+// TODO: use exponent notation - via syntaxfactory
 
 Console.WriteLine("Done");
