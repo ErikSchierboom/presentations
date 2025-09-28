@@ -24,6 +24,8 @@
   2 +
 ;
 
+help n:+
+
 \ Stack manipulation
 5 3 > \ lost the original value
 help >
