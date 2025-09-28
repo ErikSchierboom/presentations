@@ -1,0 +1,30 @@
+\ Invalid arithmetic
+1 + 2
+\ Exception: bad memory access or corruption
+
+\ A number is immediately pushed on the stack (Last In First Out)
+1 2 .s
+
+\ A "word" is immediately executed and modifies the stack
++ .s
+
+\ Correct arithmetic
+1 2 3 * + \ = (1 + (2 * 3))
+\ AKA Reverse Polish notation (no parentheses needed)
+
+\ Words
+: add2
+  2 +
+;
+
+4 add2 .s
+
+\ Stack-effect diagrams (SED)
+: add2 \ n -- n'
+  2 +
+;
+
+\ Stack manipulation
+5 3 > \ lost the original value
+help >
+5 dup 3 > swap 10 < and .s
