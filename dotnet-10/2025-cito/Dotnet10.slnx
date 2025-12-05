@@ -1,0 +1,12 @@
+<Solution>
+  <Project Path="ClassLibrary1/ClassLibrary1.csproj" />
+  <Project Path="Csharp14.ExtensionMembers/Csharp14.ExtensionMembers.csproj" />
+  <Project Path="Csharp14.FieldBackedProperties/Csharp14.FieldBackedProperties.csproj" />
+  <Project Path="Csharp14.ModifierSimpleLambdas/Csharp14.ModifierSimpleLambdas.csproj" />
+  <Project Path="Csharp14.MoreImplicitSpanConversions/Csharp14.MoreImplicitSpanConversions.csproj" />
+  <Project Path="Csharp14.NameofUnboundGenerics/Csharp14.NameofUnboundGenerics.csproj" />
+  <Project Path="Csharp14.NullConditionalAssignment/Csharp14.NullConditionalAssignment.csproj" />
+  <Project Path="Csharp14.PartialEventsAndConstructors/Csharp14.PartialEventsAndConstructors.csproj" />
+  <Project Path="Csharp14.UserDefinedCompoundAssignmentOperators/Csharp14.UserDefinedCompoundAssignmentOperators.csproj" />
+  <Project Path="Tests/Tests.csproj" />
+</Solution>

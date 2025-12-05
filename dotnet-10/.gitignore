@@ -1,0 +1,11 @@
+.vs/
+.vscode/
+.idea/
+
+*.suo
+*.user
+
+bin/
+obj/
+artifacts/
+Hello/
