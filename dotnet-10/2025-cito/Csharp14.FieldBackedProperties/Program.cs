@@ -5,9 +5,11 @@ Console.WriteLine(customer.Name);
 
 class Customer
 {
+    private string _name;
+    
     public string Name
     {
-        get;
-        set => field = value ?? throw new ArgumentNullException(nameof(value));
+        get => _name;
+        set => _name = value ?? throw new ArgumentNullException(nameof(value));
     }
 }

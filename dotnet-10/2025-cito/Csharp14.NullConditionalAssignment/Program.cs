@@ -1,5 +1,8 @@
 ﻿Customer? customer = null;
-customer?.Name = "Bob";
+if (customer is not null)
+{
+    customer.Name = "Bob";   
+}
 
 Console.WriteLine(customer?.Name);
 
