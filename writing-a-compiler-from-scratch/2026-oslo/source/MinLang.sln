@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinLang", "MinLang.csproj", "{3DD7779D-2429-41E7-B93C-61F8CBE7ACFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DD7779D-2429-41E7-B93C-61F8CBE7ACFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DD7779D-2429-41E7-B93C-61F8CBE7ACFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DD7779D-2429-41E7-B93C-61F8CBE7ACFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DD7779D-2429-41E7-B93C-61F8CBE7ACFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
