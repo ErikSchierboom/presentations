@@ -15,13 +15,9 @@ var tokens = lexer.Lex();
 var parser = new Parser(tokens);
 var statements = parser.Parse();
 
-var interpreter = new Interpreter();
-Console.WriteLine("Interpreted:");
-Console.WriteLine(interpreter.Evaluate(statements));
-
 var compiler = new Compiler();
 var instructions = compiler.Compile(statements);
-var runtime = new Runtime();
+var runtime = new VirtualMachine();
 Console.WriteLine("Compiled:");
 Console.WriteLine(runtime.Run(instructions));
 
@@ -205,48 +201,6 @@ public class Parser(List<Token> tokens)
     private Token PreviousToken => tokens[_position - 1];
 }
 
-internal class Interpreter
-{
-    private readonly Dictionary<string, int> _variables = new();
-
-    public int Evaluate(List<Statement> statements)
-    {
-        var result = -1;
-        
-        foreach (var statement in statements)
-            result = Evaluate(statement);
-        
-        return result;
-    }
-    
-    private int Evaluate(Statement statement)
-    {
-        switch (statement)
-        {
-            case AssignmentStatement assignmentStatement:
-                var value = Evaluate(assignmentStatement.Initializer);
-                _variables[assignmentStatement.Name.Text] = value;
-                return value;
-            case ExpressionStatement expressionStatement:
-                return Evaluate(expressionStatement.Expression);
-            default:
-                throw new ArgumentOutOfRangeException(nameof(statement));
-        }
-    }
-
-    private int Evaluate(Expression expression) =>
-        expression switch
-        {
-            BinaryExpression { Operator.Kind: TokenKind.Plus } binExpr => Evaluate(binExpr.Left) +
-                                                                          Evaluate(binExpr.Right),
-            BinaryExpression { Operator.Kind: TokenKind.Star } binExpr => Evaluate(binExpr.Left) *
-                                                                          Evaluate(binExpr.Right),
-            LiteralExpression { Value.Kind: TokenKind.Number } litEpr => int.Parse(litEpr.Value.Text),
-            VariableExpression variableExpression => _variables[variableExpression.Name.Text],
-            _ => throw new InvalidOperationException("Unexpected expression")
-        };
-}
-
 internal class Compiler
 {
     private readonly Dictionary<string, int> _variableToLocalIndex = new();
@@ -311,56 +265,56 @@ internal class Compiler
 
 internal abstract record Instruction
 {
-    public abstract void Execute(Runtime runtime);
+    public abstract void Execute(VirtualMachine virtualMachine);
 }
 
 internal record LoadIntInstruction(int Value) : Instruction
 {
-    public override void Execute(Runtime runtime)
+    public override void Execute(VirtualMachine virtualMachine)
     {
-        runtime.Push(Value);
+        virtualMachine.Push(Value);
     }
 }
 
 internal record LoadLocalInstruction(int Index) : Instruction
 {
-    public override void Execute(Runtime runtime)
+    public override void Execute(VirtualMachine virtualMachine)
     {
-        var value = runtime.GetLocal(Index);
-        runtime.Push(value);
+        var value = virtualMachine.GetLocal(Index);
+        virtualMachine.Push(value);
     }
 }
 
 internal record StoreLocalInstruction(int Index) : Instruction
 {
-    public override void Execute(Runtime runtime)
+    public override void Execute(VirtualMachine virtualMachine)
     {
-        var value = runtime.Pop();
-        runtime.SetLocal(Index, value);
+        var value = virtualMachine.Pop();
+        virtualMachine.SetLocal(Index, value);
     }
 }
 
 internal record AddInstruction : Instruction
 {
-    public override void Execute(Runtime runtime)
+    public override void Execute(VirtualMachine virtualMachine)
     {
-        var right = runtime.Pop();
-        var left = runtime.Pop();
-        runtime.Push(left + right);
+        var right = virtualMachine.Pop();
+        var left = virtualMachine.Pop();
+        virtualMachine.Push(left + right);
     }
 }
 
 internal record MulInstruction : Instruction
 {
-    public override void Execute(Runtime runtime)
+    public override void Execute(VirtualMachine virtualMachine)
     {
-        var right = runtime.Pop();
-        var left = runtime.Pop();
-        runtime.Push(left * right);
+        var right = virtualMachine.Pop();
+        var left = virtualMachine.Pop();
+        virtualMachine.Push(left * right);
     }
 }
 
-internal class Runtime
+internal class VirtualMachine
 {
     private readonly Stack<int> _stack = new();
     private readonly int[] _locals = new int[256];
