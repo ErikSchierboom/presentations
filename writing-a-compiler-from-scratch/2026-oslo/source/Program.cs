@@ -1,21 +1,12 @@
-﻿// 1. define constant code string "2"
-// 2. define lexer stub
-// 3. define TokenKind enum
-// 4. add position variable and add while loop
-// 5. add switch case for >= '0' and <= '9' character and add token to list
-// 6. convert number to "23" and add inner while loop
-
-// LEXING/SCANNING: converting plaintext into tokens
-// PARSING: convert tokens into a syntax tree (abstract vs concrete)
-// COMPILATION: convert syntax tree into bytecode/machine code
-// OPTIMIZER: simplify the syntax tree or bytecode/machine code
-// RUNTIME: run the bytecode (if bytecode was produced)
+﻿// 1. LEXING/SCANNING: converting plaintext into tokens
+// 2. PARSING: convert tokens into a syntax tree (abstract vs concrete)
+// 3. COMPILATION: convert syntax tree into bytecode/machine code
+// 4. VIRTUAL MACHINE: run the bytecode
 
 const string code = """
-                    var x = 1;
-                    var y = 2;
-                    var z = x + y * 4;
-                    z + 1;
+                    var x = 4;
+                    var y = 1 + 2 * 3;
+                    x + y
                     """;
 
 var lexer = new Lexer(code);
