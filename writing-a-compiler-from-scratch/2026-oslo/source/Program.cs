@@ -17,9 +17,9 @@ var statements = parser.Parse();
 
 var compiler = new Compiler();
 var instructions = compiler.Compile(statements);
-var runtime = new VirtualMachine();
+var vm = new VirtualMachine();
 Console.WriteLine("Compiled:");
-Console.WriteLine(runtime.Run(instructions));
+Console.WriteLine(vm.Run(instructions));
 
 public enum TokenKind
 {
