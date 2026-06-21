@@ -31,6 +31,7 @@ public enum TokenType
     Num,
     Ident,
     Var,
+    Eof
 }
 
 public record Token(TokenType Type, string Lexeme);
