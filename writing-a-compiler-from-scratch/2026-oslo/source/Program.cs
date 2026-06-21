@@ -12,70 +12,71 @@ foreach (var token in tokens)
 
 public enum TokenType
 {
-    Var,
-    Identifier,
-    Integer,
     Equal,
-    Semicolon,
     Plus,
-    Star
+    Star,
+    Semicolon,
+    Num,
+    Ident,
+    Var,
 }
 
-public record Token(TokenType Type, string Value);
+public record Token(TokenType Type, string Lexeme);
 
-public class Scanner(string code)
+public class Scanner(string source)
 {
     public List<Token> Scan()
     {
-        var position = 0;
         var tokens = new List<Token>();
-        
-        while (position < code.Length)
+        var position = 0;
+
+        while (position < source.Length)
         {
-            switch (code[position])
+            var character = source[position];
+            switch (character)
             {
-                case ' ' or '\t' or '\n' or '\r':
+                case ' ' or '\r' or '\n':
                     position++;
-                    continue;
-                case '=':
-                    position++;
-                    tokens.Add(new Token(TokenType.Equal, "="));
-                    break;
-                case '*':
-                    position++;
-                    tokens.Add(new Token(TokenType.Star, "*"));
                     break;
                 case '+':
-                    position++;
                     tokens.Add(new Token(TokenType.Plus, "+"));
+                    position++;
+                    break;
+                case '*':
+                    tokens.Add(new Token(TokenType.Star, "*"));
+                    position++;
                     break;
                 case ';':
-                    position++;
                     tokens.Add(new Token(TokenType.Semicolon, ";"));
+                    position++;
                     break;
-                case >= 'a' and <= 'z':
-                    var start = position;
-                    while (position < code.Length && code[position] >= 'a' && code[position] <= 'z')
-                    {
-                        position++;
-                    }
-
-                    var lexeme = code.Substring(start, position - start);
-                    if (lexeme == "var")
-                        tokens.Add(new Token(TokenType.Var, lexeme));
-                    else
-                        tokens.Add(new Token(TokenType.Identifier, lexeme));
+                case '=':
+                    tokens.Add(new Token(TokenType.Equal, "="));
+                    position++;
                     break;
                 case >= '0' and <= '9':
                     var integerStart = position;
-                    while (position < code.Length && code[position] >= '0' && code[position] <= '9')
-                    {
+                    
+                    while (position < source.Length && source[position] is >= '0' and <= '9')
                         position++;
-                    }
-                    tokens.Add(new Token(TokenType.Integer, code.Substring(integerStart, position - integerStart)));
+                    
+                    tokens.Add(new Token(TokenType.Num, source[integerStart..position]));
+                    position++;
+                    break;
+                case >= 'a' and <= 'z':
+                    var identifierStart = position;
+                    
+                    while (position < source.Length && source[position] is >= 'a' and <= 'z')
+                        position++;
+
+                    var lexeme = source[identifierStart..position];
+                    if (lexeme == "var")
+                        tokens.Add(new Token(TokenType.Var, lexeme));
+                    else
+                        tokens.Add(new Token(TokenType.Ident, lexeme));
                     break;
                 default:
-                    throw new Exception($"Unexpected character: {code[position]} at position {position}");
+                    throw new Exception($"Unexpected character: {character}.");
             }
         }
 
