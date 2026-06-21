@@ -3,7 +3,7 @@ namespace BoomScript;
 public class Compiler(Tree tree)
 {
     private readonly List<Instruction> _instructions = new();
-    private readonly Dictionary<string, int> _variableToVariableIndex = new(capacity: 256);
+    private readonly Dictionary<string, int> _variableToIndex = new(capacity: 256);
     
     public List<Instruction> Compile()
     {
@@ -20,10 +20,10 @@ public class Compiler(Tree tree)
             case AssignmentStatement assignmentStatement:
                 CompileExpression(assignmentStatement.Value);
                 
-                if (!_variableToVariableIndex.ContainsKey(assignmentStatement.VariableName))
-                    _variableToVariableIndex[assignmentStatement.VariableName] = _variableToVariableIndex.Count;
+                if (!_variableToIndex.ContainsKey(assignmentStatement.VariableName))
+                    _variableToIndex[assignmentStatement.VariableName] = _variableToIndex.Count;
 
-                _instructions.Add(new StoreVarInstruction(_variableToVariableIndex[assignmentStatement.VariableName]));
+                _instructions.Add(new StoreVarInstruction(_variableToIndex[assignmentStatement.VariableName]));
                 break;
             case ExpressionStatement expressionStatement:
                 CompileExpression(expressionStatement.Expression);
@@ -57,7 +57,7 @@ public class Compiler(Tree tree)
                 _instructions.Add(new LoadIntInstruction(numberLiteralExpression.Value));
                 break;
             case VariableExpression variableExpression:
-                _instructions.Add(new LoadVarInstruction(_variableToVariableIndex[variableExpression.Name]));
+                _instructions.Add(new LoadVarInstruction(_variableToIndex[variableExpression.Name]));
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(expression));
