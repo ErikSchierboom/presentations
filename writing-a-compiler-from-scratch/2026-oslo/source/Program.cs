@@ -12,6 +12,13 @@ var instructions = new Compiler(tree).Compile();
 var result = new VirtualMachine(instructions).Run();
 Console.WriteLine(result);
 
+public abstract record Instruction;
+public record LoadIntInstruction(int Value) : Instruction;
+public record LoadVarInstruction(int Index) : Instruction;
+public record StoreVarInstruction(int Index) : Instruction;
+public record AddInstruction : Instruction;
+public record MulInstruction : Instruction;
+
 public class Compiler(Tree tree)
 {
     private readonly List<Instruction> _instructions = new();
@@ -24,13 +31,6 @@ public class Compiler(Tree tree)
         return _instructions;
     }
 }
-
-public abstract record Instruction;
-public record LoadIntInstruction(int Value) : Instruction;
-public record LoadVarInstruction(int Index) : Instruction;
-public record StoreVarInstruction(int Index) : Instruction;
-public record AddInstruction : Instruction;
-public record MulInstruction : Instruction;
 
 public class VirtualMachine(List<Instruction> instructions)
 {
