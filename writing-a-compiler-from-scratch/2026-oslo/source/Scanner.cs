@@ -9,6 +9,7 @@ public enum TokenType
     Num,
     Ident,
     Var,
+    Eof
 }
 
 public record Token(TokenType Type, string Lexeme);
@@ -68,6 +69,8 @@ public class Scanner(string source)
                     throw new Exception($"Unexpected character: {character}.");
             }
         }
+        
+        tokens.Add(new Token(TokenType.Eof, ""));
 
         return tokens;
     }
