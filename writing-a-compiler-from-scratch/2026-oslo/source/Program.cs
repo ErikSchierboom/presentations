@@ -15,10 +15,15 @@ foreach (var statement in tree.Statements)
 
 public class Parser(List<Token> tokens)
 {
+    private int _position = 0;
+    
     public Tree Parse()
     {
         throw new NotImplementedException();
     }
+    
+    public Token Current => tokens[_position];
+    public Token Previous => tokens[_position - 1];
 }
 
 public record Tree(List<Statement> Statements);
