@@ -8,8 +8,25 @@ const string code = """
 
 var tokens = new Scanner(code).Scan();
 var tree = new Parser(tokens).Parse();
-foreach (var statement in tree.Statements)
+var instructions = new Compiler().Compile(tree);
+var result = new VirtualMachine().Run(instructions);
+Console.WriteLine(result);
+
+public abstract record Instruction;
+public record LoadIntInstruction(int Value) : Instruction;
+public record LoadVarInstruction(int Index) : Instruction;
+public record StoreVarInstruction(int Index) : Instruction;
+public record AddInstruction() : Instruction;
+public record MulInstruction() : Instruction;
+
+public class VirtualMachine
 {
-    Console.WriteLine(statement);
+    public Stack<int> Stack { get; } = new();
+    public int[] Variables { get; } = new int[256];
+    
+    public int Run(List<Instruction> instructions)
+    {   
+        throw new NotImplementedException();
+    }
 }
 
