@@ -1,84 +1,33 @@
-﻿const string code = """
+﻿using BoomScript;
+
+const string code = """
                     var x = 3;
                     var result = 1 + 2 * x;
                     result + 10
                     """;
 
 var tokens = new Scanner(code).Scan();
-foreach (var token in tokens)
+var tree = new Parser(tokens).Parse();
+foreach (var statement in tree.Statements)
 {
-    Console.WriteLine(token);
+    Console.WriteLine(statement);
 }
 
-public enum TokenType
+public class Parser(List<Token> tokens)
 {
-    Equal,
-    Plus,
-    Star,
-    Semicolon,
-    Num,
-    Ident,
-    Var,
-}
-
-public record Token(TokenType Type, string Lexeme);
-
-public class Scanner(string source)
-{
-    public List<Token> Scan()
+    public Tree Parse()
     {
-        var tokens = new List<Token>();
-        var position = 0;
-
-        while (position < source.Length)
-        {
-            var character = source[position];
-            switch (character)
-            {
-                case ' ' or '\r' or '\n':
-                    position++;
-                    break;
-                case '+':
-                    tokens.Add(new Token(TokenType.Plus, "+"));
-                    position++;
-                    break;
-                case '*':
-                    tokens.Add(new Token(TokenType.Star, "*"));
-                    position++;
-                    break;
-                case ';':
-                    tokens.Add(new Token(TokenType.Semicolon, ";"));
-                    position++;
-                    break;
-                case '=':
-                    tokens.Add(new Token(TokenType.Equal, "="));
-                    position++;
-                    break;
-                case >= '0' and <= '9':
-                    var integerStart = position;
-                    
-                    while (position < source.Length && source[position] is >= '0' and <= '9')
-                        position++;
-                    
-                    tokens.Add(new Token(TokenType.Num, source[integerStart..position]));
-                    break;
-                case >= 'a' and <= 'z':
-                    var identifierStart = position;
-                    
-                    while (position < source.Length && source[position] is >= 'a' and <= 'z')
-                        position++;
-
-                    var lexeme = source[identifierStart..position];
-                    if (lexeme == "var")
-                        tokens.Add(new Token(TokenType.Var, lexeme));
-                    else
-                        tokens.Add(new Token(TokenType.Ident, lexeme));
-                    break;
-                default:
-                    throw new Exception($"Unexpected character: {character}.");
-            }
-        }
-
-        return tokens;
+        throw new NotImplementedException();
     }
 }
+
+public record Tree(List<Statement> Statements);
+
+public abstract record Statement;
+public record AssignmentStatement(string VariableName, Expression Value) : Statement;
+public record ExpressionStatement(Expression Expression) : Statement;
+
+public abstract record Expression;
+public record NumberLiteralExpression(int Value) : Expression;
+public record BinaryExpression(Expression Left, TokenType Operator, Expression Right) : Expression;
+public record VariableExpression(string Name) : Expression;
