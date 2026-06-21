@@ -22,7 +22,7 @@ public enum TokenType
     Eof
 }
 
-public record Token(TokenType Type, string Lexeme);
+public record Token(TokenType Type, string Text);
 
 public class Scanner(string source)
 {
