@@ -10,18 +10,6 @@ foreach (var token in tokens)
     Console.WriteLine(token);
 }
 
-public class Scanner(string source)
-{
-    public List<Token> Scan()
-    {
-        var tokens = new List<Token>();
-
-        // TODO: parse tokens
-        
-        return tokens;
-    }
-}
-
 public enum TokenType
 {
     Equal,
@@ -35,3 +23,15 @@ public enum TokenType
 }
 
 public record Token(TokenType Type, string Lexeme);
+
+public class Scanner(string source)
+{
+    public List<Token> Scan()
+    {
+        var tokens = new List<Token>();
+
+        // TODO: parse tokens
+        
+        return tokens;
+    }
+}
