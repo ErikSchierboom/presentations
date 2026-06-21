@@ -35,6 +35,7 @@ public class Parser(List<Token> tokens)
     private Statement ParseExpressionStatement()
     {
         var value = ParseExpression();
+        Consume(TokenType.Semicolon);
         return new ExpressionStatement(value);
     }
 
