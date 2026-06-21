@@ -12,6 +12,14 @@ var instructions = new Compiler().Compile(tree);
 var result = new VirtualMachine().Run(instructions);
 Console.WriteLine(result);
 
+public class Compiler
+{
+    public List<Instruction> Compile(Tree tree)
+    {
+        throw new NotImplementedException();
+    }
+}
+
 public abstract record Instruction;
 public record LoadIntInstruction(int Value) : Instruction;
 public record LoadVarInstruction(int Index) : Instruction;
