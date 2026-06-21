@@ -14,7 +14,11 @@ public class Scanner(string source)
 {
     public List<Token> Scan()
     {
-        throw new NotImplementedException();
+        var tokens = new List<Token>();
+
+        // TODO: parse tokens
+        
+        return tokens;
     }
 }
 
