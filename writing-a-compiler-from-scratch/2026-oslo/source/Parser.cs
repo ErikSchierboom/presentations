@@ -2,7 +2,7 @@ namespace BoomScript;
 
 public class Parser(List<Token> tokens)
 {
-    private int _position = 0;
+    private int _position;
     
     public Tree Parse()
     {
