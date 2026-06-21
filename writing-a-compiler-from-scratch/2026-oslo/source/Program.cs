@@ -3,4 +3,30 @@
                     var result = 1 + 2 * x;
                     result + 10
                     """;
-                    
+
+var tokens = new Scanner(code).Scan();
+foreach (var token in tokens)
+{
+    Console.WriteLine(token);
+}
+
+public enum TokenType
+{
+    Equal,
+    Plus,
+    Star,
+    Semicolon,
+    Num,
+    Ident,
+    Var,
+}
+
+public record Token(TokenType Type, string Lexeme);
+
+public class Scanner(string source)
+{
+    public List<Token> Scan()
+    {
+        throw new NotImplementedException();
+    }
+}
