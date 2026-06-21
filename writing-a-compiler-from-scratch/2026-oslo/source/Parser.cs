@@ -25,7 +25,7 @@ public class Parser(List<Token> tokens)
     private AssignmentStatement ParseAssignmentStatement()
     {
         Consume(TokenType.Ident);
-        var name = Previous.Lexeme;
+        var name = Previous.Text;
         Consume(TokenType.Equal);
         var value = ParseExpression();
         Consume(TokenType.Semicolon);
@@ -75,10 +75,10 @@ public class Parser(List<Token> tokens)
     private Expression ParseHighPrecedenceExpression()
     {
         if (Match(TokenType.Num))
-            return new NumberLiteralExpression(int.Parse(Previous.Lexeme));
+            return new NumberLiteralExpression(int.Parse(Previous.Text));
         
         if (Match(TokenType.Ident))
-            return new VariableExpression(Previous.Lexeme);
+            return new VariableExpression(Previous.Text);
             
         throw new InvalidOperationException($"Unexpected token: {Current.Type}");
     }
