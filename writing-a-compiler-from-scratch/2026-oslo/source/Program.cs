@@ -16,7 +16,11 @@ public class Compiler
 {
     public List<Instruction> Compile(Tree tree)
     {
-        throw new NotImplementedException();
+        var instructions = new List<Instruction>();
+
+        // TODO: implement compiler
+
+        return instructions;
     }
 }
 
