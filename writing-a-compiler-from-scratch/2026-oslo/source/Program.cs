@@ -10,6 +10,8 @@ foreach (var token in tokens)
     Console.WriteLine(token);
 }
 
+public record Token(TokenType Type, string Text);
+
 public enum TokenType
 {
     Equal,
@@ -21,8 +23,6 @@ public enum TokenType
     Var,
     Eof
 }
-
-public record Token(TokenType Type, string Text);
 
 public class Scanner(string source)
 {
