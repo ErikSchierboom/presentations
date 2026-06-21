@@ -13,6 +13,17 @@ foreach (var statement in tree.Statements)
     Console.WriteLine(statement);
 }
 
+public record Tree(List<Statement> Statements);
+
+public abstract record Statement;
+public record AssignmentStatement(string VariableName, Expression Value) : Statement;
+public record ExpressionStatement(Expression Expression) : Statement;
+
+public abstract record Expression;
+public record NumberLiteralExpression(int Value) : Expression;
+public record BinaryExpression(Expression Left, TokenType Operator, Expression Right) : Expression;
+public record VariableExpression(string Name) : Expression;
+
 public class Parser(List<Token> tokens)
 {
     private int _position = 0;
@@ -46,14 +57,3 @@ public class Parser(List<Token> tokens)
         _position++;
     }
 }
-
-public record Tree(List<Statement> Statements);
-
-public abstract record Statement;
-public record AssignmentStatement(string VariableName, Expression Value) : Statement;
-public record ExpressionStatement(Expression Expression) : Statement;
-
-public abstract record Expression;
-public record NumberLiteralExpression(int Value) : Expression;
-public record BinaryExpression(Expression Left, TokenType Operator, Expression Right) : Expression;
-public record VariableExpression(string Name) : Expression;
