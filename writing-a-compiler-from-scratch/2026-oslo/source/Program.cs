@@ -19,7 +19,11 @@ public class Parser(List<Token> tokens)
     
     public Tree Parse()
     {
-        throw new NotImplementedException();
+        var statements = new List<Statement>();
+        
+        // TODO: parse statements
+        
+        return new Tree(statements);
     }
     
     public Token Current => tokens[_position];
