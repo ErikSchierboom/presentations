@@ -12,7 +12,7 @@ public enum TokenType
     Eof
 }
 
-public record Token(TokenType Type, string Lexeme);
+public record Token(TokenType Type, string Text);
 
 public class Scanner(string source)
 {
@@ -28,7 +28,7 @@ public class Scanner(string source)
             {
                 case ' ' or '\r' or '\n':
                     position++;
-                    break;
+                    continue;
                 case '+':
                     tokens.Add(new Token(TokenType.Plus, "+"));
                     position++;
@@ -46,16 +46,14 @@ public class Scanner(string source)
                     position++;
                     break;
                 case >= '0' and <= '9':
-                    var integerStart = position;
-                    
+                    var numberStart = position;
                     while (position < source.Length && source[position] is >= '0' and <= '9')
                         position++;
                     
-                    tokens.Add(new Token(TokenType.Num, source[integerStart..position]));
+                    tokens.Add(new Token(TokenType.Num, source[numberStart..position]));
                     break;
                 case >= 'a' and <= 'z':
                     var identifierStart = position;
-                    
                     while (position < source.Length && source[position] is >= 'a' and <= 'z')
                         position++;
 
