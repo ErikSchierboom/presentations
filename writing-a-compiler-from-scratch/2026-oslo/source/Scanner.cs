@@ -1,5 +1,7 @@
 namespace BoomScript;
 
+public record Token(TokenType Type, string Text);
+
 public enum TokenType
 {
     Equal,
@@ -11,8 +13,6 @@ public enum TokenType
     Var,
     Eof
 }
-
-public record Token(TokenType Type, string Lexeme);
 
 public class Scanner(string source)
 {
@@ -28,7 +28,7 @@ public class Scanner(string source)
             {
                 case ' ' or '\r' or '\n':
                     position++;
-                    break;
+                    continue;
                 case '+':
                     tokens.Add(new Token(TokenType.Plus, "+"));
                     position++;
