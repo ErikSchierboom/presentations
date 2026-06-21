@@ -61,7 +61,6 @@ public class Scanner(string source)
                         position++;
                     
                     tokens.Add(new Token(TokenType.Num, source[integerStart..position]));
-                    position++;
                     break;
                 case >= 'a' and <= 'z':
                     var identifierStart = position;
