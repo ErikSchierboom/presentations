@@ -22,7 +22,7 @@ public class Parser(List<Token> tokens)
         return ParseExpressionStatement();
     }
 
-    private Statement ParseAssignmentStatement()
+    private AssignmentStatement ParseAssignmentStatement()
     {
         Consume(TokenType.Ident);
         var name = Previous.Lexeme;
@@ -32,7 +32,7 @@ public class Parser(List<Token> tokens)
         return new AssignmentStatement(name, value);
     }
 
-    private Statement ParseExpressionStatement()
+    private ExpressionStatement ParseExpressionStatement()
     {
         var value = ParseExpression();
         Consume(TokenType.Semicolon);
@@ -41,30 +41,38 @@ public class Parser(List<Token> tokens)
 
     private Expression ParseExpression()
     {
-        return ParseTerm();
+        return ParseLowPrecedenceExpression();
     }
 
-    private Expression ParseTerm()
+    private Expression ParseLowPrecedenceExpression()
     {
-        var left = ParseFactor();
-        if (!Match(TokenType.Plus))
-            return left;
+        var left = ParseNormalPrecedenceExpression();
+        
+        while (Match(TokenType.Plus))
+        {
+            var operatorType = Previous.Type;
+            var right = ParseNormalPrecedenceExpression();
+            left = new BinaryExpression(left, operatorType, right);
+        }
 
-        var right = ParseFactor();
-        return new BinaryExpression(left, TokenType.Plus, right);
+        return left;
     }
 
-    private Expression ParseFactor()
+    private Expression ParseNormalPrecedenceExpression()
     {
-        var left = ParsePrimary();
-        if (!Match(TokenType.Star))
-            return left;
+        var left = ParseHighPrecedenceExpression();
+        
+        while (Match(TokenType.Star))
+        {
+            var operatorType = Previous.Type;
+            var right = ParseHighPrecedenceExpression();
+            left = new BinaryExpression(left, operatorType, right);
+        }
 
-        var right = ParsePrimary();
-        return new BinaryExpression(left, TokenType.Star, right); 
+        return left;
     }
 
-    private Expression ParsePrimary()
+    private Expression ParseHighPrecedenceExpression()
     {
         if (Match(TokenType.Num))
             return new NumberLiteralExpression(int.Parse(Previous.Lexeme));
