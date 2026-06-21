@@ -1,13 +1,111 @@
-﻿const string code = """
+﻿using BoomScript;
+
+const string code = """
                     var x = 3;
-                    var result = 1 + 2 * x;
+                    var result = 1 * 2 + x;
                     result + 10
                     """;
 
 var tokens = new Scanner(code).Scan();
-foreach (var token in tokens)
+var tree = new Parser(tokens).Parse();
+foreach (var statement in tree.Statements)
 {
-    Console.WriteLine(token);
+    Console.WriteLine(statement);
+}
+
+public class Parser(List<Token> tokens)
+{
+    private int _position = 0;
+    
+    public Tree Parse()
+    {
+        var statements = new List<Statement>();
+        
+        while (Current.Type != TokenType.Eof)
+            statements.Add(ParseStatement());
+        
+        return new Tree(statements);
+    }
+
+    private Statement ParseStatement()
+    {
+        if (Match(TokenType.Var))
+            return ParseAssignmentStatement();
+        
+        return ParseExpressionStatement();
+    }
+
+    private Statement ParseAssignmentStatement()
+    {
+        Consume(TokenType.Ident);
+        var name = Previous.Lexeme;
+        Consume(TokenType.Equal);
+        var value = ParseExpression();
+        Consume(TokenType.Semicolon);
+        return new AssignmentStatement(name, value);
+    }
+
+    private Statement ParseExpressionStatement()
+    {
+        var value = ParseExpression();
+        return new ExpressionStatement(value);
+    }
+
+    private Expression ParseExpression()
+    {
+        return ParseTerm();
+    }
+
+    private Expression ParseTerm()
+    {
+        var left = ParseFactor();
+        if (!Match(TokenType.Plus))
+            return left;
+
+        var right = ParseFactor();
+        return new BinaryExpression(left, TokenType.Plus, right);
+    }
+
+    private Expression ParseFactor()
+    {
+        var left = ParsePrimary();
+        if (!Match(TokenType.Star))
+            return left;
+
+        var right = ParsePrimary();
+        return new BinaryExpression(left, TokenType.Star, right); 
+    }
+
+    private Expression ParsePrimary()
+    {
+        if (Match(TokenType.Num))
+            return new NumberLiteralExpression(int.Parse(Previous.Lexeme));
+        
+        if (Match(TokenType.Ident))
+            return new VariableExpression(Previous.Lexeme);
+            
+        throw new InvalidOperationException($"Unexpected token: {Current.Type}");
+    }
+
+    private bool Match(TokenType type)
+    {
+        if (Current.Type != type)
+            return false;
+        
+        _position++;
+        return true;
+    }
+    
+    private void Consume(TokenType type)
+    {
+        if (Current.Type != type)
+            throw new Exception($"Expected {type}, got {Current.Type}.");
+        
+        _position++;
+    }
+    
+    private Token Current => tokens[_position];
+    private Token Previous => tokens[_position - 1];
 }
 
 public record Tree(List<Statement> Statements);
@@ -20,76 +118,3 @@ public abstract record Expression;
 public record NumberLiteralExpression(int Value) : Expression;
 public record BinaryExpression(Expression Left, TokenType Operator, Expression Right) : Expression;
 public record VariableExpression(string Name) : Expression;
-
-public enum TokenType
-{
-    Equal,
-    Plus,
-    Star,
-    Semicolon,
-    Num,
-    Ident,
-    Var,
-}
-
-public record Token(TokenType Type, string Lexeme);
-
-public class Scanner(string source)
-{
-    public List<Token> Scan()
-    {
-        var tokens = new List<Token>();
-        var position = 0;
-
-        while (position < source.Length)
-        {
-            var character = source[position];
-            switch (character)
-            {
-                case ' ' or '\r' or '\n':
-                    position++;
-                    break;
-                case '+':
-                    tokens.Add(new Token(TokenType.Plus, "+"));
-                    position++;
-                    break;
-                case '*':
-                    tokens.Add(new Token(TokenType.Star, "*"));
-                    position++;
-                    break;
-                case ';':
-                    tokens.Add(new Token(TokenType.Semicolon, ";"));
-                    position++;
-                    break;
-                case '=':
-                    tokens.Add(new Token(TokenType.Equal, "="));
-                    position++;
-                    break;
-                case >= '0' and <= '9':
-                    var integerStart = position;
-                    
-                    while (position < source.Length && source[position] is >= '0' and <= '9')
-                        position++;
-                    
-                    tokens.Add(new Token(TokenType.Num, source[integerStart..position]));
-                    break;
-                case >= 'a' and <= 'z':
-                    var identifierStart = position;
-                    
-                    while (position < source.Length && source[position] is >= 'a' and <= 'z')
-                        position++;
-
-                    var lexeme = source[identifierStart..position];
-                    if (lexeme == "var")
-                        tokens.Add(new Token(TokenType.Var, lexeme));
-                    else
-                        tokens.Add(new Token(TokenType.Ident, lexeme));
-                    break;
-                default:
-                    throw new Exception($"Unexpected character: {character}.");
-            }
-        }
-
-        return tokens;
-    }
-}
