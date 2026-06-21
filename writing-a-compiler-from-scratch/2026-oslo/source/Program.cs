@@ -1,7 +1,7 @@
 ﻿const string code = """
-                    var x = 45;
-                    var y = 1 + 2 * 3;
-                    x + y
+                    var x = 3;
+                    var result = 1 + 2 * x;
+                    result + 10
                     """;
 
 var tokens = new Scanner(code).Scan();
