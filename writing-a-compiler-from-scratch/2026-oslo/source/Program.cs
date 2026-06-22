@@ -39,21 +39,4 @@ public class Parser(List<Token> tokens)
 
     private Token Current => tokens[_position];
     private Token Previous => tokens[_position - 1];
-
-    private bool Match(TokenType expected)
-    {
-        if (Current.Type != expected)
-            return false;
-
-        _position++;
-        return true;
-    }
-    
-    private void Consume(TokenType expected)
-    {
-        if (Current.Type != expected)
-            throw new Exception($"Unexpected token. Expected {expected}, got {Current.Type}.");
-
-        _position++;
-    }
 }
