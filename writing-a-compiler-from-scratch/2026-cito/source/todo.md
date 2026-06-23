@@ -1,4 +1,31 @@
 # TODO - Parser
 
-- Explain scanner is in separate file
+- Explain scanner is in a separate file
 - Explain existing types and structure
+- Add while loop Current.Type != TokenType.Eof
+- Add ParseStatement()
+- Add ParseExpressionStatement();
+  - Add ParseExpression();
+    - Add and implement Match(TokenType.Num)
+    - Add return new NumberLiteralExpression(int.Parse(Previous.Text))  
+  - Add and implement Consume(TokenType.Semicolon)
+  - Add return new ExpressionStatement(value)
+- Run code
+- Change code to "3 + 2;"
+- Show that Match(TokenType.Plus) doesn't work in existing method
+  - Extract NumberLiteralExpression code to separate method
+  - Add var left = ParseValueExpression()
+  - if Match(TokenType.Plus) { var right = ParseValueExpression(); }
+- Change code to "3 + 2 + 4;"
+  - Show that this doesn't work
+  - Convert to while loop
+- Change code to "3 + 2 * 4;"
+  - Add || Match(TokenType.Star)
+  - Show that operator precedence does not work
+  - Split into two methods: start with the plus, and then call the star
+- Add Match(TokenType.Var) in ParseStatement() and add ParseAssignmentStatement()
+  - Add Consume(TokenType.Ident)
+  - Add ParseExpression()
+  - Add Consume(TokenType.Semicolon)
+  - Show that we need the variable name in return new AssignmentStatement()
+  - Add Match(TokenType.Ident) to ParseExpression()
