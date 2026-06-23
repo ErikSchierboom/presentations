@@ -2,3 +2,32 @@
 
 - Explain parser into separate file
 - Explain existing types and structure
+- Add foreach (var statement in tree.Statements)
+  - Add Compile(statement)
+  - Add switch(statement)
+    - Add case ExpressionStatement expressionStatement
+    - Compile(expressionStatement.Expression);
+    - Add Compile(Expression)
+      - Add switch(expression)
+      - Add case NumberLiteralExpression numberLiteralExpression:
+        - _instructions.Add(new LoadIntInstruction(numberLiteralExpression.Value));
+- Add foreach (var instruction in instructions) to Virtual Machine
+  - instruction.Execute(this);
+  - Generate abstract method and implement with NotImplemented
+  - Implement LoadIntInstruction with vm.Stack.Push(Value);
+  - Add return Stack.Pop()
+- Implement BinaryExpression: compile(Left); compile(Right); switch (binaryExpression.Operator)
+  - Implement AddInstruction and MulInstruction
+- Change code to "3 + 2 * 4;"
+- Run program
+- Add variable support
+  - case VariableExpression variableExpression:
+    - _instructions.Add(new LoadVarInstruction(_variableToIndex[variableExpression.Name]));
+  - case AssignmentStatement assignmentStatement:
+    - if (!_variableToIndex.ContainsKey(assignmentStatement.VariableName))
+    - _variableToIndex[assignmentStatement.VariableName] = _variableToIndex.Count;
+    - Compile(assignmentStatement.Value);
+    - _instructions.Add(new StoreVarInstruction(_variableToIndex[assignmentStatement.VariableName]));
+  - Implement LoadVarInstruction: vm.Stack.Push(vm.Variables[Index]);
+  - Implement StoreVarInstruction: vm.Variables[Index] = vm.Stack.Pop();
+- Change code to final code
