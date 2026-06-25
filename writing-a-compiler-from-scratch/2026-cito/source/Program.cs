@@ -27,6 +27,9 @@ public record VariableExpression(string Name) : Expression;
 public class Parser(List<Token> tokens)
 {
     private int _position = 0;
+
+    private Token Current => tokens[_position];
+    private Token Previous => tokens[_position - 1];
     
     public Tree Parse()
     {
@@ -36,7 +39,21 @@ public class Parser(List<Token> tokens)
         
         return new Tree(statements);
     }
-
-    private Token Current => tokens[_position];
-    private Token Previous => tokens[_position - 1];
+    
+    private void Consume(TokenType expected)
+    {
+        if (Current.Type != expected)
+            throw new InvalidOperationException($"Expected {expected} but got {Current.Type}");
+        
+        _position++;
+    }
+    
+    private bool Match(TokenType expected)
+    {
+        if (Current.Type != expected)
+            return false;
+        
+        _position++;
+        return true;
+    }
 }
