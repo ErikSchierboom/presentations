@@ -6,7 +6,7 @@ const string code = """
                     result + 10;
                     """;
 
-var tokens = new Scanner(code).Scan();
+var tokens = new Scanner("3;").Scan();
 var tree = new Parser(tokens).Parse();
 var instructions = new Compiler(tree).Compile();
 var result = new VirtualMachine(instructions).Run();
