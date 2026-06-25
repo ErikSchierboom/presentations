@@ -4,7 +4,7 @@
                     result + 10;
                     """;
 
-var tokens = new Scanner(code).Scan();
+var tokens = new Scanner("3").Scan();
 foreach (var token in tokens)
 {
     Console.WriteLine(token);
