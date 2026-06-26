@@ -26,9 +26,19 @@ public class Compiler(Tree tree)
 
     public List<Instruction> Compile()
     {
-        // TODO: implement compiler
+        // TODO: compile statements
         
         return _instructions;
+    }
+
+    private void Compile(Statement statement)
+    {
+        throw new NotImplementedException();
+    }
+    
+    private void Compile(Expression expression)
+    {
+        throw new NotImplementedException();
     }
 }
 
