@@ -40,6 +40,16 @@ public class Parser(List<Token> tokens)
         return new Tree(statements);
     }
 
+    private Statement ParseStatement()
+    {
+        throw new NotImplementedException();
+    }
+
+    private Expression ParseExpression()
+    {
+        throw new NotImplementedException();
+    }
+
     private void Consume(TokenType expected)
     {
         if (Current.Type != expected)
