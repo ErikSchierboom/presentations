@@ -26,16 +26,26 @@ public class Compiler(Tree tree)
 
     public List<Instruction> Compile()
     {
-        // TODO: implement compiler
+        // TODO: compile statements
         
         return _instructions;
+    }
+
+    private void Compile(Statement statement)
+    {
+        throw new NotImplementedException();
+    }
+    
+    private void Compile(Expression expression)
+    {
+        throw new NotImplementedException();
     }
 }
 
 public class VirtualMachine(List<Instruction> instructions)
 {
     public Stack<int> Stack { get; } = new();
-    public int[] Variables { get; } = new int[256];
+    public int[] Registers { get; } = new int[256];
     
     public int Run()
     {   
