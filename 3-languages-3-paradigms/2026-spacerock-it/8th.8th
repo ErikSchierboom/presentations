@@ -8,11 +8,17 @@
 \ A "word" is immediately executed and modifies the stack
 + .s
 
-\ Correct arithmetic
-1 2 3 * + \ = ((2 * 3) + 1)
+\ G:reset
+
+\ Correct arithmetic 
+((2 * 3) + 1) 
+= 2 3 * 1 + \
+= 1 2 3 * + \
 \ AKA Reverse Polish notation (no parentheses needed)
 
 \ Words
+add2 \ error
+
 : add2
   2 +
 ;
@@ -26,7 +32,7 @@
 
 help n:+
 
-\ Stack manipulation
+\ Stack manipulation (N > 3 < 10)
 5 3 > \ lost the original value
 help >
 5 dup 3 > swap 10 < and .s
