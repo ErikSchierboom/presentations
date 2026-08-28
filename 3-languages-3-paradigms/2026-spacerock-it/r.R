@@ -50,4 +50,5 @@ tbl[, 2]
 
 # Operations work on multi-dimensional collections
 tbl + 1
+tbl + tbl
 tbl[2, ] <- tbl[2, ] + 1
