@@ -3,12 +3,12 @@
 
 # Vectors (homogenous: same type)
 c(1, 2, 3)
-c(1, 2, 3) == 1:3 # Range syntax
+1:3 # Range syntax
 
 # Scalars are vectors!
-length(c(1))
+length(c(1, 2, 3))
 length(1)
-1 == c(1) # Implication: 1 + 2 was using vectors
+1 == c(1) # Implication: 1 + 2 was using vectors: c(1) + c(2)
 
 # Numerical operations on vectors
 1:3 + 5
