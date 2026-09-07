@@ -3,7 +3,7 @@ namespace BoomScript;
 public class VirtualMachine(List<Instruction> instructions)
 {
     public Stack<int> Stack { get; } = new();
-    public int[] Variables { get; } = new int[256];
+    public int[] Registers { get; } = new int[256];
     
     public int Run()
     {
@@ -31,7 +31,7 @@ public record LoadVarInstruction(int Index) : Instruction
 {
     public override void Execute(VirtualMachine vm)
     {
-        vm.Stack.Push(vm.Variables[Index]);
+        vm.Stack.Push(vm.Registers[Index]);
     }
 }
 
@@ -39,7 +39,7 @@ public record StoreVarInstruction(int Index) : Instruction
 {
     public override void Execute(VirtualMachine vm)
     {
-        vm.Variables[Index] = vm.Stack.Pop();
+        vm.Registers[Index] = vm.Stack.Pop();
     }
 }
 
