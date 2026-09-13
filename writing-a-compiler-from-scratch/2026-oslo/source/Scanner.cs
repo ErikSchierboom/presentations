@@ -11,7 +11,7 @@ public enum TokenType
     Num,
     Ident,
     Var,
-    Eof
+    EndOfFile
 }
 
 public class Scanner(string source)
@@ -70,7 +70,7 @@ public class Scanner(string source)
             }
         }
         
-        tokens.Add(new Token(TokenType.Eof, ""));
+        tokens.Add(new Token(TokenType.EndOfFile, ""));
 
         return tokens;
     }

@@ -8,7 +8,7 @@ public class Parser(List<Token> tokens)
     {
         var statements = new List<Statement>();
         
-        while (Current.Type != TokenType.Eof)
+        while (Current.Type != TokenType.EndOfFile)
             statements.Add(ParseStatement());
         
         return new Tree(statements);
