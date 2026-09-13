@@ -21,7 +21,7 @@ public enum TokenType
     Num,
     Ident,
     Var,
-    Eof
+    EndOfFile
 }
 
 public class Scanner(string source)
