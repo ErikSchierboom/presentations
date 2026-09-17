@@ -44,8 +44,8 @@ public class Compiler(Tree tree)
 
 public class VirtualMachine(List<Instruction> instructions)
 {
-    public Stack<int> Stack { get; } = new();
-    public int[] Registers { get; } = new int[256];
+    private readonly Stack<int> _stack = new();
+    private readonly int[] _registers = new int[256];
     
     public int Run()
     {   
