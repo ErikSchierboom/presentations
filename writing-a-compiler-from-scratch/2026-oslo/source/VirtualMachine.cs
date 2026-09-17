@@ -2,63 +2,46 @@ namespace BoomScript;
 
 public class VirtualMachine(List<Instruction> instructions)
 {
-    public Stack<int> Stack { get; } = new();
-    public int[] Registers { get; } = new int[256];
+    private readonly Stack<int> _stack = new();
+    private readonly int[] _registers = new int[256];
     
     public int Run()
     {
         foreach (var instruction in instructions)
-            instruction.Execute(this);
+        {
+            switch (instruction)
+            {
+                case LoadIntInstruction loadIntInstruction:
+                    _stack.Push(loadIntInstruction.Value);
+                    break;
+                case LoadVarInstruction loadVarInstruction:
+                    _stack.Push(_registers[loadVarInstruction.Index]);
+                    break;
+                case StoreVarInstruction storeVarInstruction:
+                    _registers[storeVarInstruction.Index] = _stack.Pop();
+                    break;
+                case AddInstruction:
+                    var addRight = _stack.Pop();
+                    var addLeft = _stack.Pop();
+                    _stack.Push(addLeft + addRight);
+                    break;
+                case MulInstruction:
+                    var mulRight = _stack.Pop();
+                    var mulLeft = _stack.Pop();
+                    _stack.Push(mulLeft * mulRight);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(instruction));
+            }
+        }
 
-        return Stack.Pop();
+        return _stack.Pop();
     }
 }
 
-public abstract record Instruction
-{
-    public abstract void Execute(VirtualMachine vm);
-}
-
-public record LoadIntInstruction(int Value) : Instruction
-{
-    public override void Execute(VirtualMachine vm)
-    {
-        vm.Stack.Push(Value);
-    }
-}
-
-public record LoadVarInstruction(int Index) : Instruction
-{
-    public override void Execute(VirtualMachine vm)
-    {
-        vm.Stack.Push(vm.Registers[Index]);
-    }
-}
-
-public record StoreVarInstruction(int Index) : Instruction
-{
-    public override void Execute(VirtualMachine vm)
-    {
-        vm.Registers[Index] = vm.Stack.Pop();
-    }
-}
-
-public record AddInstruction : Instruction
-{
-    public override void Execute(VirtualMachine vm)
-    {
-        var right = vm.Stack.Pop();
-        var left = vm.Stack.Pop();
-        vm.Stack.Push(left + right);
-    }
-}
-
-public record MulInstruction : Instruction
-{
-    public override void Execute(VirtualMachine vm)
-    {
-        var right = vm.Stack.Pop();
-        var left = vm.Stack.Pop();
-        vm.Stack.Push(left * right);
-    }
-}
+public abstract record Instruction;
+public record LoadIntInstruction(int Value) : Instruction;
+public record LoadVarInstruction(int Index) : Instruction;
+public record StoreVarInstruction(int Index) : Instruction;
+public record AddInstruction : Instruction;
+public record MulInstruction : Instruction;
