@@ -14,15 +14,15 @@ Console.WriteLine(result);
 
 public abstract record Instruction;
 public record LoadIntInstruction(int Value) : Instruction;
-public record LoadVarInstruction(int Index) : Instruction;
-public record StoreVarInstruction(int Index) : Instruction;
+public record LoadVarInstruction(byte Index) : Instruction;
+public record StoreVarInstruction(byte Index) : Instruction;
 public record AddInstruction : Instruction;
 public record MulInstruction : Instruction;
 
 public class Compiler(Tree tree)
 {
     private readonly List<Instruction> _instructions = new();
-    private readonly Dictionary<string, int> _variableToIndex = new(capacity: 256);
+    private readonly Dictionary<string, byte> _variableToIndex = new(capacity: 256);
 
     public List<Instruction> Compile()
     {
