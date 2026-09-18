@@ -3,7 +3,7 @@ namespace BoomScript;
 public class Compiler(Tree tree)
 {
     private readonly List<Instruction> _instructions = new();
-    private readonly Dictionary<string, int> _variableToIndex = new(capacity: 256);
+    private readonly Dictionary<string, byte> _variableToIndex = new(capacity: 256);
     
     public List<Instruction> Compile()
     {
@@ -21,7 +21,7 @@ public class Compiler(Tree tree)
                 CompileExpression(assignmentStatement.Value);
                 
                 if (!_variableToIndex.ContainsKey(assignmentStatement.VariableName))
-                    _variableToIndex[assignmentStatement.VariableName] = _variableToIndex.Count;
+                    _variableToIndex[assignmentStatement.VariableName] = (byte)_variableToIndex.Count;
 
                 _instructions.Add(new StoreVarInstruction(_variableToIndex[assignmentStatement.VariableName]));
                 break;

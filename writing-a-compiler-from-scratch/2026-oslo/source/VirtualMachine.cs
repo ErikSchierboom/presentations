@@ -41,7 +41,7 @@ public class VirtualMachine(List<Instruction> instructions)
 
 public abstract record Instruction;
 public record LoadIntInstruction(int Value) : Instruction;
-public record LoadVarInstruction(int Index) : Instruction;
-public record StoreVarInstruction(int Index) : Instruction;
+public record LoadVarInstruction(byte Index) : Instruction;
+public record StoreVarInstruction(byte Index) : Instruction;
 public record AddInstruction : Instruction;
 public record MulInstruction : Instruction;
