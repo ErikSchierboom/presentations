@@ -8,6 +8,9 @@ const string code = """
 
 var tokens = new Scanner(code).Scan();
 var tree = new Parser(tokens).Parse();
+Printer.Print(tree);
+
+
 var instructions = new Compiler(tree).Compile();
 var result = new VirtualMachine(instructions).Run();
 Console.WriteLine(result);
