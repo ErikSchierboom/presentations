@@ -8,10 +8,7 @@ const string code = """
 
 var tokens = new Scanner("3;").Scan();
 var tree = new Parser(tokens).Parse();
-foreach (var statement in tree.Statements)
-{
-    Console.WriteLine(statement);
-}
+Printer.Print(tree);
 
 public record Tree(List<Statement> Statements);
 
