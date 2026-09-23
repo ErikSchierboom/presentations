@@ -5,6 +5,7 @@
 
 # Glyphs auto-convert
 div 2 6
+mul 4 5
 
 # No precedence
 mul 3 add 2 1
@@ -15,15 +16,13 @@ mul 3 add 2 1
  1_2_3
 [ [1 2 3]
   [4_5_6] ]
+join [1 2 3] [4 5 6]
 
 # Pervasiveness 
-mul 2 [1 2 3]
-add [1 2 3] [4 5 6]
+add 2 [1 2 3]
+mul [1 2 3] [4 5 6]
 
-# Stack manipulation
-self mul 5
-by add 2 5
-on add 2 5
-
-# Tacit coding
-AddTwo = add 2
+# Equality
+eq 2 3
+gt 2 [1 2 3]
+ne [3 2 1] [1 2 3]
