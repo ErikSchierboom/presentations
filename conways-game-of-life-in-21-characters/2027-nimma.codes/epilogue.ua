@@ -1,7 +1,12 @@
 # Repeat
-repeat(add 2) 5 0
-repeat by(ceil div 2) inf 8
+⍥(+ 2) 5 0
+⍥⊸(⌈ ÷ 2) ∞ 8
 
+# Render
+NextGeneration ← ⨬(=3|∊2_3)⟜(/+↻⊂A₂C₂)
+Loop           ← ⍥⊸NextGeneration ∞
 
-# ⍥⊸Tick100 Initial
-# ≡▽₂10
+# Blow up
+Blowup ← ≡▽₂ 10
+
+Blowup Loop
