@@ -19,5 +19,5 @@ eq @0
 
 # Tacit coding
 Lines = partition id by ne @\n
-Binary = eq @0
+Binary = eq @1
 Binary Lines &fras "message.txt"
