@@ -26,4 +26,4 @@ by add 2 5
 on add 2 5
 
 # Tacit coding
-Double = self mul
+AddTwo = add 2
