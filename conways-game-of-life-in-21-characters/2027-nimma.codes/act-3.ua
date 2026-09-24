@@ -1,3 +1,12 @@
+# Modifiers
+/× [1 2 3]
+
+# Switch
+⨬(5|7) 0
+⨬(5|7) 1
+⨬(5|7) [0 1 0]
+⨬(↧3|+2) [1 0 1] [4 5 6]
+
 # Neighbor count
 ⊂A₂C₂ # Neighbor offsets
 ↻     # Shift grid by offsets
