@@ -20,4 +20,4 @@
 # Tacit coding
 Lines  ← ⊜∘ ⊸≠ @\n
 Binary ← = @1
-Binary Lines &fras "message.txt"
+Grid   ← Binary Lines &fras "message.txt"
