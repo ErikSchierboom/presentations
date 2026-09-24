@@ -11,4 +11,12 @@
 # Combined
 NextGeneration ← ⨬(=3|∊2_3)⟜(/+↻⊂A₂C₂)
 
-# Examples
+# Example
+Grid ← [
+  [1 1 0 0 0 0 0]
+  [1 1 0 0 0 0 0]
+  [0 0 0 0 0 0 0]
+  [0 0 0 1 1 1 0]
+  [0 0 0 0 0 0 0]
+]
+NextGeneration Grid
