@@ -3,10 +3,12 @@
 ⍥⊸(⌈ ÷ 2) ∞ 8
 
 # Render
+Lines          ← ⊜∘ ⊸≠ @\n
+Binary         ← = @1
+Grid           ← Binary Lines &fras "message.txt"
 NextGeneration ← ⨬(=3|∊2_3)⟜(/+↻⊂A₂C₂)
-Loop           ← ⍥⊸NextGeneration ∞
+Render         ← ⍥⊸NextGeneration ∞ Grid
 
-# Blow up
+# Render blown up
 Blowup ← ≡▽₂ 10
-
-Blowup Loop
+Blowup Render
