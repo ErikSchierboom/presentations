@@ -1,17 +1,5 @@
-# Rows
-≡⊂ 1 [4 5 6]
-
-# Repeat
-⍥(+ 2) 5 0
-⍥⊸(⌈ ÷ 2) ∞ 8
-
-# Render
-Lines          ← ⊜∘ ⊸≠ @\n
-Binary         ← = @1
-Grid           ← Binary Lines &fras "message.txt"
-NextGeneration ← ⨬(=3|∊2_3)⟜(/+↻⊂A₂C₂)
-Render         ← ⍥⊸NextGeneration ∞ Grid
-
-# Render blown up
-Blowup ← ≡▽₂ 10
-Blowup Render
+# Inverses
+°(+1) 5
+°⊟ [1 2]
+⍜(⊡2|×10) [1 2 3 4]
+⍜(-@a|◿26+) "abcdef" 4
